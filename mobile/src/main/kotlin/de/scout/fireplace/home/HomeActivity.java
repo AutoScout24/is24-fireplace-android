@@ -50,9 +50,6 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
   private static final int CARD_RELOAD_SIZE = 2;
   private static final int CARD_PAGE_SIZE = 4;
 
-  private static final String WIDTH_TAG = "%WIDTH%";
-  private static final String HEIGHT_TAG = "%HEIGHT%";
-
   private CompositeDisposable disposables = new CompositeDisposable();
 
   private int page = 1;
@@ -155,7 +152,7 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
   @Override
   public void onConnected(@Nullable Bundle bundle) {
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-      onError(R.string.error_permissions);
+      onError(R.string.error_permissions_unavailable);
       return;
     }
 
@@ -201,17 +198,12 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
     Disposable disposable = client.search(location, page++, CARD_PAGE_SIZE)
         .doOnSuccess(search -> max = search.getNumberOfPages())
         .flatMapObservable(search -> Observable.fromIterable(search.getResults()))
-        .map(item -> {
-
-          // TODO: 7/11/17 Extract transformation method to data class
-          String pictureUrl = item.getPictureUrl();
-          if (pictureUrl != null) {
-            pictureUrl = pictureUrl.replace(WIDTH_TAG, String.valueOf(stack.getWidth()));
-            pictureUrl = pictureUrl.replace(HEIGHT_TAG, String.valueOf(stack.getHeight()));
-          }
-
-          return new Expose.Summary(item.getId(), item.getInfoLine(), TextUtils.join(" | ", item.getAttributes()), pictureUrl);
-        })
+        .map(item -> new Expose.Summary(
+            item.getId(),
+            item.getAddress().getLine(),
+            TextUtils.join(" | ", item.getAttributes()),
+            item.getPictures().get(0).url(stack.getWidth(), stack.getHeight())
+        ))
         .subscribe(summary -> {
           FloatingCardView card = new FloatingCardView(HomeActivity.this);
           card.bind(summary);

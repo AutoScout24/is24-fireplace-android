@@ -122,8 +122,8 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
       inflate(context, R.layout.floating_card, this);
 
       imageView = (ImageView) findViewById(R.id.iv);
-      displayNameTextView = (TextView) findViewById(R.id.display_name_tv);
-      usernameTextView = (TextView) findViewById(R.id.username_tv);
+      displayNameTextView = (TextView) findViewById(R.id.address);
+      usernameTextView = (TextView) findViewById(R.id.attributes);
       likeTextView = (TextView) findViewById(R.id.like_tv);
       nopeTextView = (TextView) findViewById(R.id.nope_tv);
 
