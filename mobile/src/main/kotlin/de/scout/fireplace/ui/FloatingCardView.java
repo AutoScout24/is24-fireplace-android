@@ -75,12 +75,12 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
           view.clearAnimation();
           return true;
         case MotionEvent.ACTION_UP:
-          if (isCardBeyondLeftBoundary(view)) {
+          if (isBeyondLeftBoundary(view)) {
             dismiss();
-          } else if (isCardBeyondRightBoundary(view)) {
+          } else if (isBeyondRightBoundary(view)) {
             approve();
           } else {
-            resetCard(view);
+            reset(view);
           }
           return true;
         case MotionEvent.ACTION_MOVE:
@@ -139,25 +139,25 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     }
   }
 
-  private boolean isCardBeyondLeftBoundary(View view) {
+  private boolean isBeyondLeftBoundary(View view) {
     return (view.getX() + (view.getWidth() / 2) < leftBoundary);
   }
 
-  private boolean isCardBeyondRightBoundary(View view) {
+  private boolean isBeyondRightBoundary(View view) {
     return (view.getX() + (view.getWidth() / 2) > rightBoundary);
   }
 
   public void approve() {
     RxBus.getInstance().send(new TopCardMovedEvent(summary, screenWidth));
-    dismissCard(this, screenWidth);
+    animate(this, screenWidth);
   }
 
   public void dismiss() {
     RxBus.getInstance().send(new TopCardMovedEvent(summary, -screenWidth));
-    dismissCard(this, -screenWidth);
+    animate(this, -screenWidth);
   }
 
-  private void dismissCard(final View view, int xPos) {
+  private void animate(final View view, int xPos) {
     view.animate()
         .x(xPos * 2)
         .y(0)
@@ -174,7 +174,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
         });
   }
 
-  private void resetCard(View view) {
+  private void reset(View view) {
     RxBus.getInstance().send(new TopCardMovedEvent(summary, 0));
 
     view.animate()
@@ -230,5 +230,9 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     if (!TextUtils.isEmpty(summary.getDescription())) {
       view.setText(summary.getDescription());
     }
+  }
+
+  public boolean isDismissing() {
+    return isBeyondLeftBoundary(this) || isBeyondRightBoundary(this);
   }
 }

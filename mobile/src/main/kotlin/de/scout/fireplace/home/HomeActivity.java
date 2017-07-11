@@ -120,7 +120,7 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
             onMatch(event.getSummary());
           }
         })
-        .filter(event -> event.getCount() <= CARD_RELOAD_SIZE)
+        .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
         .subscribe(integer -> {
           if (!google.isConnected()) {
             return;
@@ -215,7 +215,7 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
         .subscribe(summary -> {
           FloatingCardView card = new FloatingCardView(HomeActivity.this);
           card.bind(summary);
-          stack.addCard(card);
+          stack.add(card);
         }, handler);
 
     disposables.add(disposable);

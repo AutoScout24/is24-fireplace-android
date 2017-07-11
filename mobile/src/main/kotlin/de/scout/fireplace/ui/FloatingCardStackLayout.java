@@ -2,7 +2,6 @@ package de.scout.fireplace.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 import de.scout.fireplace.bus.RxBus;
@@ -13,6 +12,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.processors.BehaviorProcessor;
 import io.reactivex.processors.FlowableProcessor;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class FloatingCardStackLayout extends FrameLayout {
 
@@ -39,7 +41,15 @@ public class FloatingCardStackLayout extends FrameLayout {
     init();
   }
 
+  private boolean hasChildren() {
+    return getChildCount() > 0;
+  }
+
   public FloatingCardView getTopChild() {
+    if (!hasChildren()) {
+      throw new IndexOutOfBoundsException("No child at index 0");
+    }
+
     return getChildAt(getChildCount() - 1);
   }
 
@@ -114,20 +124,26 @@ public class FloatingCardStackLayout extends FrameLayout {
     return processor;
   }
 
-  public void addCard(FloatingCardView tc) {
-    ViewGroup.LayoutParams layoutParams;
-    layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+  public void add(FloatingCardView view) {
+    add(view, getActiveChildCount());
+  }
 
-    int childCount = getChildCount();
-    addView(tc, 0, layoutParams);
+  private void add(FloatingCardView view, int index) {
+    addView(view, 0, new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
 
-    float scaleValue = 1 - (childCount / 50.0f);
-
-    tc.animate()
+    view.animate()
         .x(0)
-        .y(childCount * yMultiplier)
-        .scaleX(scaleValue)
+        .y(index * yMultiplier)
+        .scaleX(1 - (index / 50.0f))
         .setInterpolator(new AnticipateOvershootInterpolator())
         .setDuration(DURATION);
+  }
+
+  private int getActiveChildCount() {
+    if (hasChildren() && !getTopChild().isDismissing()) {
+      return super.getChildCount() - 1;
+    }
+
+    return super.getChildCount();
   }
 }
