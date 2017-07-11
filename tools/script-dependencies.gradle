@@ -1,0 +1,112 @@
+ext.configuration = [
+    compileSdkVersion  : 25,
+    buildToolsVersion  : '25.0.2',
+
+    minSdkVersion      : 16,
+    targetSdkVersion   : 25,
+
+    sourceCompatibility: JavaVersion.VERSION_1_8,
+    targetCompatibility: JavaVersion.VERSION_1_8
+]
+
+ext.versions = [
+    android     : [
+        multidex: '1.0.1',
+        support : '25.2.0',
+    ],
+
+    butterknife : '8.5.1',
+    dagger      : '2.11',
+    gson        : '2.8.0',
+
+    google      : [
+        play: [
+            services: '10.2.1'
+        ]
+    ],
+
+    kotlin     : '1.1.3',
+    okHttp     : '3.5.0',
+    retrofit   : '2.2.0',
+
+    rx          : [
+        java    : '2.1.1',
+        android : '2.0.1',
+    ],
+
+    square      : [
+        picasso: '2.5.2'
+    ],
+
+    rangeseekbar: '0.3.0',
+
+    jUnit      : '4.12',
+    truth      : '0.30',
+    mockito    : '1.10.19'
+]
+
+ext.libraries = [
+    android     : [
+        multidex: "com.android.support:multidex:$versions.android.multidex",
+        support : [
+            compat  : "com.android.support:appcompat-v7:$versions.android.support",
+            cards   : "com.android.support:cardview-v7:$versions.android.support",
+            design  : "com.android.support:design:$versions.android.support",
+            recycler: "com.android.support:recyclerview-v7:$versions.android.support"
+        ],
+    ],
+
+    butterknife : [
+        core    : "com.jakewharton:butterknife:$versions.butterknife",
+        compiler: "com.jakewharton:butterknife-compiler:$versions.butterknife"
+    ],
+
+    dagger      : [
+        core    : "com.google.dagger:dagger:$versions.dagger",
+        compiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+
+        android : [
+            support  : "com.google.dagger:dagger-android-support:$versions.dagger",
+            processor: "com.google.dagger:dagger-android-processor:$versions.dagger"
+        ]
+    ],
+
+    google      : [
+        play: [
+            location: "com.google.android.gms:play-services-location:$versions.google.play.services",
+            places  : "com.google.android.gms:play-services-places:$versions.google.play.services"
+        ]
+    ],
+
+    gson        : "com.google.code.gson:gson:$versions.gson",
+    kotlin     : "org.jetbrains.kotlin:kotlin-stdlib-jre8:$versions.kotlin",
+
+    okhttp      : [
+        core   : "com.squareup.okhttp3:okhttp:$versions.okHttp",
+        logging: "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+    ],
+
+    retrofit    : [
+        core     : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        adapter  : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+        converter: "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    ],
+
+    rx          : [
+        java    : "io.reactivex.rxjava2:rxjava:$versions.rx.java",
+        android : "io.reactivex.rxjava2:rxandroid:$versions.rx.android",
+        firebase: "io.ashdavies.rx:rx-firebase:$versions.rx.firebase",
+    ],
+
+    square      : [
+        picasso: "com.squareup.picasso:picasso:$versions.square.picasso",
+    ],
+
+    rangeseekbar: [
+        core: "org.florescu.android.rangeseekbar:rangeseekbar-library:$versions.rangeseekbar"
+    ],
+
+    jUnit      : "junit:junit:$versions.jUnit",
+    truth      : "com.google.truth:truth:$versions.truth",
+    mockito    : "org.mockito:mockito-core:$versions.mockito"
+]

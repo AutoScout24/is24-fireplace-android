@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_white">
+
+  <include layout="@layout/toolbar"/>
+
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/grey_white_1000"
+      android:padding="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+
+    <TextView
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:text="Show Prices"/>
+
+    <TextView
+        android:id="@+id/price_range"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="300 - 500 Euro"/>
+
+  </LinearLayout>
+
+  <FrameLayout
+      android:id="@+id/seekbar_placeholder"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:background="@color/grey_white_1000"/>
+
+
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/grey_white_1000"
+      android:padding="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of rooms from"/>
+
+    <NumberPicker
+        android:id="@+id/number_rooms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/grey_white_1000"
+      android:padding="8dp"
+      android:layout_marginTop="10dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show me flats with"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_white_1000"
+        android:padding="8dp"
+        android:layout_marginTop="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Kitchen"/>
+
+      <Switch
+          android:id="@+id/switch_kitchen"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_white_1000"
+        android:padding="8dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Balcony"/>
+
+      <Switch
+          android:id="@+id/switch_balcony"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+  </LinearLayout>
+
+</LinearLayout>

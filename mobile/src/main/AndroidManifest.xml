@@ -1,0 +1,33 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="de.scout.fireplace">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+  <application android:name="de.scout.fireplace.Fireplace"
+      android:allowBackup="false"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/application"
+      android:supportsRtl="false"
+      android:theme="@style/Theme.Base"
+      tools:replace="android:label">
+
+    <activity android:name="de.scout.fireplace.login.LoginActivity">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+    </activity>
+
+    <activity android:name="de.scout.fireplace.home.HomeActivity"/>
+
+    <activity android:name="de.scout.fireplace.preference.PreferenceActivity"/>
+
+  </application>
+
+</manifest>

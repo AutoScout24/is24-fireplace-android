@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="colorControlNormal">@color/light_grey</item>
+    <item name="colorControlActivated">@color/colorAccent</item>
+    <item name="colorControlHighlight">@color/dark_white</item>
+
+    <item name="android:colorBackground">@android:color/white</item>
+    <item name="android:textColorPrimary">@color/dark_grey</item>
+    <item name="android:textColorHint">@color/light_grey</item>
+    <item name="android:textColorLink">@color/light_blue</item>
+
+    <item name="android:windowBackground">@android:color/white</item>
+  </style>
+</resources>
