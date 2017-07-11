@@ -16,15 +16,17 @@
   <string name="connection_suspended_message">Connection failed</string>
   <string name="connection_failed_message">Connection failed</string>
 
-  <string name="permission_dialog_title">Location Permission</string>
-  <string name="permission_dialog_message">Location permission is required to find properties that are relevant to you in your area.</string>
+  <string name="location_permission_title">Location Permission</string>
+  <string name="location_permission_rationale">Location permission is required to find properties that are relevant to you in your area.</string>
 
   <string name="error_dialog_title">Error</string>
   <string name="error_positive_button">OK</string>
 
   <string name="error_permissions_unavailable">Location permission not granted</string>
+  <string name="error_location_unavailable">Location unavailable</string>
   <string name="error_listings_unavailable">No listings available in this area</string>
 
   <string name="label_preferences">Preferences</string>
+  <string name="label_settings">Settings</string>
 
 </resources>

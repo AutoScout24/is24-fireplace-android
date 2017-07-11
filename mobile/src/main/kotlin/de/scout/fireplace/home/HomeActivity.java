@@ -5,31 +5,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import de.scout.fireplace.BuildConfig;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
+import de.scout.fireplace.bus.RxBus;
+import de.scout.fireplace.bus.events.TopCardClickedEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.network.ErrorHandler;
 import de.scout.fireplace.network.SchedulingStrategy;
@@ -42,25 +46,24 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
-public class HomeActivity extends AbstractActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-
-  private static final float SCOUT_LATITUDE = 52.512500F;
-  private static final float SCOUT_LONGITUDE = 13.431020F;
+public class HomeActivity extends AbstractActivity {
 
   private static final int CARD_RELOAD_SIZE = 2;
   private static final int CARD_PAGE_SIZE = 4;
 
-  private CompositeDisposable disposables = new CompositeDisposable();
+  private static final int REQUEST_CODE_PERMISSION = 0x14;
+
+  private static final float SCOUT_LATITUDE = 52.512500F;
+  private static final float SCOUT_LONGITUDE = 13.431020F;
+
+  private CompositeDisposable disposables;
+  private FusedLocationProviderClient provider;
 
   private int page = 1;
-  private int max = 1; // todo check against max page size and show dialog
-
-  private GoogleApiClient google;
 
   @BindView(R.id.coordinator) CoordinatorLayout coordinator;
 
   @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.avatar) ImageView avatar;
   @BindView(R.id.title) TextView title;
 
   @BindView(R.id.stack) FloatingCardStackLayout stack;
@@ -86,28 +89,22 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
     setUpSupportActionBar(getSupportActionBar());
     setUpActionButtons();
 
-    setUpGoogleApiClient();
+    setUpLocationProvider();
+    setUpDisposables();
     setUpPipeline();
   }
 
-  private void setUpGoogleApiClient() {
-    google = new GoogleApiClient.Builder(this)
-        .addConnectionCallbacks(this)
-        .addOnConnectionFailedListener(this)
-        .addApi(LocationServices.API)
-        .build();
+  private void setUpLocationProvider() {
+    provider = LocationServices.getFusedLocationProviderClient(this);
   }
 
-  @Override
-  protected void onStart() {
-    super.onStart();
-    google.connect();
-  }
+  private void setUpDisposables() {
+    if (disposables != null) {
+      disposables.dispose();
+      disposables = null;
+    }
 
-  @Override
-  protected void onStop() {
-    super.onStop();
-    google.disconnect();
+    disposables = new CompositeDisposable();
   }
 
   private void setUpPipeline() {
@@ -118,15 +115,89 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
-        .subscribe(integer -> {
-          if (!google.isConnected()) {
-            return;
-          }
+        .subscribe(integer -> getLastLocation());
 
-          onConnected(null);
-        });
+    RxBus.getInstance().toObserverable()
+        .filter(event -> event instanceof TopCardClickedEvent)
+        .subscribe(event -> onTopCardClicked(((TopCardClickedEvent) event).getSummary()));
 
     disposables.add(disposable);
+  }
+
+  @Override
+  public void onStart() {
+    super.onStart();
+
+    if (!checkPermissions()) {
+      requestPermissions();
+    } else {
+      getLastLocation();
+    }
+  }
+
+  private boolean checkPermissions() {
+    return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+  }
+
+  private void requestPermissions() {
+    if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+      showSnackbar(R.string.location_permission_rationale, android.R.string.ok, view -> startPermissionRequest());
+    } else {
+      startPermissionRequest();
+    }
+  }
+
+  private void showSnackbar(@StringRes int resId) {
+    Snackbar.make(coordinator, getString(resId), Snackbar.LENGTH_LONG).show();
+  }
+
+  private void showSnackbar(@StringRes int testResId, @StringRes int actionResId, View.OnClickListener listener) {
+    Snackbar.make(coordinator, getString(testResId), Snackbar.LENGTH_INDEFINITE)
+        .setAction(getString(actionResId), listener)
+        .show();
+  }
+
+  private void startPermissionRequest() {
+    ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, REQUEST_CODE_PERMISSION);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == REQUEST_CODE_PERMISSION) {
+      if (grantResults.length >= 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        getLastLocation();
+      } else {
+        showSnackbar(R.string.location_permission_rationale, R.string.label_settings, view -> {
+          Intent intent = new Intent();
+          intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+          intent.setData(Uri.fromParts("package", BuildConfig.APPLICATION_ID, null));
+          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          startActivity(intent);
+        });
+      }
+    }
+  }
+
+  @SuppressWarnings("MissingPermission")
+  private void getLastLocation() {
+    provider.getLastLocation()
+        .addOnCompleteListener(this, task -> {
+          if (task.isSuccessful() && task.getResult() != null) {
+            fetchNearbyResults(check(task.getResult()));
+          } else {
+            showSnackbar(R.string.error_location_unavailable);
+          }
+        });
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+      getSupportFragmentManager().popBackStack();
+      return;
+    }
+
+    super.onBackPressed();
   }
 
   @Override
@@ -149,21 +220,6 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
     ViewCompat.setElevation(like, getResources().getDimension(R.dimen.default_elevation));
   }
 
-  @Override
-  public void onConnected(@Nullable Bundle bundle) {
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-      onError(R.string.error_permissions_unavailable);
-      return;
-    }
-
-    Location location = check(LocationServices.FusedLocationApi.getLastLocation(google));
-    if (location == null) {
-      return; // TODO: 4/21/17 Request location updates
-    }
-
-    fetch(location);
-  }
-
   private Location check(Location location) {
     if (location.getLatitude() == 0 && location.getLongitude() == 0) {
       title.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
@@ -177,26 +233,8 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
     return location;
   }
 
-  @Override
-  public void onConnectionSuspended(int i) {
-    onError(R.string.connection_suspended_message);
-  }
-
-  @Override
-  public void onConnectionFailed(@NonNull ConnectionResult result) {
-    onError(R.string.connection_failed_message);
-  }
-
-  private void onError(@StringRes int resId) {
-    new AlertDialog.Builder(this)
-        .setTitle(R.string.error_dialog_title)
-        .setMessage(resId)
-        .show();
-  }
-
-  private void fetch(Location location) {
+  private void fetchNearbyResults(Location location) {
     Disposable disposable = client.search(location, page++, CARD_PAGE_SIZE)
-        .doOnSuccess(search -> max = search.getNumberOfPages())
         .flatMapObservable(search -> Observable.fromIterable(search.getResults()))
         .map(item -> new Expose.Summary(
             item.getId(),
@@ -223,6 +261,10 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+        return true;
+
       case R.id.action_preferences:
         PreferenceActivity.start(this);
         return true;
@@ -230,6 +272,22 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  private void onTopCardClicked(Expose.Summary summary) {
+    GalleryFragment fragment = new GalleryFragment();
+    fragment.bind(summary.getImage());
+    fragment.setRetainInstance(true);
+    addFragment(fragment);
+  }
+
+  private void addFragment(Fragment fragment) {
+    getSupportFragmentManager()
+        .beginTransaction()
+        .setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_bottom)
+        .add(R.id.coordinator, fragment)
+        .addToBackStack(null)
+        .commit();
   }
 
   @OnClick(R.id.action_pass)
@@ -245,10 +303,6 @@ public class HomeActivity extends AbstractActivity implements GoogleApiClient.Co
   private void onMatch(Expose.Summary summary) {
     MatchFragment fragment = new MatchFragment();
     fragment.bind(summary);
-
-    getSupportFragmentManager()
-        .beginTransaction()
-        .add(R.id.coordinator, fragment)
-        .commit();
+    addFragment(fragment);
   }
 }

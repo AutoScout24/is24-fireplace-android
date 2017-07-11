@@ -72,6 +72,7 @@ public class MatchFragment extends AbstractFragment {
     getActivity()
         .getSupportFragmentManager()
         .beginTransaction()
+        .setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_bottom)
         .remove(this)
         .commit();
   }

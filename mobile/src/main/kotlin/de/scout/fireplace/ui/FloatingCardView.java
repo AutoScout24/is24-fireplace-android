@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import de.scout.fireplace.R;
 import de.scout.fireplace.bus.RxBus;
+import de.scout.fireplace.bus.events.TopCardClickedEvent;
 import de.scout.fireplace.bus.events.TopCardMovedEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.utils.DisplayUtility;
@@ -24,7 +25,9 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
   private static final float CARD_ROTATION_DEGREES = 40.0f;
   private static final float BADGE_ROTATION_DEGREES = 15.0f;
-  private static final int DURATION = 300;
+
+  private static final int CLICK_ACTION_THRESHOLD = 200;
+  private static final int ANIMATION_DURATION = 300;
 
   private ImageView imageView;
   private TextView displayNameTextView;
@@ -35,6 +38,8 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   @Nullable
   private Expose.Summary summary;
 
+  private long lastActionDown;
+
   private float oldX;
   private float oldY;
   private float newX;
@@ -43,6 +48,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   private float dY;
   private float rightBoundary;
   private float leftBoundary;
+
   private int screenWidth;
   private int padding;
 
@@ -61,20 +67,30 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     init(context, attrs);
   }
 
+  // TODO: 7/11/17 Use GestureDetector https://developer.android.com/training/gestures/detector.html
+
   @Override
-  public boolean onTouch(final View view, MotionEvent motionEvent) {
+  public boolean onTouch(View view, MotionEvent event) {
     FloatingCardStackLayout floatingCardStackLayout = ((FloatingCardStackLayout) view.getParent());
     FloatingCardView topCard = floatingCardStackLayout.getTopChild();
+
     if (topCard.equals(view)) {
-      switch (motionEvent.getAction()) {
+      switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN:
-          oldX = motionEvent.getX();
-          oldY = motionEvent.getY();
+          lastActionDown = System.currentTimeMillis();
+
+          oldX = event.getX();
+          oldY = event.getY();
 
           // cancel any current animations
           view.clearAnimation();
           return true;
+
         case MotionEvent.ACTION_UP:
+          if (System.currentTimeMillis() - lastActionDown < CLICK_ACTION_THRESHOLD) {
+            RxBus.getInstance().send(new TopCardClickedEvent(summary));
+          }
+
           if (isBeyondLeftBoundary(view)) {
             dismiss();
           } else if (isBeyondRightBoundary(view)) {
@@ -82,10 +98,12 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
           } else {
             reset(view);
           }
+
           return true;
+
         case MotionEvent.ACTION_MOVE:
-          newX = motionEvent.getX();
-          newY = motionEvent.getY();
+          newX = event.getX();
+          newY = event.getY();
 
           dX = newX - oldX;
           dY = newY - oldY;
@@ -102,13 +120,18 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
           updateAlphaOfBadges(posX);
           return true;
+
         default:
-          return super.onTouchEvent(motionEvent);
+          return super.onTouchEvent(event);
       }
     }
-    return super.onTouchEvent(motionEvent);
+
+    return super.onTouchEvent(event);
   }
-  // endregion
+
+  private FloatingCardStackLayout getParentLayout() {
+    return (FloatingCardStackLayout) getParent();
+  }
 
   @Override
   protected void onDetachedFromWindow() {
@@ -162,7 +185,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
         .x(xPos * 2)
         .y(0)
         .setInterpolator(new AccelerateInterpolator())
-        .setDuration(DURATION)
+        .setDuration(ANIMATION_DURATION)
         .setListener(new AbstractAnimatorListener() {
           @Override
           public void onAnimationEnd(Animator animator) {
@@ -182,7 +205,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
         .y(0)
         .rotation(0)
         .setInterpolator(new OvershootInterpolator())
-        .setDuration(DURATION);
+        .setDuration(ANIMATION_DURATION);
 
     likeTextView.setAlpha(0);
     nopeTextView.setAlpha(0);
@@ -234,5 +257,10 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
   public boolean isDismissing() {
     return isBeyondLeftBoundary(this) || isBeyondRightBoundary(this);
+  }
+
+  @Nullable
+  public Expose.Summary getSummary() {
+    return summary;
   }
 }

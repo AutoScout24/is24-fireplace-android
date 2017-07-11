@@ -7,6 +7,7 @@ import de.scout.fireplace.search.SearchModule;
 
 @Module(includes = {
     MatchModule.class,
+    GalleryModule.class,
     SearchModule.class
 })
 public abstract class HomeModule {

@@ -12,7 +12,7 @@ ext.configuration = [
 ext.versions = [
     android     : [
         multidex: '1.0.1',
-        support : '25.2.0',
+        support : '25.3.1',
     ],
 
     butterknife : '8.5.1',
@@ -21,7 +21,7 @@ ext.versions = [
 
     google      : [
         play: [
-            services: '10.2.1'
+            services: '11.0.0'
         ]
     ],
 
