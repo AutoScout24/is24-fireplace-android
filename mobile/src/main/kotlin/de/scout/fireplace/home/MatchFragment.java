@@ -21,7 +21,7 @@ public class MatchFragment extends AbstractFragment {
   private static final String EXPOSE_URI = "https://www.immobilienscout24.de/expose/%s";
 
   @Nullable
-  private Expose.Summary summary;
+  private Expose expose;
 
   @BindView(R.id.avatar) ImageView avatar;
 
@@ -34,9 +34,9 @@ public class MatchFragment extends AbstractFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    if (summary != null) {
+    if (expose != null) {
       Picasso.with(getContext())
-          .load(summary.getImage())
+          .load(expose.getPictureFor(avatar))
           .transform(new CircleTransform())
           .into(avatar, new Callback() {
             @Override
@@ -52,18 +52,18 @@ public class MatchFragment extends AbstractFragment {
     }
   }
 
-  void bind(Expose.Summary summary) {
-    this.summary = summary;
+  void bind(Expose expose) {
+    this.expose = expose;
   }
 
   @OnClick(R.id.action_view)
   void onViewClick() {
-    if (summary == null) {
+    if (expose == null) {
       return;
     }
 
     Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(String.format(EXPOSE_URI, summary.getId())));
+    intent.setData(Uri.parse(String.format(EXPOSE_URI, expose.getId())));
     getActivity().startActivity(intent);
   }
 

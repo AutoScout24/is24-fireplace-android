@@ -15,7 +15,12 @@ class ErrorHandler @Inject internal constructor(private val activity: Activity) 
       return
     }
 
+    log(throwable)
     alert(throwable.message)
+  }
+
+  private fun log(throwable: Throwable) {
+    throwable.printStackTrace()
   }
 
   private fun alert(message: String?) {

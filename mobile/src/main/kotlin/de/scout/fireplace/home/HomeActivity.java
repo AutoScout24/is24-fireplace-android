@@ -18,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -111,7 +110,7 @@ public class HomeActivity extends AbstractActivity {
     Disposable disposable = stack.events()
         .doOnNext(event -> {
           if (matcher.match(event)) {
-            onMatch(event.getSummary());
+            onMatch(event.getExpose());
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
@@ -119,7 +118,7 @@ public class HomeActivity extends AbstractActivity {
 
     RxBus.getInstance().toObserverable()
         .filter(event -> event instanceof TopCardClickedEvent)
-        .subscribe(event -> onTopCardClicked(((TopCardClickedEvent) event).getSummary()));
+        .subscribe(event -> onTopCardClicked(((TopCardClickedEvent) event).getExpose()));
 
     disposables.add(disposable);
   }
@@ -236,16 +235,11 @@ public class HomeActivity extends AbstractActivity {
   private void fetchNearbyResults(Location location) {
     Disposable disposable = client.search(location, page++, CARD_PAGE_SIZE)
         .flatMapObservable(search -> Observable.fromIterable(search.getResults()))
-        .map(item -> new Expose.Summary(
-            item.getId(),
-            item.getAddress().getLine(),
-            TextUtils.join(" | ", item.getAttributes()),
-            item.getPictures().get(0).url(stack.getWidth(), stack.getHeight())
-        ))
-        .subscribe(summary -> {
+        .subscribe(expose -> {
           FloatingCardView card = new FloatingCardView(HomeActivity.this);
-          card.bind(summary);
           stack.add(card);
+
+          card.bind(expose);
         }, handler);
 
     disposables.add(disposable);
@@ -274,9 +268,9 @@ public class HomeActivity extends AbstractActivity {
     }
   }
 
-  private void onTopCardClicked(Expose.Summary summary) {
+  private void onTopCardClicked(Expose expose) {
     GalleryFragment fragment = new GalleryFragment();
-    fragment.bind(summary.getImage());
+    fragment.bind(expose.getPictures());
     fragment.setRetainInstance(true);
     addFragment(fragment);
   }
@@ -292,17 +286,27 @@ public class HomeActivity extends AbstractActivity {
 
   @OnClick(R.id.action_pass)
   void onPassClick() {
+    if (!stack.hasChildren()) {
+      showSnackbar(R.string.error_listings_unavailable);
+      return;
+    }
+
     stack.getTopChild().dismiss();
   }
 
   @OnClick(R.id.action_like)
   void onLikeClick() {
+    if (!stack.hasChildren()) {
+      showSnackbar(R.string.error_listings_unavailable);
+      return;
+    }
+
     stack.getTopChild().approve();
   }
 
-  private void onMatch(Expose.Summary summary) {
+  private void onMatch(Expose expose) {
     MatchFragment fragment = new MatchFragment();
-    fragment.bind(summary);
+    fragment.bind(expose);
     addFragment(fragment);
   }
 }

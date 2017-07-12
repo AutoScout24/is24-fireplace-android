@@ -36,7 +36,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   private TextView nopeTextView;
 
   @Nullable
-  private Expose.Summary summary;
+  private Expose expose;
 
   private long lastActionDown;
 
@@ -88,7 +88,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
         case MotionEvent.ACTION_UP:
           if (System.currentTimeMillis() - lastActionDown < CLICK_ACTION_THRESHOLD) {
-            RxBus.getInstance().send(new TopCardClickedEvent(summary));
+            RxBus.getInstance().send(new TopCardClickedEvent(expose));
           }
 
           if (isBeyondLeftBoundary(view)) {
@@ -110,7 +110,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
           float posX = view.getX() + dX;
 
-          RxBus.getInstance().send(new TopCardMovedEvent(summary, posX));
+          RxBus.getInstance().send(new TopCardMovedEvent(expose, posX));
 
           // Set new position
           view.setX(view.getX() + dX);
@@ -171,12 +171,12 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   }
 
   public void approve() {
-    RxBus.getInstance().send(new TopCardMovedEvent(summary, screenWidth));
+    RxBus.getInstance().send(new TopCardMovedEvent(expose, screenWidth));
     animate(this, screenWidth);
   }
 
   public void dismiss() {
-    RxBus.getInstance().send(new TopCardMovedEvent(summary, -screenWidth));
+    RxBus.getInstance().send(new TopCardMovedEvent(expose, -screenWidth));
     animate(this, -screenWidth);
   }
 
@@ -198,7 +198,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   }
 
   private void reset(View view) {
-    RxBus.getInstance().send(new TopCardMovedEvent(summary, 0));
+    RxBus.getInstance().send(new TopCardMovedEvent(expose, 0));
 
     view.animate()
         .x(0)
@@ -221,38 +221,33 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     }
   }
 
-  // set alpha of like and nope badges
   private void updateAlphaOfBadges(float posX) {
     float alpha = (posX - padding) / (screenWidth * 0.50f);
     likeTextView.setAlpha(alpha);
     nopeTextView.setAlpha(-alpha);
   }
 
-  public void bind(Expose.Summary summary) {
-    this.summary = summary;
-    bindImage(imageView, summary);
-    bindTitle(displayNameTextView, summary);
-    bindDescription(usernameTextView, summary);
+  public void bind(Expose expose) {
+    this.expose = expose;
+    bindImage(imageView, expose);
+    bindTitle(displayNameTextView, expose);
+    bindDescription(usernameTextView, expose);
   }
 
-  private void bindImage(ImageView view, Expose.Summary summary) {
-    if (!TextUtils.isEmpty(summary.getImage())) {
+  private void bindImage(ImageView view, Expose expose) {
+    if (!expose.getPictures().isEmpty()) {
       Picasso.with(view.getContext())
-          .load(summary.getImage())
+          .load(expose.getPictureFor(getParentLayout()))
           .into(view);
     }
   }
 
-  private void bindTitle(TextView view, Expose.Summary summary) {
-    if (!TextUtils.isEmpty(summary.getTitle())) {
-      view.setText(summary.getTitle());
-    }
+  private void bindTitle(TextView view, Expose expose) {
+    view.setText(expose.getAddress().getLine());
   }
 
-  private void bindDescription(TextView view, Expose.Summary summary) {
-    if (!TextUtils.isEmpty(summary.getDescription())) {
-      view.setText(summary.getDescription());
-    }
+  private void bindDescription(TextView view, Expose expose) {
+    view.setText(TextUtils.join(" | ", expose.getAttributes()));
   }
 
   public boolean isDismissing() {
@@ -260,7 +255,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   }
 
   @Nullable
-  public Expose.Summary getSummary() {
-    return summary;
+  public Expose getExpose() {
+    return expose;
   }
 }

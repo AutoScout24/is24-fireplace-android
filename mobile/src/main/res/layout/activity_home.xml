@@ -41,6 +41,7 @@
             android:layout_marginEnd="@dimen/action_half_margin"
             android:layout_marginBottom="@dimen/action_margin"
             android:padding="@dimen/action_padding"
+            android:enabled="false"
             android:src="@drawable/ic_pass"/>
 
         <ImageButton

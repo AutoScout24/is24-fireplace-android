@@ -7,7 +7,8 @@ import android.view.View;
 import butterknife.BindView;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractFragment;
-import java.util.Arrays;
+import de.scout.fireplace.models.Expose;
+import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 public class GalleryFragment extends AbstractFragment {
@@ -21,8 +22,8 @@ public class GalleryFragment extends AbstractFragment {
     return R.layout.fragment_gallery;
   }
 
-  public void bind(String... images) {
-    this.adapter = new GalleryAdapter(Arrays.asList(images));
+  public void bind(List<Expose.Picture> pictures) {
+    this.adapter = new GalleryAdapter(pictures);
   }
 
   @Override

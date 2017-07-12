@@ -8,19 +8,20 @@ import android.widget.ImageView;
 import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import de.scout.fireplace.R;
+import de.scout.fireplace.models.Expose;
 import java.util.List;
 
 public class GalleryAdapter extends PagerAdapter {
 
-  private final List<String> images;
+  private final List<Expose.Picture> pictures;
 
-  GalleryAdapter(List<String> images) {
-    this.images = images;
+  GalleryAdapter(List<Expose.Picture> pictures) {
+    this.pictures = pictures;
   }
 
   @Override
   public int getCount() {
-    return images.size();
+    return pictures.size();
   }
 
   @Override
@@ -31,9 +32,10 @@ public class GalleryAdapter extends PagerAdapter {
   @Override
   public Object instantiateItem(ViewGroup container, int position) {
     View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_gallery, container, false);
+    View parent = (View) container.getParent();
 
     Picasso.with(view.getContext())
-        .load(images.get(position))
+        .load(pictures.get(position).getUrl(parent.getWidth(), parent.getHeight()))
         .fit()
         .centerCrop()
         .into(ButterKnife.<ImageView>findById(view, R.id.image));

@@ -2,7 +2,7 @@ package de.scout.fireplace.ui
 
 import de.scout.fireplace.models.Expose
 
-data class FloatingCardStackEvent(val summary: Expose.Summary, val type: Type, val count: Int) {
+data class FloatingCardStackEvent(val expose: Expose, val type: Type, val count: Int) {
 
   enum class Type {
     APPROVED,
