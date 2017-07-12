@@ -2,6 +2,8 @@ package de.scout.fireplace.network
 
 import android.app.Activity
 import android.support.v7.app.AlertDialog
+import com.google.firebase.crash.FirebaseCrash
+import de.scout.fireplace.BuildConfig
 import de.scout.fireplace.R
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
@@ -11,7 +13,11 @@ class ErrorHandler @Inject internal constructor(private val activity: Activity) 
   @Throws(Exception::class)
   override fun accept(throwable: Throwable) {
     if (throwable is StringResException) {
-      alert(activity.getString(throwable.resId))
+      val message = activity.getString(throwable.resId)
+
+      alert(message)
+      FirebaseCrash.log(message)
+
       return
     }
 
@@ -20,7 +26,12 @@ class ErrorHandler @Inject internal constructor(private val activity: Activity) 
   }
 
   private fun log(throwable: Throwable) {
-    throwable.printStackTrace()
+    if (BuildConfig.DEBUG) {
+      throwable.printStackTrace()
+      return
+    }
+
+    FirebaseCrash.report(throwable)
   }
 
   private fun alert(message: String?) {
