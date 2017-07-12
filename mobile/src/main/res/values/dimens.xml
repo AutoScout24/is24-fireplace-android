@@ -33,4 +33,9 @@
   <dimen name="card_elevation">2dp</dimen>
   <dimen name="touch_raise">6dp</dimen>
 
+  <!-- Text Metrics -->
+  <dimen name="primary_text">20sp</dimen>
+  <dimen name="secondary_text">12sp</dimen>
+  <dimen name="text_spacing">4sp</dimen>
+
 </resources>

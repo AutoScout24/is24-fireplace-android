@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 class HomeConfiguration @Inject constructor(private val configuration: Configuration) {
 
-  fun isPreferencesEnabled(): Boolean {
-    return configuration.isEnabled(CONFIGURATION_PREFERENCES_ENABLED)
+  fun isSettingsEnabled(): Boolean {
+    return configuration.isEnabled(CONFIGURATION_SETTINGS_ENABLED)
   }
 
   fun isGalleryEnabled(): Boolean {
@@ -15,7 +15,7 @@ class HomeConfiguration @Inject constructor(private val configuration: Configura
 
   companion object {
 
-    private val CONFIGURATION_PREFERENCES_ENABLED = "preferences_enabled"
+    private val CONFIGURATION_SETTINGS_ENABLED = "settings_enabled"
     private val CONFIGURATION_GALLERY_ENABLED = "gallery_enabled"
   }
 }

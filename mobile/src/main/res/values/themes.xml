@@ -42,4 +42,33 @@
     <item name="android:layout_marginTop">@dimen/default_margin</item>
   </style>
 
+  <!-- TextAppearance Themes -->
+  <style name="Theme.Fireplace.TextAppearance"/>
+
+  <style name="Theme.Fireplace.TextAppearance.Standard" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+
+    <item name="android:textColor">@color/secondary_text</item>
+    <item name="android:textSize">@dimen/secondary_text</item>
+  </style>
+
+  <style name="Theme.Fireplace.TextAppearance.Bold" parent="Theme.Fireplace.TextAppearance.Standard">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="Base.Theme.Fireplace.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_margin">@dimen/default_margin</item>
+    <item name="android:gravity">center_horizontal</item>
+
+    <item name="android:textColor">@color/primary_text</item>
+    <item name="android:textSize">@dimen/primary_text</item>
+  </style>
+
+  <style name="Theme.Fireplace.TextAppearance.Headline" parent="Base.Theme.Fireplace.TextAppearance.Headline"/>
+
+  <style name="Theme.Fireplace.TextAppearance.Quote" parent="Theme.Fireplace.TextAppearance.Standard"/>
+
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
   <entry>
-    <key>preferences_enabled</key>
+    <key>settings_enabled</key>
     <value>true</value>
   </entry>
 

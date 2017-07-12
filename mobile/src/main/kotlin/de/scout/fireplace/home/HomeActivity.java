@@ -10,19 +10,16 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,11 +60,13 @@ public class HomeActivity extends AbstractActivity {
 
   @BindView(R.id.coordinator) CoordinatorLayout coordinator;
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.avatar) ImageView avatar;
+  @BindView(R.id.toolbar) AppBarLayout toolbar;
   @BindView(R.id.title) TextView title;
 
   @BindView(R.id.stack) FloatingCardStackLayout stack;
 
+  @BindView(R.id.action_settings) ImageButton settings;
   @BindView(R.id.action_pass) ImageButton pass;
   @BindView(R.id.action_like) ImageButton like;
 
@@ -87,8 +86,7 @@ public class HomeActivity extends AbstractActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setSupportActionBar(toolbar);
-    setUpSupportActionBar(getSupportActionBar());
+    setUpActionBar();
     setUpActionButtons();
 
     setUpLocationProvider();
@@ -220,8 +218,10 @@ public class HomeActivity extends AbstractActivity {
     return R.layout.activity_home;
   }
 
-  private void setUpSupportActionBar(ActionBar actionBar) {
-    actionBar.setDisplayShowTitleEnabled(false);
+  private void setUpActionBar() {
+    if (configuration.isSettingsEnabled()) {
+      settings.setVisibility(View.VISIBLE);
+    }
   }
 
   private void setUpActionButtons() {
@@ -255,36 +255,6 @@ public class HomeActivity extends AbstractActivity {
     disposables.add(disposable);
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.menu_home, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onPrepareOptionsMenu(Menu menu) {
-    menu.findItem(R.id.action_settings).setVisible(configuration.isPreferencesEnabled());
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        onBackPressed();
-        return true;
-
-      case R.id.action_settings:
-        reporting.reportSettings();
-        SettingsActivity.start(this);
-        return true;
-
-      default:
-        return super.onOptionsItemSelected(item);
-    }
-  }
-
   private void onTopCardClicked(Expose expose) {
     if (!configuration.isGalleryEnabled()) {
       return;
@@ -304,6 +274,12 @@ public class HomeActivity extends AbstractActivity {
         .add(R.id.coordinator, fragment)
         .addToBackStack(null)
         .commit();
+  }
+
+  @OnClick(R.id.action_settings)
+  void onSettingsClick() {
+    reporting.reportSettings();
+    SettingsActivity.start(this);
   }
 
   @OnClick(R.id.action_like)
