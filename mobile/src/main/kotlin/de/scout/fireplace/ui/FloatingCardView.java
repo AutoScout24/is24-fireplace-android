@@ -92,8 +92,10 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
           }
 
           if (isBeyondLeftBoundary(view)) {
+            RxBus.getInstance().send(new TopCardMovedEvent(expose, -screenWidth));
             dismiss();
           } else if (isBeyondRightBoundary(view)) {
+            RxBus.getInstance().send(new TopCardMovedEvent(expose, screenWidth));
             approve();
           } else {
             reset(view);
@@ -171,12 +173,10 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   }
 
   public void approve() {
-    RxBus.getInstance().send(new TopCardMovedEvent(expose, screenWidth));
     animate(this, screenWidth);
   }
 
   public void dismiss() {
-    RxBus.getInstance().send(new TopCardMovedEvent(expose, -screenWidth));
     animate(this, -screenWidth);
   }
 

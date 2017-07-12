@@ -74,6 +74,7 @@ public class HomeActivity extends AbstractActivity {
   @Inject SearchClient client;
   @Inject EventMatcher matcher;
   @Inject HomeReporting reporting;
+  @Inject HomeConfiguration configuration;
 
   @Inject ErrorHandler handler;
   @Inject SchedulingStrategy strategy;
@@ -262,6 +263,12 @@ public class HomeActivity extends AbstractActivity {
   }
 
   @Override
+  public boolean onPrepareOptionsMenu(Menu menu) {
+    menu.findItem(R.id.action_preferences).setVisible(configuration.isPreferencesEnabled());
+    return true;
+  }
+
+  @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case android.R.id.home:
@@ -279,6 +286,10 @@ public class HomeActivity extends AbstractActivity {
   }
 
   private void onTopCardClicked(Expose expose) {
+    if (!configuration.isGalleryEnabled()) {
+      return;
+    }
+
     GalleryFragment fragment = new GalleryFragment();
     fragment.bind(expose.getPictures());
     fragment.setRetainInstance(true);
@@ -315,7 +326,7 @@ public class HomeActivity extends AbstractActivity {
     }
 
     FloatingCardView view = stack.getTopChild();
-    reporting.reportLike(view.getExpose(), false);
+    reporting.reportPass(view.getExpose(), false);
     view.dismiss();
   }
 

@@ -16,5 +16,6 @@ import de.scout.fireplace.network.NetworkModule;
         NetworkModule.class,
     }
 )
+@ApplicationScope
 interface ApplicationComponent extends AndroidInjector<Fireplace> {
 }

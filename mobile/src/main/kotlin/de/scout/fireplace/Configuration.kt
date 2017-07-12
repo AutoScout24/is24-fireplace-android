@@ -1,3 +1,6 @@
 package de.scout.fireplace
 
-interface Configuration
+interface Configuration {
+
+  fun isEnabled(name: String): Boolean
+}
