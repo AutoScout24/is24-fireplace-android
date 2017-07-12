@@ -88,7 +88,7 @@
         android:textColor="@color/light_blue"/>
 
     <Switch
-        android:id="@+id/switch_kitchen"
+        android:id="@+id/criteria_kitchen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
@@ -97,12 +97,57 @@
         android:textColor="@color/dark_grey"/>
 
     <Switch
-        android:id="@+id/switch_balcony"
+        android:id="@+id/criteria_garage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/hint_settings_additional_garage"
+        android:textColor="@color/dark_grey"/>
+
+    <Switch
+        android:id="@+id/criteria_cellar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/hint_settings_additional_cellar"
+        android:textColor="@color/dark_grey"/>
+
+    <Switch
+        android:id="@+id/criteria_lift"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/hint_settings_additional_lift"
+        android:textColor="@color/dark_grey"/>
+
+    <Switch
+        android:id="@+id/criteria_balcony"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
         android:text="@string/hint_settings_additional_balcony"
+        android:textColor="@color/dark_grey"/>
+
+    <Switch
+        android:id="@+id/criteria_garden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/hint_settings_additional_garden"
+        android:textColor="@color/dark_grey"/>
+
+    <Switch
+        android:id="@+id/criteria_new_build"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/hint_settings_additional_new_build"
         android:textColor="@color/dark_grey"/>
 
   </LinearLayout>

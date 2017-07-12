@@ -2,6 +2,7 @@ package de.scout.fireplace.ui;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -12,6 +13,8 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import de.scout.fireplace.R;
 import de.scout.fireplace.bus.RxBus;
@@ -29,11 +32,12 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   private static final int CLICK_ACTION_THRESHOLD = 100;
   private static final int ANIMATION_DURATION = 300;
 
-  private ImageView imageView;
-  private TextView displayNameTextView;
-  private TextView usernameTextView;
-  private TextView likeTextView;
-  private TextView nopeTextView;
+  @BindView(R.id.card) CardView cardView;
+  @BindView(R.id.image) ImageView imageView;
+  @BindView(R.id.address) TextView displayNameTextView;
+  @BindView(R.id.attributes) TextView usernameTextView;
+  @BindView(R.id.like_tv) TextView likeTextView;
+  @BindView(R.id.nope_tv) TextView nopeTextView;
 
   @Nullable
   private Expose expose;
@@ -141,27 +145,22 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     setOnTouchListener(null);
   }
 
-  // region Helper Methods
   private void init(Context context, AttributeSet attrs) {
-    if (!isInEditMode()) {
-      inflate(context, R.layout.floating_card, this);
-
-      imageView = (ImageView) findViewById(R.id.iv);
-      displayNameTextView = (TextView) findViewById(R.id.address);
-      usernameTextView = (TextView) findViewById(R.id.attributes);
-      likeTextView = (TextView) findViewById(R.id.like_tv);
-      nopeTextView = (TextView) findViewById(R.id.nope_tv);
-
-      likeTextView.setRotation(-(BADGE_ROTATION_DEGREES));
-      nopeTextView.setRotation(BADGE_ROTATION_DEGREES);
-
-      screenWidth = DisplayUtility.getScreenWidth(context);
-      leftBoundary = screenWidth * (1.0f / 6.0f); // Left 1/6 of screen
-      rightBoundary = screenWidth * (5.0f / 6.0f); // Right 1/6 of screen
-      padding = DisplayUtility.dp2px(context, 16);
-
-      setOnTouchListener(this);
+    if (isInEditMode()) {
+      return;
     }
+
+    ButterKnife.bind(this, inflate(context, R.layout.floating_card, this));
+
+    likeTextView.setRotation(-(BADGE_ROTATION_DEGREES));
+    nopeTextView.setRotation(BADGE_ROTATION_DEGREES);
+
+    screenWidth = DisplayUtility.getScreenWidth(context);
+    leftBoundary = screenWidth * (1.0f / 6.0f); // Left 1/6 of screen
+    rightBoundary = screenWidth * (5.0f / 6.0f); // Right 1/6 of screen
+    padding = DisplayUtility.dp2px(context, 8);
+
+    setOnTouchListener(this);
   }
 
   private boolean isBeyondLeftBoundary(View view) {
@@ -235,19 +234,24 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   }
 
   private void bindImage(ImageView view, Expose expose) {
-    if (!expose.getPictures().isEmpty()) {
-      Picasso.with(view.getContext())
-          .load(expose.getPictureFor(getParentLayout()))
-          .into(view);
+    if (expose.getPictures().isEmpty()) {
+      return;
     }
+
+    view.post(() -> Picasso.with(view.getContext())
+        .load(expose.getPictureFor(view))
+        .into(view));
   }
 
   private void bindTitle(TextView view, Expose expose) {
-    view.setText(expose.getAddress().getLine());
+    view.setText(TextUtils.join("    ", expose.getAttributes()));
   }
 
   private void bindDescription(TextView view, Expose expose) {
-    view.setText(TextUtils.join(" | ", expose.getAttributes()));
+    String address = expose.getAddress().getLine();
+    address = address.substring(0, address.indexOf(','));
+
+    view.setText(String.format("%s  -  %s", expose.getAddress().getDistance(), address));
   }
 
   public boolean isDismissing() {

@@ -225,8 +225,8 @@ public class HomeActivity extends AbstractActivity {
   }
 
   private void setUpActionButtons() {
-    ViewCompat.setElevation(pass, getResources().getDimension(R.dimen.default_elevation));
-    ViewCompat.setElevation(like, getResources().getDimension(R.dimen.default_elevation));
+    ViewCompat.setElevation(pass, getResources().getDimension(R.dimen.action_elevation));
+    ViewCompat.setElevation(like, getResources().getDimension(R.dimen.action_elevation));
   }
 
   private Location check(Location location) {

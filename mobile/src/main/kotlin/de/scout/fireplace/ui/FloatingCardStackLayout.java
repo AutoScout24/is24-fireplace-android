@@ -107,7 +107,8 @@ public class FloatingCardStackLayout extends FrameLayout {
 
                 card.animate()
                     .x(0)
-                    .y(childOffset * yMultiplier)
+                    //.y(index * yMultiplier)
+                    .y(1 - childOffset * (yMultiplier / 8))
                     .scaleX(1 - (childOffset / 50.0f))
                     .rotation(0)
                     .setInterpolator(new AnticipateOvershootInterpolator())
@@ -130,10 +131,14 @@ public class FloatingCardStackLayout extends FrameLayout {
 
   private void add(FloatingCardView view, int index) {
     addView(view, 0, new LayoutParams(MATCH_PARENT, WRAP_CONTENT));
+    view.setAlpha(0);
 
-    view.animate()
+    view
+        .animate()
+        .alpha(1)
         .x(0)
-        .y(index * yMultiplier)
+        //.y(index * yMultiplier)
+        .y(1 - index * (yMultiplier / 8))
         .scaleX(1 - (index / 50.0f))
         .setInterpolator(new AnticipateOvershootInterpolator())
         .setDuration(DURATION);

@@ -24,8 +24,13 @@ public class SettingsActivity extends AbstractActivity implements NumberPicker.O
   @BindView(R.id.max_price) EditText maxPrice;
   @BindView(R.id.number_rooms) EditText rooms;
 
-  @BindView(R.id.switch_balcony) Switch balcony;
-  @BindView(R.id.switch_kitchen) Switch kitchen;
+  @BindView(R.id.criteria_kitchen) Switch kitchen;
+  @BindView(R.id.criteria_garage) Switch garage;
+  @BindView(R.id.criteria_cellar) Switch cellar;
+  @BindView(R.id.criteria_lift) Switch lift;
+  @BindView(R.id.criteria_balcony) Switch balcony;
+  @BindView(R.id.criteria_garden) Switch garden;
+  @BindView(R.id.criteria_new_build) Switch newBuild;
 
   @Inject SettingsRepository repository;
 
@@ -54,14 +59,14 @@ public class SettingsActivity extends AbstractActivity implements NumberPicker.O
     actionBar.setDisplayHomeAsUpEnabled(true);
   }
 
-  @OnCheckedChanged(R.id.switch_balcony)
-  void onBalconyCheckedChanged(CompoundButton button, boolean checked) {
-    repository.hasBalcony(checked);
-  }
-
-  @OnCheckedChanged(R.id.switch_kitchen)
+  @OnCheckedChanged(R.id.criteria_kitchen)
   void onKitchenCheckedChanged(CompoundButton button, boolean checked) {
     repository.hasKitchen(checked);
+  }
+
+  @OnCheckedChanged(R.id.criteria_balcony)
+  void onBalconyCheckedChanged(CompoundButton button, boolean checked) {
+    repository.hasBalcony(checked);
   }
 
   @Override

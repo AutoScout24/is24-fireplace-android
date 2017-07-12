@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/black_cc"
+    android:background="@color/white_cc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
@@ -8,13 +8,12 @@
 
   <TextView
       style="@style/TextAppearance.AppCompat.Headline"
+      android:background="@drawable/rounded_background"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/default_margin_double"
       android:gravity="center_horizontal"
       android:text="@string/match_title"
-      android:textColor="@android:color/white"
-      android:textSize="32sp"
       android:textStyle="bold"/>
 
   <TextView
@@ -37,12 +36,10 @@
 
   <Button
       style="@style/Widget.AppCompat.Button.Colored"
-      android:background="@drawable/rounded_button"
+      android:background="@color/colorAccent"
       android:id="@+id/action_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:drawableLeft="@drawable/ic_message"
-      android:drawableStart="@drawable/ic_message"
       android:layout_marginStart="@dimen/default_margin"
       android:layout_marginLeft="@dimen/default_margin"
       android:layout_marginTop="@dimen/default_margin"
@@ -54,19 +51,17 @@
 
   <Button
       style="@style/Widget.AppCompat.Button.Colored"
-      android:background="@drawable/rounded_button"
+      android:background="@android:color/white"
       android:id="@+id/action_continue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:drawableLeft="@drawable/ic_redo"
-      android:drawableStart="@drawable/ic_redo"
       android:layout_marginStart="@dimen/default_margin"
       android:layout_marginLeft="@dimen/default_margin"
       android:layout_marginTop="@dimen/default_margin"
       android:layout_marginEnd="@dimen/default_margin"
       android:layout_marginRight="@dimen/default_margin"
       android:padding="@dimen/default_padding"
-      android:textColor="@color/colorPrimary"
+      android:textColor="@color/dark_grey"
       android:text="@string/action_continue"/>
 
 </LinearLayout>
