@@ -38,8 +38,6 @@ ext.versions = [
         picasso: '2.5.2'
     ],
 
-    rangeseekbar: '0.3.0',
-
     jUnit      : '4.12',
     truth      : '0.30',
     mockito    : '1.10.19'
@@ -108,10 +106,6 @@ ext.libraries = [
 
     square      : [
         picasso: "com.squareup.picasso:picasso:$versions.square.picasso",
-    ],
-
-    rangeseekbar: [
-        core: "org.florescu.android.rangeseekbar:rangeseekbar-library:$versions.rangeseekbar"
     ],
 
     jUnit      : "junit:junit:$versions.jUnit",

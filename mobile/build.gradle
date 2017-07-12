@@ -15,7 +15,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.0.0-alpha5'
+    classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
     classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.3'
     classpath 'com.google.gms:google-services:3.0.0'
   }
@@ -99,7 +99,6 @@ dependencies {
   compile libraries.firebase.database
 
   compile libraries.square.picasso
-  compile libraries.rangeseekbar.core
 }
 
 apply plugin: 'com.google.gms.google-services'

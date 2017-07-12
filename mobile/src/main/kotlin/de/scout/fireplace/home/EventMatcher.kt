@@ -1,11 +1,11 @@
 package de.scout.fireplace.home
 
 import de.scout.fireplace.models.Expose
-import de.scout.fireplace.preference.PreferenceRepository
+import de.scout.fireplace.settings.SettingsRepository
 import de.scout.fireplace.ui.FloatingCardStackEvent
 import javax.inject.Inject
 
-internal class EventMatcher @Inject constructor(private val repository: PreferenceRepository) {
+internal class EventMatcher @Inject constructor(private val repository: SettingsRepository) {
 
   fun match(event: FloatingCardStackEvent): Boolean {
     return event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose)
@@ -23,7 +23,7 @@ internal class EventMatcher @Inject constructor(private val repository: Preferen
     }
 
     val rooms = attributes[2].value.toNumeric().toInt()
-    if (rooms < repository.minRooms) {
+    if (rooms < repository.numberRooms) {
       return false
     }
 

@@ -36,8 +36,8 @@ import de.scout.fireplace.bus.events.TopCardClickedEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.network.ErrorHandler;
 import de.scout.fireplace.network.SchedulingStrategy;
-import de.scout.fireplace.preference.PreferenceActivity;
 import de.scout.fireplace.search.SearchClient;
+import de.scout.fireplace.settings.SettingsActivity;
 import de.scout.fireplace.ui.FloatingCardStackEvent;
 import de.scout.fireplace.ui.FloatingCardStackLayout;
 import de.scout.fireplace.ui.FloatingCardView;
@@ -264,7 +264,7 @@ public class HomeActivity extends AbstractActivity {
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
-    menu.findItem(R.id.action_preferences).setVisible(configuration.isPreferencesEnabled());
+    menu.findItem(R.id.action_settings).setVisible(configuration.isPreferencesEnabled());
     return true;
   }
 
@@ -275,9 +275,9 @@ public class HomeActivity extends AbstractActivity {
         onBackPressed();
         return true;
 
-      case R.id.action_preferences:
-        reporting.reportPreferences();
-        PreferenceActivity.start(this);
+      case R.id.action_settings:
+        reporting.reportSettings();
+        SettingsActivity.start(this);
         return true;
 
       default:

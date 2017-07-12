@@ -29,8 +29,8 @@ class HomeReporting @Inject constructor(private val reporting: Reporting) {
     reporting.event(EVENT_MATCH, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
   }
 
-  fun reportPreferences() {
-    reporting.event(EVENT_PREFERENCES)
+  fun reportSettings() {
+    reporting.event(EVENT_SETTINGS)
   }
 
   companion object {
@@ -40,7 +40,7 @@ class HomeReporting @Inject constructor(private val reporting: Reporting) {
     private val EVENT_GALLERY = "event.home.gallery"
     private val EVENT_MATCH = "event.home.match"
 
-    private val EVENT_PREFERENCES = "event.home.preferences"
+    private val EVENT_SETTINGS = "event.home.settings"
 
     private val PARAMETER_EXPOSE_ID = "parameter.expose.id"
     private val PARAMETER_GESTURE_SWIPED = "parameter.gesture.swiped"

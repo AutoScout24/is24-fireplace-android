@@ -16,7 +16,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:background="@color/grey_200"
         android:clipChildren="false">
 
       <de.scout.fireplace.ui.FloatingCardStackLayout

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <item
-      android:id="@+id/action_preferences"
+      android:id="@+id/action_settings"
       android:icon="@drawable/ic_action_settings"
-      android:title="@string/label_preferences"
+      android:title="@string/label_settings"
       android:visible="false"
       tools:visible="true"
       app:showAsAction="always"/>

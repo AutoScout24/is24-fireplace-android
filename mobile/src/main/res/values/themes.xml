@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="Theme.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+  <!-- Application Themes -->
+  <style name="Theme.Fireplace" parent="Theme.AppCompat.DayNight.NoActionBar">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -15,6 +16,30 @@
     <item name="android:textColorHint">@color/light_grey</item>
     <item name="android:textColorLink">@color/light_blue</item>
 
-    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:windowBackground">@color/dark_white</item>
   </style>
+
+  <!-- Container Themes -->
+  <style name="Theme.Fireplace.Layout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+
+    <item name="android:fitsSystemWindows">true</item>
+    <item name="android:padding">@dimen/default_padding</item>
+  </style>
+
+  <style name="Theme.Fireplace.Layout.Horizontal" parent="Theme.Fireplace.Layout">
+    <item name="android:gravity">center_horizontal</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
+
+  <style name="Theme.Fireplace.Layout.Vertical" parent="Theme.Fireplace.Layout">
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+
+  <style name="Theme.Fireplace.Layout.Vertical.Margin" parent="Theme.Fireplace.Layout.Vertical">
+    <item name="android:layout_marginTop">@dimen/default_margin</item>
+  </style>
+
 </resources>

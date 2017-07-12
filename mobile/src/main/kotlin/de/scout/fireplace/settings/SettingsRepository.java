@@ -1,9 +1,9 @@
-package de.scout.fireplace.preference;
+package de.scout.fireplace.settings;
 
 import android.content.SharedPreferences;
 import javax.inject.Inject;
 
-public class PreferenceRepository {
+public class SettingsRepository {
 
   private static final String KEY_PREF_PRICE_MIN = "KEY_PREF_PRICE_MIN";
   private static final String KEY_PREF_PRICE_MAX = "KEY_PREF_PRICE_MAX";
@@ -11,12 +11,12 @@ public class PreferenceRepository {
   private static final String KEY_PREF_BALCONY = "KEY_PREF_BALCONY";
   private static final String KEY_PREF_KITCHEN = "KEY_PREF_KITCHEN";
 
-  private static final String KEY_PREF_MIN_NUMBER_ROOMS = "KEY_PREF_MIN_NUMBER_ROOMS";
+  private static final String KEY_PREF_NUMBER_ROOMS = "KEY_PREF_NUMBER_ROOMS";
 
   private final SharedPreferences preferences;
 
   @Inject
-  PreferenceRepository(SharedPreferences preferences) {
+  SettingsRepository(SharedPreferences preferences) {
     this.preferences = preferences;
   }
 
@@ -52,11 +52,11 @@ public class PreferenceRepository {
     preferences.edit().putBoolean(KEY_PREF_KITCHEN, kitchen).apply();
   }
 
-  public int getMinRooms() {
-    return preferences.getInt(KEY_PREF_MIN_NUMBER_ROOMS, 2);
+  public int getNumberRooms() {
+    return preferences.getInt(KEY_PREF_NUMBER_ROOMS, 2);
   }
 
   public void setMinRooms(int minRooms) {
-    preferences.edit().putInt(KEY_PREF_MIN_NUMBER_ROOMS, minRooms).apply();
+    preferences.edit().putInt(KEY_PREF_NUMBER_ROOMS, minRooms).apply();
   }
 }
