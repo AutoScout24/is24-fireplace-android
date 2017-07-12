@@ -306,7 +306,7 @@ public class HomeActivity extends AbstractActivity {
 
   private void onMatch(Expose expose) {
     MatchFragment fragment = new MatchFragment();
-    fragment.bind(expose);
+    fragment.setExpose(expose);
     addFragment(fragment);
   }
 }
