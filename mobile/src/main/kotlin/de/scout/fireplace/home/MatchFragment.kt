@@ -14,12 +14,15 @@ import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractFragment
 import de.scout.fireplace.models.Expose
 import de.scout.fireplace.ui.CircleTransform
+import javax.inject.Inject
 
 class MatchFragment : AbstractFragment() {
 
   private var expose: Expose? = null
 
   @BindView(R.id.avatar) internal lateinit var avatar: ImageView
+
+  @Inject internal lateinit var reporting: MatchReporting
 
   override fun getLayoutId(): Int {
     return R.layout.fragment_match
@@ -52,6 +55,7 @@ class MatchFragment : AbstractFragment() {
   @OnClick(R.id.action_view)
   internal fun onViewClick() {
     val expose = this.expose ?: return
+    reporting.reportDetails(expose)
 
     val intent = Intent(Intent.ACTION_VIEW)
     intent.data = Uri.parse(String.format(EXPOSE_URI, expose.id))
@@ -61,6 +65,9 @@ class MatchFragment : AbstractFragment() {
 
   @OnClick(R.id.action_continue)
   internal fun onContinueClick() {
+    val expose = this.expose ?: return
+    reporting.reportContinue(expose)
+
     activity
         .supportFragmentManager
         .beginTransaction()

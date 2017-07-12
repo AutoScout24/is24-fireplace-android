@@ -26,7 +26,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   private static final float CARD_ROTATION_DEGREES = 40.0f;
   private static final float BADGE_ROTATION_DEGREES = 15.0f;
 
-  private static final int CLICK_ACTION_THRESHOLD = 200;
+  private static final int CLICK_ACTION_THRESHOLD = 100;
   private static final int ANIMATION_DURATION = 300;
 
   private ImageView imageView;

@@ -8,11 +8,14 @@ import de.scout.fireplace.Reporting
 import javax.inject.Inject
 
 internal class FirebaseReporting @Inject constructor(application: Application) : Reporting {
-
   @SuppressLint("MissingPermission")
   private val analytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(application)
 
-  override fun event(message: String, bundle: Bundle) {
-    analytics.logEvent(message, bundle)
+  override fun event(name: String) {
+    analytics.logEvent(name, null)
+  }
+
+  override fun event(name: String, bundle: Bundle) {
+    analytics.logEvent(name, bundle)
   }
 }

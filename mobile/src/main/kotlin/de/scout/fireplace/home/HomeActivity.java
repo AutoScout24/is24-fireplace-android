@@ -269,6 +269,7 @@ public class HomeActivity extends AbstractActivity {
         return true;
 
       case R.id.action_preferences:
+        reporting.reportPreferences();
         PreferenceActivity.start(this);
         return true;
 
@@ -281,6 +282,7 @@ public class HomeActivity extends AbstractActivity {
     GalleryFragment fragment = new GalleryFragment();
     fragment.bind(expose.getPictures());
     fragment.setRetainInstance(true);
+    reporting.reportGallery(expose);
     addFragment(fragment);
   }
 

@@ -9,7 +9,7 @@ import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 
-class SearchClient @Inject internal constructor(private val service: SearchService, private val strategy: SchedulingStrategy) {
+class SearchClient @Inject internal constructor(private val service: SearchService, private val reporting: SearchReporting, private val strategy: SchedulingStrategy) {
 
   private var searchRadius = SEARCH_RADIUS_MINIMUM
 
@@ -27,6 +27,7 @@ class SearchClient @Inject internal constructor(private val service: SearchServi
     //parameters.put("publishedAfter", "2017-07-11T14:12:02");
 
     return service.search(SEARCH_TYPE_RADIUS, parameters).compose(strategy.single<Search>())
+        .doOnSuccess { search -> reporting.reportSearch(search.pageNumber, searchRadius, search.totalResults) }
         .doOnSuccess { search ->
           if (search.numberOfListings == 0) {
             throw StringResException(R.string.error_listings_unavailable)
