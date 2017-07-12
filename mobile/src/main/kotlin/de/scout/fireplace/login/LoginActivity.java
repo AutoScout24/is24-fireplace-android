@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import de.scout.fireplace.home.HomeActivity;
@@ -60,10 +61,10 @@ public class LoginActivity extends AbstractActivity {
   }
 
   private void signInAnonymously() {
-    /*FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     if (firebaseAuth.getCurrentUser() == null) {
       FirebaseAuth.getInstance().signInAnonymously();
-    }*/
+    }
   }
 
   private void gotoHomeActivity() {

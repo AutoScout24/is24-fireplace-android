@@ -90,6 +90,13 @@ dependencies {
   kapt libraries.dagger.compiler
   kapt libraries.dagger.android.processor
 
+  compile libraries.firebase.analytics
+  compile libraries.firebase.auth
+  compile libraries.firebase.config
+  compile libraries.firebase.core
+  compile libraries.firebase.crash
+  compile libraries.firebase.database
+
   compile libraries.square.picasso
   compile libraries.rangeseekbar.core
 }

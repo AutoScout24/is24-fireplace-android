@@ -71,6 +71,15 @@ ext.libraries = [
         ]
     ],
 
+    firebase   : [
+        analytics: "com.google.firebase:firebase-analytics:$versions.google.play.services",
+        auth     : "com.google.firebase:firebase-auth:$versions.google.play.services",
+        config   : "com.google.firebase:firebase-config:$versions.google.play.services",
+        core     : "com.google.firebase:firebase-core:$versions.google.play.services",
+        crash    : "com.google.firebase:firebase-crash:$versions.google.play.services",
+        database : "com.google.firebase:firebase-database:$versions.google.play.services",
+    ],
+
     google      : [
         play: [
             location: "com.google.android.gms:play-services-location:$versions.google.play.services",
@@ -95,7 +104,6 @@ ext.libraries = [
     rx          : [
         java    : "io.reactivex.rxjava2:rxjava:$versions.rx.java",
         android : "io.reactivex.rxjava2:rxandroid:$versions.rx.android",
-        firebase: "io.ashdavies.rx:rx-firebase:$versions.rx.firebase",
     ],
 
     square      : [
