@@ -99,9 +99,9 @@ public class FloatingCardStackLayout extends FrameLayout {
                 int childOffset = childCount - 2 - i;
                 if (childOffset == 0) {
                   if (posX > 0) {
-                    processor.onNext(new FloatingCardStackEvent(event.getExpose(), FloatingCardStackEvent.Type.APPROVED, getChildCount()));
+                    processor.onNext(new FloatingCardStackEvent(event.getExpose(), FloatingCardStackEvent.Type.LIKE, getChildCount()));
                   } else {
-                    processor.onNext(new FloatingCardStackEvent(event.getExpose(), FloatingCardStackEvent.Type.DISMISSED, getChildCount()));
+                    processor.onNext(new FloatingCardStackEvent(event.getExpose(), FloatingCardStackEvent.Type.PASS, getChildCount()));
                   }
                 }
 

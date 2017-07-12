@@ -38,6 +38,7 @@ import de.scout.fireplace.network.ErrorHandler;
 import de.scout.fireplace.network.SchedulingStrategy;
 import de.scout.fireplace.preference.PreferenceActivity;
 import de.scout.fireplace.search.SearchClient;
+import de.scout.fireplace.ui.FloatingCardStackEvent;
 import de.scout.fireplace.ui.FloatingCardStackLayout;
 import de.scout.fireplace.ui.FloatingCardView;
 import io.reactivex.Observable;
@@ -72,6 +73,7 @@ public class HomeActivity extends AbstractActivity {
 
   @Inject SearchClient client;
   @Inject EventMatcher matcher;
+  @Inject HomeReporting reporting;
 
   @Inject ErrorHandler handler;
   @Inject SchedulingStrategy strategy;
@@ -111,6 +113,13 @@ public class HomeActivity extends AbstractActivity {
         .doOnNext(event -> {
           if (matcher.match(event)) {
             onMatch(event.getExpose());
+          }
+        })
+        .doOnNext(event -> {
+          if (event.getType().equals(FloatingCardStackEvent.Type.LIKE)) {
+            reporting.reportLike(event.getExpose(), true);
+          } else if (event.getType().equals(FloatingCardStackEvent.Type.PASS)) {
+            reporting.reportPass(event.getExpose(), true);
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
@@ -284,16 +293,6 @@ public class HomeActivity extends AbstractActivity {
         .commit();
   }
 
-  @OnClick(R.id.action_pass)
-  void onPassClick() {
-    if (!stack.hasChildren()) {
-      showSnackbar(R.string.error_listings_unavailable);
-      return;
-    }
-
-    stack.getTopChild().dismiss();
-  }
-
   @OnClick(R.id.action_like)
   void onLikeClick() {
     if (!stack.hasChildren()) {
@@ -301,11 +300,26 @@ public class HomeActivity extends AbstractActivity {
       return;
     }
 
-    stack.getTopChild().approve();
+    FloatingCardView view = stack.getTopChild();
+    reporting.reportLike(view.getExpose(), false);
+    view.approve();
+  }
+
+  @OnClick(R.id.action_pass)
+  void onPassClick() {
+    if (!stack.hasChildren()) {
+      showSnackbar(R.string.error_listings_unavailable);
+      return;
+    }
+
+    FloatingCardView view = stack.getTopChild();
+    reporting.reportLike(view.getExpose(), false);
+    view.dismiss();
   }
 
   private void onMatch(Expose expose) {
     MatchFragment fragment = new MatchFragment();
+    reporting.reportMatch(expose);
     fragment.setExpose(expose);
     addFragment(fragment);
   }

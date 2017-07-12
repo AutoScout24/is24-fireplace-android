@@ -8,7 +8,7 @@ import javax.inject.Inject
 internal class EventMatcher @Inject constructor(private val repository: PreferenceRepository) {
 
   fun match(event: FloatingCardStackEvent): Boolean {
-    return event.type === FloatingCardStackEvent.Type.APPROVED && matches(event.expose)
+    return event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose)
   }
 
   private fun matches(expose: Expose): Boolean {
