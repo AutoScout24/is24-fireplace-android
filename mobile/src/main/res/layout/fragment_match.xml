@@ -18,20 +18,50 @@
       android:layout_marginBottom="@dimen/default_margin"
       android:clipToPadding="false">
 
-    <FrameLayout
+    <de.scout.fireplace.ui.DynamicHeightImageView
+        android:id="@+id/image"
+        android:contentDescription="@null"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/default_margin">
+        android:layout_height="wrap_content"
+        app:heightRatio="0.8"/>
 
-      <de.scout.fireplace.ui.DynamicHeightImageView
-          android:id="@+id/image"
-          android:contentDescription="@null"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="@android:color/white"
+        android:layout_gravity="bottom">
+
+      <TextView
+          style="@style/Theme.Fireplace.TextAppearance.Headline"
+          android:id="@+id/address"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:heightRatio="1"/>
+          android:layout_margin="@null"
+          android:paddingStart="@dimen/default_half_padding"
+          android:paddingLeft="@dimen/default_half_padding"
+          android:gravity="start"
+          android:textSize="16sp"
+          android:textStyle="bold"
+          android:ellipsize="end"
+          android:singleLine="true"/>
 
-    </FrameLayout>
+      <TextView
+          style="@style/Theme.Fireplace.TextAppearance.Standard"
+          android:id="@+id/attributes"
+          android:layout_width="match_parent"
+          android:drawableLeft="@drawable/ic_location"
+          android:drawableStart="@drawable/ic_location"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_half_margin"
+          android:layout_gravity="center_vertical"
+          android:ellipsize="end"
+          android:textSize="14sp"
+          android:singleLine="true"/>
+
+    </LinearLayout>
 
     <Button
         style="@style/Widget.AppCompat.Button.Colored"

@@ -229,8 +229,8 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   public void bind(Expose expose) {
     this.expose = expose;
     bindImage(imageView, expose);
-    bindTitle(displayNameTextView, expose);
-    bindDescription(usernameTextView, expose);
+    bindAttributes(displayNameTextView, expose);
+    bindAddress(usernameTextView, expose);
   }
 
   private void bindImage(ImageView view, Expose expose) {
@@ -243,15 +243,15 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
         .into(view));
   }
 
-  private void bindTitle(TextView view, Expose expose) {
-    view.setText(TextUtils.join("    ", expose.getAttributes()));
-  }
-
-  private void bindDescription(TextView view, Expose expose) {
+  private void bindAddress(TextView view, Expose expose) {
     String address = expose.getAddress().getLine();
     address = address.substring(0, address.indexOf(','));
 
     view.setText(String.format("%s  -  %s", expose.getAddress().getDistance(), address));
+  }
+
+  private void bindAttributes(TextView view, Expose expose) {
+    view.setText(TextUtils.join("    ", expose.getAttributes()));
   }
 
   public boolean isDismissing() {
