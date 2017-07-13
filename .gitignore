@@ -21,7 +21,10 @@ target/
 build/
 classes/
 gen-external-apklibs/
+release/
 tmp/
+
+*.zip
 
 # IDEA Ignores
 *.iml
@@ -32,10 +35,6 @@ tmp/
 
 # Google services config file
 google-services.json
-
-## iOS Build generated
-build/
-DerivedData/
 
 ## Various settings
 *.pbxuser
