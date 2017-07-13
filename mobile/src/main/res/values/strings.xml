@@ -1,5 +1,5 @@
 <resources>
-  <string name="application">Live or Leave</string>
+  <string name="application">HausMatch</string>
   <string name="attribution">by ImmobilienScout24</string>
 
   <string name="match_title">Dreamflat!</string>
@@ -7,8 +7,8 @@
 
   <string name="action_continue">Keep Swiping</string>
   <string name="action_favourite">Super Like</string>
-  <string name="action_like">Live</string>
-  <string name="action_pass">Leave</string>
+  <string name="action_like">Yeh</string>
+  <string name="action_pass">Nah</string>
   <string name="action_revert">Cancel</string>
   <string name="action_view">View Property</string>
 

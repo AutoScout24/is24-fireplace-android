@@ -1,155 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-  <include layout="@layout/toolbar"/>
+    android:layout_height="match_parent">
 
   <LinearLayout
-      style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-      android:background="@color/colorPrimary"
-      android:padding="@dimen/default_padding_double">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_settings_price_range"
-        android:textColor="@color/light_blue"/>
+    <include layout="@layout/toolbar"/>
 
     <LinearLayout
-        style="@style/Theme.Fireplace.Layout.Horizontal"
-        android:baselineAligned="false"
-        android:padding="@null">
+        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/default_padding_double">
 
-      <android.support.design.widget.TextInputLayout
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:layout_marginRight="@dimen/default_margin"
-          android:layout_marginEnd="@dimen/default_margin">
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/label_settings_price_range"
+          android:textColor="@color/light_blue"/>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/min_price"
-            android:layout_width="match_parent"
+      <LinearLayout
+          style="@style/Theme.Fireplace.Layout.Horizontal"
+          android:baselineAligned="false"
+          android:padding="@null">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="@string/hint_settings_min_price"/>
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin">
 
-      </android.support.design.widget.TextInputLayout>
+          <android.support.design.widget.TextInputEditText
+              android:id="@+id/min_price"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:hint="@string/hint_settings_min_price"/>
 
-      <android.support.design.widget.TextInputLayout
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:layout_marginLeft="@dimen/default_margin"
-          android:layout_marginStart="@dimen/default_margin">
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/max_price"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:hint="@string/hint_settings_max_price"/>
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin">
 
-      </android.support.design.widget.TextInputLayout>
+          <android.support.design.widget.TextInputEditText
+              android:id="@+id/max_price"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:hint="@string/hint_settings_max_price"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/default_padding_double">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/label_settings_number_rooms"
+          android:textColor="@color/light_blue"/>
+
+      <android.support.design.widget.TextInputEditText
+          android:id="@+id/number_rooms"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:inputType="number"
+          android:hint="@string/hint_settings_number_rooms"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/default_padding_double">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/label_settings_further_criteria"
+          android:textColor="@color/light_blue"/>
+
+      <Switch
+          android:id="@+id/criteria_kitchen"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_kitchen"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_garage"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_garage"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_cellar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_cellar"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_lift"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_lift"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_balcony"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_balcony"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_garden"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_garden"
+          android:textColor="@color/dark_grey"/>
+
+      <Switch
+          android:id="@+id/criteria_new_build"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:layout_marginBottom="@dimen/default_margin"
+          android:text="@string/hint_settings_additional_new_build"
+          android:textColor="@color/dark_grey"/>
 
     </LinearLayout>
 
   </LinearLayout>
-
-  <LinearLayout
-      style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-      android:background="@color/colorPrimary"
-      android:padding="@dimen/default_padding_double">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_settings_number_rooms"
-        android:textColor="@color/light_blue"/>
-
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/number_rooms"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inputType="number"
-        android:hint="@string/hint_settings_number_rooms"/>
-
-  </LinearLayout>
-
-  <LinearLayout
-      style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-      android:background="@color/colorPrimary"
-      android:padding="@dimen/default_padding_double">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/label_settings_further_criteria"
-        android:textColor="@color/light_blue"/>
-
-    <Switch
-        android:id="@+id/criteria_kitchen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_kitchen"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_garage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_garage"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_cellar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_cellar"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_lift"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_lift"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_balcony"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_balcony"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_garden"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_garden"
-        android:textColor="@color/dark_grey"/>
-
-    <Switch
-        android:id="@+id/criteria_new_build"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:text="@string/hint_settings_additional_new_build"
-        android:textColor="@color/dark_grey"/>
-
-  </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

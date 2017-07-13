@@ -5,18 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.Switch;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
+import butterknife.OnTextChanged;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import javax.inject.Inject;
 
-public class SettingsActivity extends AbstractActivity implements NumberPicker.OnValueChangeListener {
+public class SettingsActivity extends AbstractActivity {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -59,19 +60,58 @@ public class SettingsActivity extends AbstractActivity implements NumberPicker.O
     actionBar.setDisplayHomeAsUpEnabled(true);
   }
 
+  @OnTextChanged(R.id.min_price)
+  void onMinPriceChanged(Editable editable) {
+    repository.setMinPrice(parseInt(editable.toString()));
+  }
+
+  @OnTextChanged(R.id.max_price)
+  void onMaxPriceChanged(Editable editable) {
+    repository.setMaxPrice(parseInt(editable.toString()));
+  }
+
+  @OnTextChanged(R.id.number_rooms)
+  void onNumberRoomsChanged(Editable editable) {
+    repository.setNumberRooms(parseInt(editable.toString()));
+  }
+
+  private int parseInt(String string) {
+    return Integer.parseInt(string.replaceAll("[^\\d]", ""));
+  }
+
   @OnCheckedChanged(R.id.criteria_kitchen)
   void onKitchenCheckedChanged(CompoundButton button, boolean checked) {
     repository.hasKitchen(checked);
   }
 
+  @OnCheckedChanged(R.id.criteria_garage)
+  void onGarageCheckedChanged(CompoundButton button, boolean checked) {
+    repository.hasGarage(checked);
+  }
+
+  @OnCheckedChanged(R.id.criteria_cellar)
+  void onCellarCheckedChange(CompoundButton button, boolean checked) {
+    repository.hasCellar(checked);
+  }
+
+  @OnCheckedChanged(R.id.criteria_lift)
+  void onLiftCheckedChange(CompoundButton button, boolean checked) {
+    repository.hasLift(checked);
+  }
+
   @OnCheckedChanged(R.id.criteria_balcony)
-  void onBalconyCheckedChanged(CompoundButton button, boolean checked) {
+  void onBalconyCheckedChange(CompoundButton button, boolean checked) {
     repository.hasBalcony(checked);
   }
 
-  @Override
-  public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-    repository.setMinRooms(i1);
+  @OnCheckedChanged(R.id.criteria_garden)
+  void onGardenCheckedChange(CompoundButton button, boolean checked) {
+    repository.hasGarden(checked);
+  }
+
+  @OnCheckedChanged(R.id.criteria_new_build)
+  void onNewBuildCheckedChange(CompoundButton button, boolean checked) {
+    repository.isNewBuild(checked);
   }
 
   private void setUpPriceRangeInput() {

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:clickable="true"
     android:padding="@dimen/default_padding">
 
   <LinearLayout
@@ -99,6 +100,7 @@
       android:contentDescription="@null"
       android:layout_width="match_parent"
       android:layout_height="72dp"
+      android:clickable="false"
       android:src="@drawable/fan_fare"/>
 
   <LinearLayout
