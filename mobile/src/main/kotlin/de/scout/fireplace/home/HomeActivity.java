@@ -116,9 +116,9 @@ public class HomeActivity extends AbstractActivity {
         })
         .doOnNext(event -> {
           if (event.getType().equals(FloatingCardStackEvent.Type.LIKE)) {
-            reporting.reportLike(event.getExpose(), true);
+            reporting.reportLike(event.getExpose());
           } else if (event.getType().equals(FloatingCardStackEvent.Type.PASS)) {
-            reporting.reportPass(event.getExpose(), true);
+            reporting.reportPass(event.getExpose());
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
@@ -290,7 +290,7 @@ public class HomeActivity extends AbstractActivity {
     }
 
     FloatingCardView view = stack.getTopChild();
-    reporting.reportLike(view.getExpose(), false);
+    reporting.reportManual();
     view.approve();
   }
 
@@ -302,7 +302,7 @@ public class HomeActivity extends AbstractActivity {
     }
 
     FloatingCardView view = stack.getTopChild();
-    reporting.reportPass(view.getExpose(), false);
+    reporting.reportManual();
     view.dismiss();
   }
 
