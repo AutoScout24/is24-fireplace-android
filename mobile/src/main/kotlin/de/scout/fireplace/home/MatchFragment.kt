@@ -52,7 +52,7 @@ class MatchFragment : AbstractFragment() {
     image.post {
       Picasso.with(context)
           .load(expose.getPictureFor(image))
-          .transform(RoundedTransform())
+          .transform(RoundedTransform(24))
           .into(image, object : Callback {
             override fun onSuccess() {
               ViewCompat.setElevation(image, R.dimen.action_elevation.toFloat())

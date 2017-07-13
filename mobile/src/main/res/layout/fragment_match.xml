@@ -10,7 +10,7 @@
       style="@style/Theme.Fireplace.Layout.Vertical"
       android:background="@drawable/rounded_background"
       android:id="@+id/frame"
-      android:layout_marginTop="72dp"
+      android:layout_marginTop="84dp"
       android:layout_marginLeft="@dimen/default_margin"
       android:layout_marginStart="@dimen/default_margin"
       android:layout_marginRight="@dimen/default_margin"
