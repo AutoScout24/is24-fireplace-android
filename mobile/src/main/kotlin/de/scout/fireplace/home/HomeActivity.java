@@ -13,6 +13,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -303,6 +304,9 @@ public class HomeActivity extends AbstractActivity {
 
   private void onMatch(Expose expose) {
     MatchFragment fragment = new MatchFragment();
+    fragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_Base_Dialog_Fullscreen);
+    fragment.setRetainInstance(true);
+
     reporting.reportMatch(expose);
     fragment.setExpose(expose);
     addFragment(fragment);
