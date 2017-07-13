@@ -21,7 +21,7 @@
       <de.scout.fireplace.ui.DynamicHeightImageView
           android:id="@+id/image"
           android:layout_width="match_parent"
-          android:layout_height="400dp"
+          android:layout_height="wrap_content"
           android:layout_margin="@dimen/default_margin"
           app:heightRatio="1.2"/>
 
@@ -54,7 +54,6 @@
             android:layout_width="match_parent"
             android:drawableLeft="@drawable/ic_location"
             android:drawableStart="@drawable/ic_location"
-            android:drawablePadding="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_half_margin"
             android:layout_gravity="center_vertical"
