@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -19,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,9 +57,6 @@ public class HomeActivity extends AbstractActivity {
   private int page = 1;
 
   @BindView(R.id.coordinator) CoordinatorLayout coordinator;
-
-  @BindView(R.id.avatar) ImageView avatar;
-  @BindView(R.id.toolbar) AppBarLayout toolbar;
   @BindView(R.id.title) TextView title;
 
   @BindView(R.id.stack) FloatingCardStackLayout stack;
