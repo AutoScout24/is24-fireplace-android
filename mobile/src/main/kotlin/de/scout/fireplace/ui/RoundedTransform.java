@@ -3,11 +3,11 @@ package de.scout.fireplace.ui;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import com.squareup.picasso.Transformation;
 
-public class CircleTransform implements Transformation {
+public class RoundedTransform implements Transformation {
 
   @Override
   public Bitmap transform(Bitmap source) {
@@ -22,26 +22,21 @@ public class CircleTransform implements Transformation {
     }
 
     Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
+
     Canvas canvas = new Canvas(bitmap);
-    float r = size / 2f;
-
-    Paint stroke = new Paint();
-    stroke.setColor(Color.WHITE);
-    stroke.setAntiAlias(true);
-    canvas.drawCircle(r, r, r, stroke);
-
     Paint paint = new Paint();
     BitmapShader shader = new BitmapShader(squaredBitmap, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
     paint.setShader(shader);
     paint.setAntiAlias(true);
-    canvas.drawCircle(r, r, r * 0.9f, paint);
 
+    float r = size / 32f;
+    canvas.drawRoundRect(new RectF(0, 0, source.getWidth(), source.getHeight()), r, r, paint);
     squaredBitmap.recycle();
     return bitmap;
   }
 
   @Override
   public String key() {
-    return "circle";
+    return "rounded";
   }
 }

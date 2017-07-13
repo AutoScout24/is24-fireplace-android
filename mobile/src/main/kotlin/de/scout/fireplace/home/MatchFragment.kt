@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso
 import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractFragment
 import de.scout.fireplace.models.Expose
-import de.scout.fireplace.ui.CircleTransform
+import de.scout.fireplace.ui.RoundedTransform
 import javax.inject.Inject
 
 class MatchFragment : AbstractFragment() {
@@ -35,7 +35,7 @@ class MatchFragment : AbstractFragment() {
     avatar.post {
       Picasso.with(context)
           .load(expose.getPictureFor(avatar))
-          .transform(CircleTransform())
+          .transform(RoundedTransform())
           .into(avatar, object : Callback {
             override fun onSuccess() {
               ViewCompat.setElevation(avatar, R.dimen.action_elevation.toFloat())
