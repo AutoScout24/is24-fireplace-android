@@ -71,4 +71,18 @@
 
   <style name="Theme.Fireplace.TextAppearance.Quote" parent="Theme.Fireplace.TextAppearance.Standard"/>
 
+  <!-- Dialog Themes -->
+  <style name="Theme.Base.Dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:background">@android:color/white</item>
+  </style>
+
+
+  <style name="Theme.Base.V16.Dialog.Fullscreen" parent="@style/Theme.Base.Dialog">
+    <item name="android:windowBackground">@null</item>
+    <item name="android:windowIsFloating">false</item>
+  </style>
+
+  <style name="Theme.Base.Dialog.Fullscreen" parent="@style/Theme.Base.V16.Dialog.Fullscreen"/>
+
 </resources>
