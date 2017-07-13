@@ -13,6 +13,7 @@ import android.widget.Switch;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnTextChanged;
+import com.google.firebase.crash.FirebaseCrash;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ public class SettingsActivity extends AbstractActivity {
 
   @Override
   protected int getLayoutId() {
-    return R.layout.activity_preference;
+    return R.layout.activity_settings;
   }
 
   private void setUpSupportActionBar(ActionBar actionBar) {
@@ -76,7 +77,16 @@ public class SettingsActivity extends AbstractActivity {
   }
 
   private int parseInt(String string) {
-    return Integer.parseInt(string.replaceAll("[^\\d]", ""));
+    if (string == null || string.isEmpty()) {
+      return 0;
+    }
+
+    try {
+      return Integer.parseInt(string.replaceAll("[^\\d]", ""));
+    } catch (NumberFormatException exception) {
+      FirebaseCrash.report(exception);
+      return 0;
+    }
   }
 
   @OnCheckedChanged(R.id.criteria_kitchen)

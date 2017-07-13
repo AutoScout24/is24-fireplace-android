@@ -37,6 +37,7 @@
               android:id="@+id/min_price"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:inputType="number"
               android:hint="@string/hint_settings_min_price"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -52,6 +53,7 @@
               android:id="@+id/max_price"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:inputType="number"
               android:hint="@string/hint_settings_max_price"/>
 
         </android.support.design.widget.TextInputLayout>
