@@ -5,7 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import butterknife.BindView
 import butterknife.OnClick
 import com.squareup.picasso.Callback
@@ -20,7 +22,14 @@ class MatchFragment : AbstractFragment() {
 
   private var expose: Expose? = null
 
-  @BindView(R.id.avatar) internal lateinit var avatar: ImageView
+  @BindView(R.id.heading) internal lateinit var heading: LinearLayout
+  @BindView(R.id.frame) internal lateinit var frame: LinearLayout
+  @BindView(R.id.like) internal lateinit var like: ImageView
+
+  @BindView(R.id.image) internal lateinit var image: ImageView
+
+  @BindView(R.id.action_view) internal lateinit var viewProperty: Button
+  @BindView(R.id.action_continue) internal lateinit var keepSwiping: Button
 
   @Inject internal lateinit var reporting: MatchReporting
 
@@ -30,19 +39,27 @@ class MatchFragment : AbstractFragment() {
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
+    ViewCompat.setElevation(heading, resources.getDimensionPixelSize(R.dimen.default_elevation) * 1.5F)
+    ViewCompat.setElevation(like, resources.getDimensionPixelSize(R.dimen.default_elevation) * 1.5F)
+    ViewCompat.setElevation(frame, resources.getDimensionPixelSize(R.dimen.default_elevation).toFloat())
+
+    ViewCompat.setElevation(viewProperty, resources.getDimension(R.dimen.default_elevation))
+    ViewCompat.setElevation(keepSwiping, resources.getDimension(R.dimen.default_elevation))
+
     val expose = this.expose ?: return
 
-    avatar.post {
+    image.post {
       Picasso.with(context)
-          .load(expose.getPictureFor(avatar))
+          .load(expose.getPictureFor(image))
           .transform(RoundedTransform())
-          .into(avatar, object : Callback {
+          .into(image, object : Callback {
             override fun onSuccess() {
-              ViewCompat.setElevation(avatar, R.dimen.action_elevation.toFloat())
+              ViewCompat.setElevation(image, R.dimen.action_elevation.toFloat())
             }
 
             override fun onError() {
-              avatar.visibility = View.GONE
+              image.visibility = View.GONE
             }
           })
     }

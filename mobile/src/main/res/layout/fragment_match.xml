@@ -1,67 +1,114 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_cc"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    android:padding="@dimen/default_padding">
 
-  <TextView
-      style="@style/TextAppearance.AppCompat.Headline"
+  <LinearLayout
+      style="@style/Theme.Fireplace.Layout.Vertical"
       android:background="@drawable/rounded_background"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/default_margin_double"
-      android:gravity="center_horizontal"
-      android:text="@string/match_title"
-      android:textStyle="bold"/>
+      android:id="@+id/frame"
+      android:layout_marginTop="72dp"
+      android:layout_marginLeft="@dimen/default_margin"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginRight="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:clipToPadding="false">
 
-  <TextView
-      style="@style/TextAppearance.AppCompat.Medium"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/default_margin_double"
-      android:textColor="@android:color/white"
-      android:gravity="center_horizontal"
-      android:text="@string/match_description"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/default_margin">
+
+      <de.scout.fireplace.ui.DynamicHeightImageView
+          android:id="@+id/image"
+          android:contentDescription="@null"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:heightRatio="1"/>
+
+    </FrameLayout>
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@color/colorAccent"
+        android:id="@+id/action_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:padding="@dimen/default_padding"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/action_view"/>
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@android:color/white"
+        android:id="@+id/action_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:padding="@dimen/default_padding"
+        android:textColor="@color/dark_grey"
+        android:text="@string/action_continue"/>
+
+  </LinearLayout>
 
   <ImageView
-      android:id="@+id/avatar"
+      android:contentDescription="@null"
+      android:layout_width="match_parent"
+      android:layout_height="72dp"
+      android:src="@drawable/fan_fare"/>
+
+  <LinearLayout
+      style="@style/Theme.Fireplace.Layout.Vertical"
+      android:id="@+id/heading"
+      android:background="@drawable/round_background"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="72dp"
+      android:layout_marginStart="64dp"
+      android:layout_marginLeft="64dp"
+      android:layout_marginEnd="64dp"
+      android:layout_marginRight="64dp">
+
+    <TextView
+        style="@style/Theme.Fireplace.TextAppearance.Headline"
+        android:background="@drawable/rounded_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:text="@string/match_title"
+        android:textStyle="bold"/>
+
+    <TextView
+        style="@style/Theme.Fireplace.TextAppearance.Standard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/match_description"/>
+
+  </LinearLayout>
+
+  <ImageView
+      android:id="@+id/like"
       android:contentDescription="@null"
       android:background="@drawable/round_button"
-      android:layout_width="128dp"
-      android:layout_height="128dp"
-      android:layout_margin="@dimen/default_margin_double"
-      android:layout_gravity="center_horizontal"/>
-
-  <Button
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:background="@color/colorAccent"
-      android:id="@+id/action_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/default_margin"
-      android:layout_marginLeft="@dimen/default_margin"
-      android:layout_marginTop="@dimen/default_margin"
-      android:layout_marginEnd="@dimen/default_margin"
-      android:layout_marginRight="@dimen/default_margin"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:layout_marginTop="24dp"
+      android:layout_gravity="center_horizontal"
       android:padding="@dimen/default_padding"
-      android:textColor="@color/colorPrimary"
-      android:text="@string/action_view"/>
+      android:src="@drawable/ic_like"/>
 
-  <Button
-      style="@style/Widget.AppCompat.Button.Colored"
-      android:background="@android:color/white"
-      android:id="@+id/action_continue"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/default_margin"
-      android:layout_marginLeft="@dimen/default_margin"
-      android:layout_marginTop="@dimen/default_margin"
-      android:layout_marginEnd="@dimen/default_margin"
-      android:layout_marginRight="@dimen/default_margin"
-      android:padding="@dimen/default_padding"
-      android:textColor="@color/dark_grey"
-      android:text="@string/action_continue"/>
-
-</LinearLayout>
+</FrameLayout>
