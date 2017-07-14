@@ -17,9 +17,9 @@ class MatchReporting @Inject constructor(private val reporting: Reporting) {
 
   companion object {
 
-    private val EVENT_CONTINUE = "event.match.continue"
-    private val EVENT_DETAILS = "event.match.details"
+    const val EVENT_CONTINUE = "event.match.continue"
+    const val EVENT_DETAILS = "event.match.details"
 
-    private val PARAMETER_EXPOSE_ID = "parameter.expose.id"
+    const val PARAMETER_EXPOSE_ID = "parameter.expose.id"
   }
 }

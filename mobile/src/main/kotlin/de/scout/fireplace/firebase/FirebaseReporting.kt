@@ -25,6 +25,6 @@ internal class FirebaseReporting @Inject constructor(application: Application) :
 
   companion object {
 
-    private val TAG = "FIREBASE_REPORTING"
+    const val TAG = "FIREBASE_REPORTING"
   }
 }

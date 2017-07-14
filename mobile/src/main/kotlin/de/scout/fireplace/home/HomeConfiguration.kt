@@ -15,7 +15,7 @@ class HomeConfiguration @Inject constructor(private val configuration: Configura
 
   companion object {
 
-    private val CONFIGURATION_SETTINGS_ENABLED = "settings_enabled"
-    private val CONFIGURATION_GALLERY_ENABLED = "gallery_enabled"
+    const val CONFIGURATION_SETTINGS_ENABLED = "settings_enabled"
+    const val CONFIGURATION_GALLERY_ENABLED = "gallery_enabled"
   }
 }

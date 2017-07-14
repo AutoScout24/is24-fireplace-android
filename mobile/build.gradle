@@ -30,15 +30,18 @@ android {
       minifyEnabled false
       multiDexEnabled true
     }
+
+    release {
+      crunchPngs true
+      minifyEnabled true
+      multiDexEnabled false
+
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.pro'
+    }
   }
 
   defaultConfig {
     applicationId 'de.scout.fireplace'
-
-    lintOptions {
-      disable 'InvalidPackage'
-      disable 'UnusedResources'
-    }
 
     minSdkVersion configuration.minSdkVersion
     targetSdkVersion configuration.targetSdkVersion
@@ -62,43 +65,43 @@ android {
 }
 
 dependencies {
-  compile libraries.android.multidex
-  compile libraries.kotlin
+  api libraries.android.multidex
+  api libraries.kotlin
 
-  compile libraries.android.support.compat
-  compile libraries.android.support.cards
-  compile libraries.android.support.design
-  compile libraries.android.support.recycler
+  api libraries.android.support.compat
+  api libraries.android.support.cards
+  api libraries.android.support.design
+  api libraries.android.support.recycler
 
-  compile libraries.gson
-  compile libraries.retrofit.core
-  compile libraries.retrofit.adapter
-  compile libraries.retrofit.converter
-  compile libraries.okhttp.core
-  compile libraries.okhttp.logging
+  api libraries.gson
+  api libraries.retrofit.core
+  api libraries.retrofit.adapter
+  api libraries.retrofit.converter
+  api libraries.okhttp.core
+  api libraries.okhttp.logging
 
-  compile libraries.google.play.location
-  compile libraries.google.play.places
+  api libraries.google.play.location
+  api libraries.google.play.places
 
-  compile libraries.rx.java
-  compile libraries.rx.android
+  api libraries.rx.java
+  api libraries.rx.android
 
-  compile libraries.butterknife.core
+  api libraries.butterknife.core
   kapt libraries.butterknife.compiler
 
-  compile libraries.dagger.core
-  compile libraries.dagger.android.support
+  api libraries.dagger.core
+  api libraries.dagger.android.support
   kapt libraries.dagger.compiler
   kapt libraries.dagger.android.processor
 
-  compile libraries.firebase.analytics
-  compile libraries.firebase.auth
-  compile libraries.firebase.config
-  compile libraries.firebase.core
-  compile libraries.firebase.crash
-  compile libraries.firebase.database
+  api libraries.firebase.analytics
+  api libraries.firebase.auth
+  api libraries.firebase.config
+  api libraries.firebase.core
+  api libraries.firebase.crash
+  api libraries.firebase.database
 
-  compile libraries.square.picasso
+  api libraries.square.picasso
 }
 
 apply plugin: 'com.google.gms.google-services'

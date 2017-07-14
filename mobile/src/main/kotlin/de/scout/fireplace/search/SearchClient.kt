@@ -47,12 +47,12 @@ class SearchClient @Inject internal constructor(private val service: SearchServi
 
   companion object {
 
-    private val SEARCH_TYPE_RADIUS = "radius"
-    private val SEARCH_SORTING_DISTANCE = "distance"
+    const val SEARCH_TYPE_RADIUS = "radius"
+    const val SEARCH_SORTING_DISTANCE = "distance"
 
-    private val SEARCH_RADIUS_MINIMUM = 1.0f
-    private val SEARCH_RADIUS_MULTIPLIER = 0.1f
+    const val SEARCH_RADIUS_MINIMUM = 1.0f
+    const val SEARCH_RADIUS_MULTIPLIER = 0.1f
 
-    private val SEARCH_RESULTS_BUFFER = 5
+    const val SEARCH_RESULTS_BUFFER = 5
   }
 }

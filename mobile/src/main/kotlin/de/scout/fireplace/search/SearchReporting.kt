@@ -16,10 +16,10 @@ class SearchReporting @Inject constructor(private val reporting: Reporting) {
 
   companion object {
 
-    private val EVENT_SEARCH_REQUEST = "event.search.request"
+    const val EVENT_SEARCH_REQUEST = "event.search.request"
 
-    private val PARAMETER_SEARCH_PAGE = "event.search.page"
-    private val PARAMETER_SEARCH_RADIUS = "event.search.radius"
-    private val PARAMETER_SEARCH_RESULTS = "event.search.results"
+    const val PARAMETER_SEARCH_PAGE = "event.search.page"
+    const val PARAMETER_SEARCH_RADIUS = "event.search.radius"
+    const val PARAMETER_SEARCH_RESULTS = "event.search.results"
   }
 }

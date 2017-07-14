@@ -14,9 +14,9 @@ class GalleryReporting @Inject constructor(private val reporting: Reporting) {
 
   companion object {
 
-    private val EVENT_SCROLL = "event.gallery.scroll"
+    const val EVENT_SCROLL = "event.gallery.scroll"
 
-    private val PARAMETER_PAGE = "event.gallery.page"
+    const val PARAMETER_PAGE = "event.gallery.page"
   }
 
 }
