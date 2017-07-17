@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class SearchReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun reportSearch(page: Int, radius: Float, results: Int) {
+  fun search(page: Int, radius: Float, results: Int) {
     reporting.event(EVENT_SEARCH_REQUEST, Bundle().also { bundle ->
       bundle.putInt(PARAMETER_SEARCH_PAGE, page)
       bundle.putFloat(PARAMETER_SEARCH_RADIUS, radius)

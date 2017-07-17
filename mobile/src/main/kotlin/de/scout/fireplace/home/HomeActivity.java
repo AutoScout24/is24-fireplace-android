@@ -112,9 +112,9 @@ public class HomeActivity extends AbstractActivity {
         })
         .doOnNext(event -> {
           if (event.getType().equals(FloatingCardStackEvent.Type.LIKE)) {
-            reporting.reportLike(event.getExpose());
+            reporting.like(event.getExpose());
           } else if (event.getType().equals(FloatingCardStackEvent.Type.PASS)) {
-            reporting.reportPass(event.getExpose());
+            reporting.pass(event.getExpose());
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
@@ -259,7 +259,7 @@ public class HomeActivity extends AbstractActivity {
     GalleryFragment fragment = new GalleryFragment();
     fragment.bind(expose.getPictures());
     fragment.setRetainInstance(true);
-    reporting.reportGallery(expose);
+    reporting.gallery(expose);
     addFragment(fragment);
   }
 
@@ -274,7 +274,7 @@ public class HomeActivity extends AbstractActivity {
 
   @OnClick(R.id.action_settings)
   void onSettingsClick() {
-    reporting.reportSettings();
+    reporting.settings();
     SettingsActivity.start(this);
   }
 
@@ -286,7 +286,7 @@ public class HomeActivity extends AbstractActivity {
     }
 
     FloatingCardView view = stack.getTopChild();
-    reporting.reportManual();
+    reporting.manual();
     view.approve();
   }
 
@@ -298,7 +298,7 @@ public class HomeActivity extends AbstractActivity {
     }
 
     FloatingCardView view = stack.getTopChild();
-    reporting.reportManual();
+    reporting.manual();
     view.dismiss();
   }
 
@@ -307,7 +307,7 @@ public class HomeActivity extends AbstractActivity {
     fragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_Base_Dialog_Fullscreen);
     fragment.setRetainInstance(true);
 
-    reporting.reportMatch(expose);
+    reporting.match(expose);
     fragment.setExpose(expose);
     addFragment(fragment);
   }

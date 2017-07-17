@@ -23,7 +23,7 @@ class GalleryFragment : AbstractFragment() {
   }
 
   fun bind(pictures: List<Expose.Picture>) {
-    this.adapter = GalleryAdapter(pictures, { position -> reporting.reportScroll(position) })
+    this.adapter = GalleryAdapter(pictures, { position -> reporting.scroll(position) })
   }
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

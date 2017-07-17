@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GalleryReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun reportScroll(page: Int) {
+  fun scroll(page: Int) {
     reporting.event(EVENT_SCROLL, Bundle().also { bundle ->
       bundle.putInt(PARAMETER_PAGE, page)
     })

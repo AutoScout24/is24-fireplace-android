@@ -5,13 +5,13 @@ import de.scout.fireplace.Reporting
 import de.scout.fireplace.models.Expose
 import javax.inject.Inject
 
-class MatchReporting @Inject constructor(private val reporting: Reporting) {
+internal class MatchReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun reportContinue(expose: Expose) {
+  fun ignore(expose: Expose) {
     reporting.event(EVENT_CONTINUE, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
   }
 
-  fun reportDetails(expose: Expose) {
+  fun details(expose: Expose) {
     reporting.event(EVENT_DETAILS, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
   }
 

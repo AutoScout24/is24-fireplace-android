@@ -92,7 +92,7 @@ class MatchFragment : AbstractFragment() {
   @OnClick(R.id.action_view)
   internal fun onViewClick() {
     val expose = this.expose ?: return
-    reporting.reportDetails(expose)
+    reporting.details(expose)
 
     val intent = Intent(Intent.ACTION_VIEW)
     intent.data = Uri.parse(String.format(EXPOSE_URI, expose.id))
@@ -103,7 +103,7 @@ class MatchFragment : AbstractFragment() {
   @OnClick(R.id.action_continue)
   internal fun onContinueClick() {
     val expose = this.expose ?: return
-    reporting.reportContinue(expose)
+    reporting.ignore(expose)
 
     activity
         .supportFragmentManager

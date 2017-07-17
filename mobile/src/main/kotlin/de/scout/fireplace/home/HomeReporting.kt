@@ -5,33 +5,33 @@ import de.scout.fireplace.Reporting
 import de.scout.fireplace.models.Expose
 import javax.inject.Inject
 
-class HomeReporting @Inject constructor(private val reporting: Reporting) {
+internal class HomeReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun reportLike(expose: Expose) {
+  fun like(expose: Expose) {
     reporting.event(EVENT_LIKED, Bundle().also { bundle ->
       bundle.putString(PARAMETER_EXPOSE_ID, expose.id)
     })
   }
 
-  fun reportPass(expose: Expose) {
+  fun pass(expose: Expose) {
     reporting.event(EVENT_PASSED, Bundle().also { bundle ->
       bundle.putString(PARAMETER_EXPOSE_ID, expose.id)
     })
   }
 
-  fun reportManual() {
+  fun manual() {
     reporting.event(EVENT_MANUAL)
   }
 
-  fun reportGallery(expose: Expose) {
+  fun gallery(expose: Expose) {
     reporting.event(EVENT_GALLERY, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
   }
 
-  fun reportMatch(expose: Expose) {
+  fun match(expose: Expose) {
     reporting.event(EVENT_MATCH, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
   }
 
-  fun reportSettings() {
+  fun settings() {
     reporting.event(EVENT_SETTINGS)
   }
 
