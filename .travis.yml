@@ -13,7 +13,7 @@ cache:
 android:
   components:
     - tools
-    - build-tools-25.0.2
+    - build-tools-26.0.0
     - android-26
     - platform-tools
     - extra-android-support
@@ -24,6 +24,9 @@ android:
 cache:
   directories:
     - $HOME/.gradle
+
+notifications:
+  email: false
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_a21ff600c3ea_key -iv $encrypted_a21ff600c3ea_iv -in mobile/google-services.json.enc -out mobile/google-services.json -d

@@ -69,6 +69,7 @@ public class HomeActivity extends AbstractActivity {
   @Inject SearchClient client;
   @Inject EventMatcher matcher;
   @Inject HomeReporting reporting;
+  @Inject HomeRepository repository;
   @Inject HomeConfiguration configuration;
 
   @Inject ErrorHandler handler;
@@ -113,8 +114,10 @@ public class HomeActivity extends AbstractActivity {
         .doOnNext(event -> {
           if (event.getType().equals(FloatingCardStackEvent.Type.LIKE)) {
             reporting.like(event.getExpose());
+            repository.like(event.getExpose());
           } else if (event.getType().equals(FloatingCardStackEvent.Type.PASS)) {
             reporting.pass(event.getExpose());
+            repository.pass(event.getExpose());
           }
         })
         .filter(event -> event.getCount() - 1 <= CARD_RELOAD_SIZE)
