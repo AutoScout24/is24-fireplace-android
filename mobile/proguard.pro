@@ -7,7 +7,7 @@
 -dontwarn com.squareup.okhttp.**
 -dontwarn kotlin.**
 -dontwarn okio.**
--dontwarn retrofit2.Platform$Java8
+-dontwarn retrofit2.**
 
 -keepattributes *Annotation*
 -keepattributes Signature
@@ -21,8 +21,13 @@
 -keep class com.google.gson.examples.android.model.** { *; }
 -keep class com.google.gson.stream.** { *; }
 -keep class org.apache.** { *; }
+-keep class retrofit2.** { *; }
 -keep class sun.misc.Unsafe { *; }
 
 -keepnames class com.fasterxml.jackson.** { *; }
 -keepnames class javax.servlet.** { *; }
 -keepnames class org.ietf.jgss.** { *; }
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}

@@ -1,8 +1,10 @@
 package de.scout.fireplace.models
 
+import android.support.annotation.Keep
 import android.view.View
 import java.lang.StringBuilder
 
+@Keep
 data class Expose(
     val id: String,
     val pictures: List<Picture>,
@@ -24,6 +26,7 @@ data class Expose(
     return pictures[0].getUrl(view.width, view.height)
   }
 
+  @Keep
   data class Picture(private val urlScaleAndCrop: String, val type: String?) {
 
     fun getUrl(width: Int, height: Int): String {
@@ -38,15 +41,19 @@ data class Expose(
     }
   }
 
+  @Keep
   data class Address(val distance: String, val line: String)
 
+  @Keep
   data class Attribute(val label: String, val value: String) {
     override fun toString(): String {
       return value
     }
   }
 
+  @Keep
   data class Realtor(val logoUrlScale: String, val showcasePlacementColor: String?)
 
+  @Keep
   enum class ListingType { S, M, L, XL }
 }

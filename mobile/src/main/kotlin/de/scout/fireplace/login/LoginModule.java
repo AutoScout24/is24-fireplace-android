@@ -1,6 +1,9 @@
 package de.scout.fireplace.login;
 
 import android.app.Activity;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -19,10 +22,17 @@ public abstract class LoginModule {
   abstract Activity activity(LoginActivity activity);
 
   @Provides
-  static Retrofit retrofit(@NetworkClient(ANONYMOUS) OkHttpClient client) {
+  static Gson gson() {
+    return new GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .create();
+  }
+
+  @Provides
+  static Retrofit retrofit(@NetworkClient(ANONYMOUS) OkHttpClient client, Gson gson) {
     return new Retrofit.Builder()
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .baseUrl("http://publicauth.immobilienscout24.de/")
         .client(client)
         .build();

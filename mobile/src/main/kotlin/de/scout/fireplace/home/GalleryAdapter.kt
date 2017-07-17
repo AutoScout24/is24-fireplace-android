@@ -25,7 +25,7 @@ class GalleryAdapter internal constructor(private val pictures: List<Expose.Pict
     val parent = container.parent as View
 
     Picasso.with(view.context)
-        .load(pictures[position].getUrl(parent.width, parent.height))
+        .load(pictures.first().getUrl(parent.width, parent.height))
         .fit()
         .centerCrop()
         .into(ButterKnife.findById<ImageView>(view, R.id.image))
@@ -33,6 +33,10 @@ class GalleryAdapter internal constructor(private val pictures: List<Expose.Pict
     callback.invoke(position)
     container.addView(view)
     return view
+  }
+
+  private fun <T> List<T>.first(): T {
+    return get(0)
   }
 
   override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

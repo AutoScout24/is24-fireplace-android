@@ -1,5 +1,8 @@
 package de.scout.fireplace.models
 
+import android.support.annotation.Keep
+
+@Keep
 data class Search(
     val totalResults: Int,
     val pageSize: Int,
