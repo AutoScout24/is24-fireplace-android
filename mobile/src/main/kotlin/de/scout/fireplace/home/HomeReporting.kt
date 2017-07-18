@@ -37,15 +37,15 @@ internal class HomeReporting @Inject constructor(private val reporting: Reportin
 
   companion object {
 
-    const val EVENT_LIKED = "event.home.liked"
-    const val EVENT_PASSED = "event.home.passed"
-    const val EVENT_MANUAL = "event.home.manual"
+    const val EVENT_LIKED = "event_home_liked"
+    const val EVENT_PASSED = "event_home_passed"
+    const val EVENT_MANUAL = "event_home_manual"
 
-    const val EVENT_GALLERY = "event.home.gallery"
-    const val EVENT_MATCH = "event.home.match"
+    const val EVENT_GALLERY = "event_home_gallery"
+    const val EVENT_MATCH = "event_home_match"
 
-    const val EVENT_SETTINGS = "event.home.settings"
+    const val EVENT_SETTINGS = "event_home_settings"
 
-    const val PARAMETER_EXPOSE_ID = "parameter.expose.id"
+    const val PARAMETER_EXPOSE_ID = "parameter_expose_id"
   }
 }

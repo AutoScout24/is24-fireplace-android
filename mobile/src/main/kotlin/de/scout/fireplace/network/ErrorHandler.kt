@@ -38,7 +38,7 @@ class ErrorHandler @Inject internal constructor(private val activity: Activity) 
     AlertDialog.Builder(activity)
         .setTitle(R.string.error_dialog_title)
         .setMessage(message)
-        .setPositiveButton(R.string.error_positive_button, { dialog, which -> dialog.dismiss() })
+        .setPositiveButton(R.string.error_positive_button, { dialog, _ -> dialog.dismiss() })
         .show()
   }
 }

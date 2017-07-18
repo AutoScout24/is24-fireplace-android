@@ -17,9 +17,9 @@ internal class MatchReporting @Inject constructor(private val reporting: Reporti
 
   companion object {
 
-    const val EVENT_CONTINUE = "event.match.continue"
-    const val EVENT_DETAILS = "event.match.details"
+    const val EVENT_CONTINUE = "event_match_continue"
+    const val EVENT_DETAILS = "event_match_details"
 
-    const val PARAMETER_EXPOSE_ID = "parameter.expose.id"
+    const val PARAMETER_EXPOSE_ID = "parameter_expose_id"
   }
 }
