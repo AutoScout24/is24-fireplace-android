@@ -27,14 +27,15 @@
   <string name="error_location_unavailable">Location unavailable</string>
   <string name="error_listings_unavailable">No listings available in this area</string>
 
-  <string name="label_settings">Settings</string>
-  <string name="label_settings_price_range">Net rent cold</string>
-  <string name="label_settings_number_rooms">Room(s)</string>
+  <string name="label_settings">Match Settings</string>
   <string name="label_settings_further_criteria">Further criteria</string>
 
-  <string name="hint_settings_min_price">From</string>
-  <string name="hint_settings_max_price">To</string>
-  <string name="hint_settings_number_rooms">No restriction</string>
+  <string name="label_settings_price">Net rent cold</string>
+  <string name="label_settings_space">Living space</string>
+  <string name="label_settings_rooms">Room(s)</string>
+
+  <string name="hint_settings_range_min">From</string>
+  <string name="hint_settings_range_max">To</string>
 
   <string name="hint_settings_additional_kitchen">Kitchen</string>
   <string name="hint_settings_additional_garage">Garage</string>

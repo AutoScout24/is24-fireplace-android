@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DynamicHeightImageView">
-        <attr name="heightRatio" format="float" />
-    </declare-styleable>
+  <declare-styleable name="DynamicHeightImageView">
+    <attr name="heightRatio" format="float"/>
+  </declare-styleable>
+
+  <declare-styleable name="NumericRangeView">
+    <attr name="label" format="reference|string"/>
+    <attr name="minHint" format="reference|string"/>
+    <attr name="minValue" format="reference|dimension"/>
+    <attr name="maxHint" format="reference|string"/>
+    <attr name="maxValue" format="dimension|dimension"/>
+  </declare-styleable>
 </resources>

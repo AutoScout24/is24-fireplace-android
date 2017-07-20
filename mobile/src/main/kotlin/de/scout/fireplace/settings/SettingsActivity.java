@@ -5,15 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.InputFilter;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
-import butterknife.OnTextChanged;
-import com.google.firebase.crash.FirebaseCrash;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import javax.inject.Inject;
@@ -22,9 +17,9 @@ public class SettingsActivity extends AbstractActivity {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
 
-  @BindView(R.id.min_price) EditText minPrice;
-  @BindView(R.id.max_price) EditText maxPrice;
-  @BindView(R.id.number_rooms) EditText rooms;
+  @BindView(R.id.price) NumericRangeView price;
+  @BindView(R.id.space) NumericRangeView space;
+  @BindView(R.id.rooms) NumericRangeView rooms;
 
   @BindView(R.id.criteria_kitchen) Switch kitchen;
   @BindView(R.id.criteria_garage) Switch garage;
@@ -48,7 +43,8 @@ public class SettingsActivity extends AbstractActivity {
     setUpSupportActionBar(getSupportActionBar());
 
     setUpPriceRangeInput();
-    setUpNumberRoomsInput();
+    setUpSpaceRangeInput();
+    setUpRoomsRangeInput();
     setUpFurtherCriteria();
   }
 
@@ -59,34 +55,6 @@ public class SettingsActivity extends AbstractActivity {
 
   private void setUpSupportActionBar(ActionBar actionBar) {
     actionBar.setDisplayHomeAsUpEnabled(true);
-  }
-
-  @OnTextChanged(R.id.min_price)
-  void onMinPriceChanged(Editable editable) {
-    repository.setMinPrice(parseInt(editable.toString()));
-  }
-
-  @OnTextChanged(R.id.max_price)
-  void onMaxPriceChanged(Editable editable) {
-    repository.setMaxPrice(parseInt(editable.toString()));
-  }
-
-  @OnTextChanged(R.id.number_rooms)
-  void onNumberRoomsChanged(Editable editable) {
-    repository.setNumberRooms(parseInt(editable.toString()));
-  }
-
-  private int parseInt(String string) {
-    if (string == null || string.isEmpty()) {
-      return 0;
-    }
-
-    try {
-      return Integer.parseInt(string.replaceAll("[^\\d]", ""));
-    } catch (NumberFormatException exception) {
-      FirebaseCrash.report(exception);
-      return 0;
-    }
   }
 
   @OnCheckedChanged(R.id.criteria_kitchen)
@@ -125,16 +93,33 @@ public class SettingsActivity extends AbstractActivity {
   }
 
   private void setUpPriceRangeInput() {
-    minPrice.setText(String.valueOf(repository.getMinPrice()));
-    minPrice.setFilters(new InputFilter[] { new CurrencyFormatInputFilter() });
+    price.setMinValue(repository.getMinPrice());
+    price.setMaxValue(repository.getMaxPrice());
 
-    maxPrice.setText(String.valueOf(repository.getMaxPrice()));
-    maxPrice.setFilters(new InputFilter[] { new CurrencyFormatInputFilter() });
+    price.setFilter(new CurrencyFormatInputFilter());
+
+    price.addOnMinChangeListener(value -> repository.setMinPrice((int) value));
+    price.addOnMaxChangeListener(value -> repository.setMaxPrice((int) value));
   }
 
-  private void setUpNumberRoomsInput() {
-    rooms.setText(String.valueOf(repository.getNumberRooms()));
-    rooms.setFilters(new InputFilter[] { new NumberRangeInputFilter(1, 25) });
+  private void setUpSpaceRangeInput() {
+    space.setMinValue(repository.getMinSpace());
+    space.setMaxValue(repository.getMaxSpace());
+
+    space.setFilter(new NumberRangeInputFilter(10, 500));
+
+    space.addOnMinChangeListener(value -> repository.setMinSpace((int) value));
+    space.addOnMaxChangeListener(value -> repository.setMaxSpace((int) value));
+  }
+
+  private void setUpRoomsRangeInput() {
+    rooms.setMinValue(repository.getMinRooms());
+    rooms.setMaxValue(repository.getMaxRooms());
+
+    rooms.setFilter(new NumberRangeInputFilter(1, 25));
+
+    rooms.addOnMinChangeListener(value -> repository.setMinRooms((int) value));
+    rooms.addOnMaxChangeListener(value -> repository.setMaxRooms((int) value));
   }
 
   private void setUpFurtherCriteria() {

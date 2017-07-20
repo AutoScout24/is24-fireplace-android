@@ -23,7 +23,7 @@ internal class EventMatcher @Inject constructor(private val repository: Settings
     }
 
     val rooms = attributes[2].value.toNumeric().toInt()
-    if (rooms < repository.numberRooms) {
+    if (rooms < repository.minRooms) {
       return false
     }
 
