@@ -1,6 +1,6 @@
 package de.scout.fireplace.home;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -18,7 +18,7 @@ import de.scout.fireplace.search.SearchModule;
 public abstract class HomeModule {
 
   @Binds
-  abstract Activity activity(HomeActivity activity);
+  abstract FragmentActivity activity(HomeActivity activity);
 
   @Provides
   static FirebaseUser user() {

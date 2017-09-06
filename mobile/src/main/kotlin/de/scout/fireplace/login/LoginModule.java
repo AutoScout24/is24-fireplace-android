@@ -1,6 +1,6 @@
 package de.scout.fireplace.login;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +19,7 @@ import static de.scout.fireplace.network.NetworkClient.Type.ANONYMOUS;
 public abstract class LoginModule {
 
   @Binds
-  abstract Activity activity(LoginActivity activity);
+  abstract FragmentActivity activity(LoginActivity activity);
 
   @Provides
   static Gson gson() {

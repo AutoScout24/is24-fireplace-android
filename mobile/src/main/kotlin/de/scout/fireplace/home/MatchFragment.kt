@@ -1,7 +1,5 @@
 package de.scout.fireplace.home
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.text.TextUtils
@@ -36,6 +34,7 @@ class MatchFragment : AbstractFragment() {
   @BindView(R.id.action_continue) internal lateinit var keepSwiping: Button
 
   @Inject internal lateinit var reporting: MatchReporting
+  @Inject internal lateinit var navigation: ExposeNavigation
 
   override fun getLayoutId(): Int {
     return R.layout.fragment_match
@@ -92,12 +91,9 @@ class MatchFragment : AbstractFragment() {
   @OnClick(R.id.action_view)
   internal fun onViewClick() {
     val expose = this.expose ?: return
+
     reporting.details(expose)
-
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.data = Uri.parse(String.format(EXPOSE_URI, expose.id))
-
-    activity.startActivity(intent)
+    navigation(expose)
   }
 
   @OnClick(R.id.action_continue)
@@ -111,10 +107,5 @@ class MatchFragment : AbstractFragment() {
         .setCustomAnimations(R.anim.enter_from_bottom, R.anim.exit_to_bottom)
         .remove(this)
         .commit()
-  }
-
-  companion object {
-
-    private val EXPOSE_URI = "https://www.immobilienscout24.de/expose/%s"
   }
 }

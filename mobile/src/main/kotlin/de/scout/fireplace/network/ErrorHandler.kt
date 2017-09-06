@@ -1,6 +1,6 @@
 package de.scout.fireplace.network
 
-import android.app.Activity
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
 import com.google.firebase.crash.FirebaseCrash
 import de.scout.fireplace.BuildConfig
@@ -8,7 +8,7 @@ import de.scout.fireplace.R
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
-class ErrorHandler @Inject internal constructor(private val activity: Activity) : Consumer<Throwable> {
+class ErrorHandler @Inject internal constructor(private val activity: FragmentActivity) : Consumer<Throwable> {
 
   @Throws(Exception::class)
   override fun accept(throwable: Throwable) {

@@ -18,8 +18,9 @@ import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import de.scout.fireplace.R;
 import de.scout.fireplace.bus.RxBus;
-import de.scout.fireplace.bus.events.TopCardClickedEvent;
+import de.scout.fireplace.bus.events.TopCardLongPressedEvent;
 import de.scout.fireplace.bus.events.TopCardMovedEvent;
+import de.scout.fireplace.bus.events.TopCardPressedEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.utils.DisplayUtility;
 import javax.annotation.Nullable;
@@ -29,7 +30,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   private static final float CARD_ROTATION_DEGREES = 40.0f;
   private static final float BADGE_ROTATION_DEGREES = 15.0f;
 
-  private static final int CLICK_ACTION_THRESHOLD = 100;
+  private static final int PRESS_ACTION_THRESHOLD = 100;
   private static final int ANIMATION_DURATION = 300;
 
   @BindView(R.id.card) CardView cardView;
@@ -91,8 +92,10 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
           return true;
 
         case MotionEvent.ACTION_UP:
-          if (System.currentTimeMillis() - lastActionDown < CLICK_ACTION_THRESHOLD) {
-            RxBus.getInstance().send(new TopCardClickedEvent(expose));
+          if (System.currentTimeMillis() - lastActionDown < PRESS_ACTION_THRESHOLD) {
+            RxBus.getInstance().send(new TopCardPressedEvent(expose));
+          } else {
+            RxBus.getInstance().send(new TopCardLongPressedEvent(expose));
           }
 
           if (isBeyondLeftBoundary(view)) {
@@ -131,10 +134,6 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     }
 
     return super.onTouchEvent(event);
-  }
-
-  private FloatingCardStackLayout getParentLayout() {
-    return (FloatingCardStackLayout) getParent();
   }
 
   @Override

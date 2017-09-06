@@ -13,9 +13,14 @@ class HomeConfiguration @Inject constructor(private val configuration: Configura
     return configuration.isEnabled(CONFIGURATION_GALLERY_ENABLED)
   }
 
+  fun isShortcutEnabled(): Boolean {
+    return configuration.isEnabled(CONFIGURATION_SHORTCUT_ENABLED)
+  }
+
   companion object {
 
     const val CONFIGURATION_SETTINGS_ENABLED = "settings_enabled"
     const val CONFIGURATION_GALLERY_ENABLED = "gallery_enabled"
+    const val CONFIGURATION_SHORTCUT_ENABLED = "shortcut_enabled"
   }
 }

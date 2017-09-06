@@ -28,7 +28,9 @@ import de.scout.fireplace.BuildConfig;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import de.scout.fireplace.bus.RxBus;
-import de.scout.fireplace.bus.events.TopCardClickedEvent;
+import de.scout.fireplace.bus.events.TopCardEvent;
+import de.scout.fireplace.bus.events.TopCardLongPressedEvent;
+import de.scout.fireplace.bus.events.TopCardPressedEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.network.ErrorHandler;
 import de.scout.fireplace.network.SchedulingStrategy;
@@ -70,6 +72,7 @@ public class HomeActivity extends AbstractActivity {
   @Inject EventMatcher matcher;
   @Inject HomeReporting reporting;
   @Inject HomeConfiguration configuration;
+  @Inject ExposeNavigation navigation;
 
   @Inject ErrorHandler handler;
   @Inject SchedulingStrategy strategy;
@@ -121,10 +124,22 @@ public class HomeActivity extends AbstractActivity {
         .subscribe(integer -> getLastLocation());
 
     RxBus.getInstance().toObserverable()
-        .filter(event -> event instanceof TopCardClickedEvent)
-        .subscribe(event -> onTopCardClicked(((TopCardClickedEvent) event).getExpose()));
+        .filter(event -> event instanceof TopCardEvent)
+        .subscribe(event -> onTopCardEvent((TopCardEvent) event));
 
     disposables.add(disposable);
+  }
+
+  private void onTopCardEvent(TopCardEvent topCardEvent) {
+    if (topCardEvent instanceof TopCardPressedEvent) {
+      onTopCardPressed(((TopCardPressedEvent) topCardEvent).getExpose());
+      return;
+    }
+
+    if (topCardEvent instanceof TopCardLongPressedEvent) {
+      onTopCardLongPressed(((TopCardLongPressedEvent) topCardEvent).getExpose());
+      return;
+    }
   }
 
   @Override
@@ -251,7 +266,7 @@ public class HomeActivity extends AbstractActivity {
     disposables.add(disposable);
   }
 
-  private void onTopCardClicked(Expose expose) {
+  private void onTopCardPressed(Expose expose) {
     if (!configuration.isGalleryEnabled()) {
       return;
     }
@@ -261,6 +276,14 @@ public class HomeActivity extends AbstractActivity {
     fragment.setRetainInstance(true);
     reporting.gallery(expose);
     addFragment(fragment);
+  }
+
+  private void onTopCardLongPressed(Expose expose) {
+    if (!configuration.isShortcutEnabled()) {
+      return;
+    }
+
+    navigation.invoke(expose);
   }
 
   private void addFragment(Fragment fragment) {
