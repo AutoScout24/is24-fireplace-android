@@ -1,18 +1,15 @@
 <resources>
-  <string name="application">HausMatch</string>
+  <string name="application">Live or Leave</string>
   <string name="attribution">by ImmobilienScout24</string>
 
   <string name="match_title">Dream Haus!</string>
   <string name="match_description">This property is a perfect match for you!</string>
 
   <string name="action_continue">Keep Swiping</string>
-  <string name="action_favourite">Super Like</string>
-  <string name="action_like">Yeh</string>
-  <string name="action_pass">Nah</string>
+  <string name="action_like">Live</string>
+  <string name="action_pass">Leave</string>
   <string name="action_revert">Cancel</string>
   <string name="action_view">View Property</string>
-
-  <string name="disallowed_dialog_message">I\'m afraid I can\'t let you do that…</string>
 
   <string name="connection_suspended_message">Connection failed</string>
   <string name="connection_failed_message">Connection failed</string>
