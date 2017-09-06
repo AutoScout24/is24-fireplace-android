@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 import de.scout.fireplace.R
 import de.scout.fireplace.models.Expose
 
-class GalleryAdapter internal constructor(private val pictures: List<Expose.Picture>, private val callback: (Int) -> Unit) : PagerAdapter() {
+internal class GalleryAdapter internal constructor(private val pictures: List<Expose.Picture>, private val callback: (Int) -> Unit) : PagerAdapter() {
 
   override fun getCount() = pictures.size
 

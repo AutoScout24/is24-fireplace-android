@@ -4,8 +4,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-internal interface GalleryModule {
+internal interface MatchModule {
 
   @ContributesAndroidInjector
-  fun fragment(): GalleryFragment
+  fun matchFragment(): MatchFragment
 }

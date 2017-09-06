@@ -7,7 +7,7 @@ import de.scout.fireplace.Reporting
 import de.scout.fireplace.inject.ApplicationScope
 
 @Module(includes = arrayOf(FirebaseConfigurationModule::class))
-abstract class FirebaseModule {
+internal abstract class FirebaseModule {
 
   @Binds
   @ApplicationScope

@@ -8,7 +8,7 @@ import de.scout.fireplace.BuildConfig
 import de.scout.fireplace.R
 
 @Module
-class FirebaseConfigurationModule {
+internal class FirebaseConfigurationModule {
 
   @Provides
   internal fun config(): FirebaseRemoteConfig {

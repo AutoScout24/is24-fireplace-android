@@ -8,7 +8,7 @@ import de.scout.fireplace.R
 import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
-class ErrorHandler @Inject internal constructor(private val activity: FragmentActivity) : Consumer<Throwable> {
+internal class ErrorHandler @Inject constructor(private val activity: FragmentActivity) : Consumer<Throwable> {
 
   @Throws(Exception::class)
   override fun accept(throwable: Throwable) {
