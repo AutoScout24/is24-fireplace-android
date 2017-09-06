@@ -12,20 +12,16 @@ import de.scout.fireplace.models.Expose
 
 class GalleryAdapter internal constructor(private val pictures: List<Expose.Picture>, private val callback: (Int) -> Unit) : PagerAdapter() {
 
-  override fun getCount(): Int {
-    return pictures.size
-  }
+  override fun getCount() = pictures.size
 
-  override fun isViewFromObject(view: View, obj: Any): Boolean {
-    return view === obj
-  }
+  override fun isViewFromObject(view: View, obj: Any) = view === obj
 
   override fun instantiateItem(container: ViewGroup, position: Int): Any {
     val view = LayoutInflater.from(container.context).inflate(R.layout.item_gallery, container, false)
     val parent = container.parent as View
 
     Picasso.with(view.context)
-        .load(pictures.first().getUrl(parent.width, parent.height))
+        .load(pictures[position].getUrl(parent.width, parent.height))
         .fit()
         .centerCrop()
         .into(ButterKnife.findById<ImageView>(view, R.id.image))
@@ -35,11 +31,7 @@ class GalleryAdapter internal constructor(private val pictures: List<Expose.Pict
     return view
   }
 
-  private fun <T> List<T>.first(): T {
-    return get(0)
-  }
-
-  override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-    container.removeView(`object` as View)
+  override fun destroyItem(container: ViewGroup, position: Int, item: Any) {
+    container.removeView(item as View)
   }
 }
