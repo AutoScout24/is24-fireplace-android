@@ -19,6 +19,7 @@ import javax.inject.Inject
 class SettingsActivity : AbstractActivity() {
 
   @Inject internal lateinit var repository: SettingsRepository
+  @Inject internal lateinit var configuration: SettingsConfiguration
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -70,6 +71,10 @@ class SettingsActivity : AbstractActivity() {
   }
 
   private fun setUpFurtherCriteria() {
+    if (!configuration.isCriteriaEnabled()) {
+      return
+    }
+
     criteriaKitchen.isChecked = repository.hasKitchen
     criteriaKitchen.setOnCheckedChangeListener { _, isChecked -> repository.hasKitchen = isChecked }
 

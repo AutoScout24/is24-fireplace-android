@@ -5,6 +5,7 @@ import de.scout.fireplace.R
 import de.scout.fireplace.models.Search
 import de.scout.fireplace.network.SchedulingStrategy
 import de.scout.fireplace.network.StringResException
+import de.scout.fireplace.settings.SettingsConfiguration
 import de.scout.fireplace.settings.SettingsRepository
 import io.reactivex.Single
 import java.util.HashMap
@@ -13,6 +14,7 @@ import javax.inject.Inject
 internal class SearchClient @Inject constructor(
     private val service: SearchService,
     private val reporting: SearchReporting,
+    private val configuration: SettingsConfiguration,
     private val settings: SettingsRepository,
     private val strategy: SchedulingStrategy
 ) {
@@ -43,7 +45,7 @@ internal class SearchClient @Inject constructor(
   }
 
   private fun getGeoCoordinates(location: Location): String {
-    return String.format("%s;%s;%s", location.latitude, location.longitude, searchRadius)
+    return if (configuration.isCriteriaEnabled()) "${location.latitude};${location.longitude};${searchRadius}" else ""
   }
 
   private fun getFurtherCriteria(): String {
@@ -54,7 +56,7 @@ internal class SearchClient @Inject constructor(
     return result.joinToString(",")
   }
 
-  fun multiplySearchRadius(buffer: Int) {
+  private fun multiplySearchRadius(buffer: Int) {
     searchRadius *= 1 + SEARCH_RADIUS_MULTIPLIER * Math.max(SEARCH_RESULTS_BUFFER - buffer, 0)
   }
 

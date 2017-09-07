@@ -16,8 +16,6 @@ internal class FirebaseConfiguration @Inject constructor(private val firebase: F
 
   override fun isEnabled(name: String) = firebase.getBoolean(name)
 
-  override fun getValue(name: String) = firebase.getString(name)!!
-
   companion object {
 
     private val CACHE_EXPIRATION_IN_SECONDS = TimeUnit.HOURS.toMillis(1)
