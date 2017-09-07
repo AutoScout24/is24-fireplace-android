@@ -8,6 +8,7 @@ import butterknife.BindView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
+import de.scout.fireplace.BuildConfig;
 import de.scout.fireplace.R;
 import de.scout.fireplace.activity.AbstractActivity;
 import de.scout.fireplace.home.HomeActivity;
@@ -16,9 +17,6 @@ import de.scout.fireplace.network.TokenRepository;
 import javax.inject.Inject;
 
 public class LoginActivity extends AbstractActivity {
-
-  private static final String CLIENT_ID = "AndroidApp-QuickCheckKey";
-  private static final String CLIENT_SECRET = "1Wg0YZtnQQZCntxN";
 
   @BindView(R.id.content) FrameLayout content;
 
@@ -30,7 +28,7 @@ public class LoginActivity extends AbstractActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    client.clientCredentials(CLIENT_ID, CLIENT_SECRET)
+    client.clientCredentials(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
         .doOnSuccess(token -> repository.accessToken(token.getAccessToken()))
         .subscribe(token -> {
           checkPlayServices();

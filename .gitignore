@@ -12,6 +12,7 @@ build.log
 build-log.xml
 
 # Local configuration files (android, sdk path, etc)
+gradle.properties
 local.properties
 
 .project
