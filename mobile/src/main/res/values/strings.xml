@@ -27,6 +27,10 @@
   <string name="label_settings">Match Settings</string>
   <string name="label_settings_further_criteria">Further criteria</string>
 
+  <string name="label_settings_what">What</string>
+  <string name="label_settings_what_rent">Rent</string>
+  <string name="label_settings_what_purchase">Purchase</string>
+
   <string name="label_settings_price">Net rent cold</string>
   <string name="label_settings_space">Living space</string>
   <string name="label_settings_rooms">Room(s)</string>

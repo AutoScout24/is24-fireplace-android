@@ -18,12 +18,12 @@ internal class EventMatcher @Inject constructor(private val repository: Settings
     }
 
     val price = attributes[0].value.toNumeric().toFloat()
-    if (price < repository.minPrice || price > repository.maxPrice) {
+    if (price !in repository.minimumPrice..repository.maximumPrice) {
       return false
     }
 
     val rooms = attributes[2].value.toNumeric().toInt()
-    if (rooms < repository.minRooms) {
+    if (rooms !in repository.minimumRooms..repository.maximumRooms) {
       return false
     }
 

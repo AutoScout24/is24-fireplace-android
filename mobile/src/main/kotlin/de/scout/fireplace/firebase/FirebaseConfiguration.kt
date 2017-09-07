@@ -14,9 +14,9 @@ internal class FirebaseConfiguration @Inject constructor(private val firebase: F
         .addOnFailureListener(FirebaseCrash::report)
   }
 
-  override fun isEnabled(name: String): Boolean {
-    return firebase.getBoolean(name)
-  }
+  override fun isEnabled(name: String) = firebase.getBoolean(name)
+
+  override fun getValue(name: String) = firebase.getString(name)!!
 
   companion object {
 

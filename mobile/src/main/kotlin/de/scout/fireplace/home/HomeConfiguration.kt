@@ -3,7 +3,7 @@ package de.scout.fireplace.home
 import de.scout.fireplace.Configuration
 import javax.inject.Inject
 
-class HomeConfiguration @Inject constructor(private val configuration: Configuration) {
+internal class HomeConfiguration @Inject constructor(private val configuration: Configuration) {
 
   fun isSettingsEnabled(): Boolean {
     return configuration.isEnabled(CONFIGURATION_SETTINGS_ENABLED)

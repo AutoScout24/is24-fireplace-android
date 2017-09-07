@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
   <LinearLayout
       android:layout_width="match_parent"
@@ -11,8 +12,46 @@
 
     <include layout="@layout/toolbar"/>
 
+    <LinearLayout
+        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/default_padding_double"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/label"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/light_blue"
+          android:text="@string/label_settings_what"/>
+
+      <RadioGroup
+          style="@style/Theme.Fireplace.Layout.Horizontal"
+          android:id="@+id/what"
+          android:layout_marginTop="@dimen/default_margin"
+          android:baselineAligned="false"
+          android:padding="@null">
+
+        <RadioButton
+            android:id="@+id/rent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/label_settings_what_rent"/>
+
+        <RadioButton
+            android:id="@+id/purchase"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/label_settings_what_purchase"/>
+
+      </RadioGroup>
+
+    </LinearLayout>
+
     <de.scout.fireplace.settings.NumericRangeView
-        android:id="@+id/price"
+        android:id="@+id/netRentCold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="@string/label_settings_price"
@@ -20,7 +59,7 @@
         app:maxHint="@string/hint_settings_range_max"/>
 
     <de.scout.fireplace.settings.NumericRangeView
-        android:id="@+id/space"
+        android:id="@+id/livingSpace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:label="@string/label_settings_space"
@@ -47,67 +86,39 @@
           android:textColor="@color/light_blue"/>
 
       <Switch
-          android:id="@+id/criteria_kitchen"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_kitchen"
-          android:textColor="@color/dark_grey"/>
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaKitchen"
+          android:text="@string/hint_settings_additional_kitchen"/>
 
       <Switch
-          android:id="@+id/criteria_garage"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_garage"
-          android:textColor="@color/dark_grey"/>
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaGarage"
+          android:text="@string/hint_settings_additional_garage"/>
 
       <Switch
-          android:id="@+id/criteria_cellar"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_cellar"
-          android:textColor="@color/dark_grey"/>
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaCellar"
+          android:text="@string/hint_settings_additional_cellar"/>
 
-      <Switch
-          android:id="@+id/criteria_lift"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_lift"
-          android:textColor="@color/dark_grey"/>
+      <!--<Switch
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaLift"
+          android:text="@string/hint_settings_additional_lift"/>-->
 
-      <Switch
-          android:id="@+id/criteria_balcony"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_balcony"
-          android:textColor="@color/dark_grey"/>
+      <!--<Switch
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaBalcony"
+          android:text="@string/hint_settings_additional_balcony"/>-->
 
-      <Switch
-          android:id="@+id/criteria_garden"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_garden"
-          android:textColor="@color/dark_grey"/>
+      <!--<Switch
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaGarden"
+          android:text="@string/hint_settings_additional_garden"/>-->
 
-      <Switch
+      <!--<Switch
+          style="@style/Theme.Fireplace.Switch"
           android:id="@+id/criteria_new_build"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/default_margin"
-          android:layout_marginBottom="@dimen/default_margin"
-          android:text="@string/hint_settings_additional_new_build"
-          android:textColor="@color/dark_grey"/>
+          android:text="@string/hint_settings_additional_new_build"/>-->
 
     </LinearLayout>
 

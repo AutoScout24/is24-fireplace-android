@@ -298,7 +298,7 @@ public class HomeActivity extends AbstractActivity {
   @OnClick(R.id.action_settings)
   void onSettingsClick() {
     reporting.settings();
-    SettingsActivity.start(this);
+    SettingsActivity.Companion.start(this);
   }
 
   @OnClick(R.id.action_like)
