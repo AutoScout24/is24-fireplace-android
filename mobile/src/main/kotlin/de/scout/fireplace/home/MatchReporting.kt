@@ -7,13 +7,9 @@ import javax.inject.Inject
 
 internal class MatchReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun ignore(expose: Expose) {
-    reporting.event(EVENT_CONTINUE, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
-  }
+  fun ignore(expose: Expose) = reporting.event(EVENT_CONTINUE, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
-  fun details(expose: Expose) {
-    reporting.event(EVENT_DETAILS, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
-  }
+  fun details(expose: Expose) = reporting.event(EVENT_DETAILS, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
   companion object {
 

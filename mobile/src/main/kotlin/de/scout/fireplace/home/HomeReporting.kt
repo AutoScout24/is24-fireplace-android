@@ -7,33 +7,17 @@ import javax.inject.Inject
 
 internal class HomeReporting @Inject constructor(private val reporting: Reporting) {
 
-  fun like(expose: Expose) {
-    reporting.event(EVENT_LIKED, Bundle().also { bundle ->
-      bundle.putString(PARAMETER_EXPOSE_ID, expose.id)
-    })
-  }
+  fun like(expose: Expose) = reporting.event(EVENT_LIKED, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
-  fun pass(expose: Expose) {
-    reporting.event(EVENT_PASSED, Bundle().also { bundle ->
-      bundle.putString(PARAMETER_EXPOSE_ID, expose.id)
-    })
-  }
+  fun pass(expose: Expose) = reporting.event(EVENT_PASSED, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
-  fun manual() {
-    reporting.event(EVENT_MANUAL)
-  }
+  fun manual() = reporting.event(EVENT_MANUAL)
 
-  fun gallery(expose: Expose) {
-    reporting.event(EVENT_GALLERY, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
-  }
+  fun gallery(expose: Expose) = reporting.event(EVENT_GALLERY, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
-  fun match(expose: Expose) {
-    reporting.event(EVENT_MATCH, Bundle().also { bundle -> bundle.putString(PARAMETER_EXPOSE_ID, expose.id) })
-  }
+  fun match(expose: Expose) = reporting.event(EVENT_MATCH, Bundle().apply { putString(PARAMETER_EXPOSE_ID, expose.id) })
 
-  fun settings() {
-    reporting.event(EVENT_SETTINGS)
-  }
+  fun settings() = reporting.event(EVENT_SETTINGS)
 
   companion object {
 
