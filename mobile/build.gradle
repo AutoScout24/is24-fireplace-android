@@ -39,8 +39,8 @@ android {
   defaultConfig {
     applicationId 'de.scout.fireplace'
 
-    buildConfigField 'String', 'CLIENT_ID', getProperty('client.id')
-    buildConfigField 'String', 'CLIENT_SECRET', getProperty('client.secret')
+    buildConfigField 'String', 'CLIENT_ID', client_id
+    buildConfigField 'String', 'CLIENT_SECRET', client_secret
 
     minSdkVersion configuration.minSdkVersion
     targetSdkVersion configuration.targetSdkVersion
@@ -71,6 +71,9 @@ dependencies {
   implementation libraries.android.support.cards
   implementation libraries.android.support.design
   implementation libraries.android.support.recycler
+
+  implementation libraries.android.arch.lifecycle.extensions
+  kapt libraries.android.arch.lifecycle.compiler
 
   implementation libraries.gson
   implementation libraries.retrofit.core

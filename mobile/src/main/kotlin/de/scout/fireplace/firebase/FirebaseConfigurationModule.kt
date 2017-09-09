@@ -11,7 +11,7 @@ import de.scout.fireplace.R
 internal class FirebaseConfigurationModule {
 
   @Provides
-  internal fun config(): FirebaseRemoteConfig {
+  fun config(): FirebaseRemoteConfig {
     val firebase = FirebaseRemoteConfig.getInstance()
     val config = FirebaseRemoteConfigSettings.Builder()
         .setDeveloperModeEnabled(BuildConfig.DEBUG)

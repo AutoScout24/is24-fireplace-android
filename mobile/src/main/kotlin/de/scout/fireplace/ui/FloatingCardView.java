@@ -232,14 +232,19 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     bindAddress(usernameTextView, expose);
   }
 
-  private void bindImage(ImageView view, Expose expose) {
+  private void bindImage(final ImageView view, final Expose expose) {
     if (expose.getPictures().isEmpty()) {
       return;
     }
 
-    view.post(() -> Picasso.with(view.getContext())
-        .load(expose.getPictureFor(view))
-        .into(view));
+    view.post(new Runnable() {
+      @Override
+      public void run() {
+        Picasso.with(view.getContext())
+            .load(expose.getPictureFor(view))
+            .into(view);
+      }
+    });
   }
 
   private void bindAddress(TextView view, Expose expose) {

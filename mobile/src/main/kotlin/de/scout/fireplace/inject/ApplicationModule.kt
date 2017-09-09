@@ -1,7 +1,6 @@
 package de.scout.fireplace.inject
 
 import android.app.Application
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
@@ -13,12 +12,8 @@ import io.reactivex.schedulers.Schedulers
 internal class ApplicationModule {
 
   @Provides
-  fun preferences(application: Application): SharedPreferences {
-    return PreferenceManager.getDefaultSharedPreferences(application)
-  }
+  fun preferences(application: Application) = PreferenceManager.getDefaultSharedPreferences(application)
 
   @Provides
-  fun strategy(): SchedulingStrategy {
-    return SchedulingStrategy(Schedulers.io(), AndroidSchedulers.mainThread())
-  }
+  fun strategy() = SchedulingStrategy(Schedulers.io(), AndroidSchedulers.mainThread())
 }

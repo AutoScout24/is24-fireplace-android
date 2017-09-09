@@ -25,22 +25,18 @@ internal class NetworkModule {
   @Provides
   @Reusable
   @NetworkClient(ANONYMOUS)
-  fun anonymousClient(headers: HeadersInterceptor, logging: HttpLoggingInterceptor): OkHttpClient {
-    return OkHttpClient.Builder()
-        .connectTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
-        .readTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
-        .writeTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
-        .addInterceptor(headers)
-        .addInterceptor(logging)
-        .build()
-  }
+  fun anonymousClient(headers: HeadersInterceptor, logging: HttpLoggingInterceptor) = OkHttpClient.Builder()
+      .connectTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+      .readTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+      .writeTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+      .addInterceptor(headers)
+      .addInterceptor(logging)
+      .build()
 
   @Provides
   @Reusable
   @NetworkClient(AUTHENTICATED)
-  fun authenticatedClient(@NetworkClient(ANONYMOUS) client: OkHttpClient, interceptor: AuthenticationInterceptor): OkHttpClient {
-    return client.newBuilder()
-        .addInterceptor(interceptor)
-        .build()
-  }
+  fun authenticatedClient(@NetworkClient(ANONYMOUS) client: OkHttpClient, interceptor: AuthenticationInterceptor) = client.newBuilder()
+      .addInterceptor(interceptor)
+      .build()
 }

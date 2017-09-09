@@ -7,12 +7,12 @@ import de.scout.fireplace.Reporting
 import de.scout.fireplace.inject.ApplicationScope
 
 @Module(includes = arrayOf(FirebaseConfigurationModule::class))
-internal abstract class FirebaseModule {
+internal interface FirebaseModule {
 
   @Binds
   @ApplicationScope
-  internal abstract fun config(firebaseConfig: FirebaseConfiguration): Configuration
+  fun config(firebaseConfig: FirebaseConfiguration): Configuration
 
   @Binds
-  internal abstract fun reporting(reporting: FirebaseReporting): Reporting
+  fun reporting(reporting: FirebaseReporting): Reporting
 }

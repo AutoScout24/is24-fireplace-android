@@ -13,17 +13,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 internal class SearchModule {
 
   @Provides
-  internal fun retrofit(@NetworkClient(AUTHENTICATED) client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl("https://api.mobile.immobilienscout24.de/")
-        .client(client)
-        .build()
-  }
+  fun retrofit(@NetworkClient(AUTHENTICATED) client: OkHttpClient) = Retrofit.Builder()
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .addConverterFactory(GsonConverterFactory.create())
+      .baseUrl("https://api.mobile.immobilienscout24.de/")
+      .client(client)
+      .build()
 
   @Provides
-  internal fun service(retrofit: Retrofit): SearchService {
-    return retrofit.create(SearchService::class.java)
-  }
+  fun service(retrofit: Retrofit) = retrofit.create(SearchService::class.java)
 }

@@ -1,13 +1,13 @@
-### Hackdays: Fireplace (Tinder for Real Estate)
+### Hackdays: Live or Leave
 
 [![Build Status](https://img.shields.io/travis/AutoScout24/is24-fireplace-android.svg)](https://travis-ci.org/AutoScout24/is24-fireplace-android)
 [![Coverage](https://img.shields.io/codecov/c/github/AutoScout24/is24-fireplace-android.svg)](https://codecov.io/github/AutoScout24/is24-fireplace-android)
 [![License](https://img.shields.io/badge/license-apache%202.0-blue.svg)](https://github.com/ashdavies/cinnamon/blob/master/LICENSE.txt)
 
-The idea is to provide our users with a tool which allows a quick playful solution to look at properties in the area you are located in that very moment.
+Live or Leave finds the houses and apartments for rent that surround you and matches you with the ones that fit your personal preferences.
 
-Like Tinder it would only show the main photo of the listing alongside with some key data.
+Live or Leave features all homes to rent which are on ImmobilienScout24, so you can choose from the best homes on Germany’s market leading property portal.
 
-By defining a few preferences like number of rooms and maximum rent the app shows only listings that match my needs...
+Once you are matched with a home, you can view all the details and contact the realtor directly through ImmobilienScout24. Or you can also keep swiping to find your next match!
 
-The liked ones (swiped to the right) will be saved and can ideally be seen in the myscout profile on the desktop....
+Live or Leave has been developed by ImmobilienScout24 engineers during HackDays 2017.

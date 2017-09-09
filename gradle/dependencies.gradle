@@ -5,15 +5,16 @@ ext.configuration = [
     minSdkVersion      : 16,
     targetSdkVersion   : 26,
 
-    sourceCompatibility: JavaVersion.VERSION_1_8,
-    targetCompatibility: JavaVersion.VERSION_1_8
+    sourceCompatibility: JavaVersion.VERSION_1_7,
+    targetCompatibility: JavaVersion.VERSION_1_7
 ]
 
 ext.versions = [
     android    : [
+        arch    : '1.0.0-alpha9',
         multidex: '1.0.1',
         support : '25.3.1',
-        tools   : '3.0.0-beta4'
+        tools   : '3.0.0-beta5'
     ],
 
     butterknife: '8.5.1',
@@ -60,6 +61,12 @@ ext.plugin = [
 
 ext.libraries = [
     android    : [
+        arch    : [
+            lifecycle: [
+                compiler  : "android.arch.lifecycle:compiler:1.0.0-alpha9",
+                extensions: "android.arch.lifecycle:extensions:1.0.0-alpha9"
+            ]
+        ],
         multidex: "com.android.support:multidex:$versions.android.multidex",
         support : [
             compat  : "com.android.support:appcompat-v7:$versions.android.support",
