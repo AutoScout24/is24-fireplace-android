@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractActivity
-import kotlinx.android.synthetic.main.activity_settings.criteriaCellar
-import kotlinx.android.synthetic.main.activity_settings.criteriaGarage
-import kotlinx.android.synthetic.main.activity_settings.criteriaKitchen
+import kotlinx.android.synthetic.main.activity_settings.criteriaBalcony
+import kotlinx.android.synthetic.main.activity_settings.criteriaLift
+import kotlinx.android.synthetic.main.activity_settings.criteriaNewBuild
 import kotlinx.android.synthetic.main.activity_settings.livingSpace
 import kotlinx.android.synthetic.main.activity_settings.netRentCold
 import kotlinx.android.synthetic.main.activity_settings.rooms
@@ -75,14 +75,14 @@ class SettingsActivity : AbstractActivity() {
       return
     }
 
-    criteriaKitchen.isChecked = repository.hasKitchen
-    criteriaKitchen.setOnCheckedChangeListener { _, isChecked -> repository.hasKitchen = isChecked }
+    criteriaLift.isChecked = repository.hasLift
+    criteriaLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
 
-    criteriaGarage.isChecked = repository.hasKitchen
-    criteriaGarage.setOnCheckedChangeListener { _, isChecked -> repository.hasGarage = isChecked }
+    criteriaBalcony.isChecked = repository.hasBalcony
+    criteriaBalcony.setOnCheckedChangeListener { _, isChecked -> repository.hasBalcony = isChecked }
 
-    criteriaCellar.isChecked = repository.hasKitchen
-    criteriaCellar.setOnCheckedChangeListener { _, isChecked -> repository.hasCellar = isChecked }
+    criteriaNewBuild.isChecked = repository.isNewBuild
+    criteriaNewBuild.setOnCheckedChangeListener { _, isChecked -> repository.isNewBuild = isChecked }
   }
 
   companion object {

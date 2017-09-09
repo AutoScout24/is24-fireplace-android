@@ -2,9 +2,11 @@ package de.scout.fireplace.ui;
 
 import android.animation.Animator;
 import android.content.Context;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +20,18 @@ import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import de.scout.fireplace.R;
 import de.scout.fireplace.bus.RxBus;
-import de.scout.fireplace.bus.events.TopCardLongPressedEvent;
+import de.scout.fireplace.bus.events.TopCardLongPressEvent;
 import de.scout.fireplace.bus.events.TopCardMovedEvent;
-import de.scout.fireplace.bus.events.TopCardPressedEvent;
+import de.scout.fireplace.bus.events.TopCardPressEvent;
 import de.scout.fireplace.models.Expose;
 import de.scout.fireplace.utils.DisplayUtility;
 import javax.annotation.Nullable;
 
-public class FloatingCardView extends FrameLayout implements View.OnTouchListener {
+public class FloatingCardView extends FrameLayout implements GestureDetector.OnGestureListener {
 
   private static final float CARD_ROTATION_DEGREES = 40.0f;
   private static final float BADGE_ROTATION_DEGREES = 15.0f;
 
-  private static final int PRESS_ACTION_THRESHOLD = 100;
   private static final int ANIMATION_DURATION = 300;
 
   @BindView(R.id.card) CardView cardView;
@@ -43,7 +44,7 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
   @Nullable
   private Expose expose;
 
-  private long lastActionDown;
+  private GestureDetectorCompat detector;
 
   private float oldX;
   private float oldY;
@@ -59,90 +60,20 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
 
   public FloatingCardView(Context context) {
     super(context);
-    init(context, null);
+    init(context);
   }
 
   public FloatingCardView(Context context, AttributeSet attrs) {
     super(context, attrs);
-    init(context, attrs);
+    init(context);
   }
 
   public FloatingCardView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
-    init(context, attrs);
+    init(context);
   }
 
-  // TODO: 7/11/17 Use GestureDetector https://developer.android.com/training/gestures/detector.html
-
-  @Override
-  public boolean onTouch(View view, MotionEvent event) {
-    FloatingCardStackLayout floatingCardStackLayout = ((FloatingCardStackLayout) view.getParent());
-    FloatingCardView topCard = floatingCardStackLayout.getTopChild();
-
-    if (topCard.equals(view)) {
-      switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-          lastActionDown = System.currentTimeMillis();
-
-          oldX = event.getX();
-          oldY = event.getY();
-
-          // cancel any current animations
-          view.clearAnimation();
-          return true;
-
-        case MotionEvent.ACTION_UP:
-          if (System.currentTimeMillis() - lastActionDown < PRESS_ACTION_THRESHOLD) {
-            RxBus.getInstance().send(new TopCardPressedEvent(expose));
-          } else {
-            RxBus.getInstance().send(new TopCardLongPressedEvent(expose));
-          }
-
-          if (isBeyondLeftBoundary(view)) {
-            dismiss();
-          } else if (isBeyondRightBoundary(view)) {
-            approve();
-          } else {
-            reset(view);
-          }
-
-          return true;
-
-        case MotionEvent.ACTION_MOVE:
-          newX = event.getX();
-          newY = event.getY();
-
-          dX = newX - oldX;
-          dY = newY - oldY;
-
-          float posX = view.getX() + dX;
-
-          RxBus.getInstance().send(new TopCardMovedEvent(expose, posX));
-
-          // Set new position
-          view.setX(view.getX() + dX);
-          view.setY(view.getY() + dY);
-
-          setCardRotation(view, view.getX());
-
-          updateAlphaOfBadges(posX);
-          return true;
-
-        default:
-          return super.onTouchEvent(event);
-      }
-    }
-
-    return super.onTouchEvent(event);
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    super.onDetachedFromWindow();
-    setOnTouchListener(null);
-  }
-
-  private void init(Context context, AttributeSet attrs) {
+  private void init(Context context) {
     if (isInEditMode()) {
       return;
     }
@@ -157,7 +88,90 @@ public class FloatingCardView extends FrameLayout implements View.OnTouchListene
     rightBoundary = screenWidth * (5.0f / 6.0f); // Right 1/6 of screen
     padding = DisplayUtility.dp2px(context, 8);
 
-    setOnTouchListener(this);
+    detector = new GestureDetectorCompat(getContext(), this);
+  }
+
+  @Override
+  public boolean onTouchEvent(MotionEvent event) {
+    return detector.onTouchEvent(event) || onUpEvent(event) || super.onTouchEvent(event);
+  }
+
+  @Override
+  public boolean onDown(MotionEvent event) {
+    oldX = event.getX();
+    oldY = event.getY();
+
+    clearAnimation();
+    return true;
+  }
+
+  private boolean onUpEvent(MotionEvent event) {
+    if (event.getAction() != MotionEvent.ACTION_UP || expose == null) {
+      return false;
+    }
+
+    if (isBeyondLeftBoundary(this)) {
+      dismiss();
+    } else if (isBeyondRightBoundary(this)) {
+      approve();
+    } else {
+      reset(this);
+    }
+
+    return true;
+  }
+
+  @Override
+  public void onShowPress(MotionEvent event) {
+  }
+
+  @Override
+  public boolean onSingleTapUp(MotionEvent event) {
+    if (expose == null) {
+      return false;
+    }
+
+    RxBus.getInstance().send(new TopCardPressEvent(expose));
+    return true;
+  }
+
+  @Override
+  public boolean onScroll(MotionEvent first, MotionEvent current, float distanceX, float distanceY) {
+    if (expose == null) {
+      return false;
+    }
+
+    newX = current.getX();
+    newY = current.getY();
+
+    dX = newX - oldX;
+    dY = newY - oldY;
+
+    float posX = getX() + dX;
+
+    RxBus.getInstance().send(new TopCardMovedEvent(expose, posX));
+
+    setX(getX() + dX);
+    setY(getY() + dY);
+
+    setCardRotation(this, getX());
+
+    updateAlphaOfBadges(posX);
+    return true;
+  }
+
+  @Override
+  public void onLongPress(MotionEvent event) {
+    if (expose == null) {
+      return;
+    }
+
+    RxBus.getInstance().send(new TopCardLongPressEvent(expose));
+  }
+
+  @Override
+  public boolean onFling(MotionEvent first, MotionEvent current, float velocityX, float velocityY) {
+    return false;
   }
 
   private boolean isBeyondLeftBoundary(View view) {

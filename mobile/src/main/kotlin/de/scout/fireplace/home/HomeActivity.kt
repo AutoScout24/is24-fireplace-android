@@ -28,8 +28,8 @@ import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractActivity
 import de.scout.fireplace.bus.RxBus
 import de.scout.fireplace.bus.events.TopCardEvent
-import de.scout.fireplace.bus.events.TopCardLongPressedEvent
-import de.scout.fireplace.bus.events.TopCardPressedEvent
+import de.scout.fireplace.bus.events.TopCardLongPressEvent
+import de.scout.fireplace.bus.events.TopCardPressEvent
 import de.scout.fireplace.models.Expose
 import de.scout.fireplace.network.ErrorHandler
 import de.scout.fireplace.network.SchedulingStrategy
@@ -106,12 +106,12 @@ class HomeActivity : AbstractActivity() {
   }
 
   private fun onTopCardEvent(topCardEvent: TopCardEvent) {
-    if (topCardEvent is TopCardPressedEvent && topCardEvent.expose != null) {
+    if (topCardEvent is TopCardPressEvent) {
       onTopCardPressed(topCardEvent.expose)
       return
     }
 
-    if (topCardEvent is TopCardLongPressedEvent && topCardEvent.expose != null) {
+    if (topCardEvent is TopCardLongPressEvent) {
       onTopCardLongPressed(topCardEvent.expose)
       return
     }

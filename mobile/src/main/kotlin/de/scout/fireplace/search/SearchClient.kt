@@ -50,9 +50,9 @@ internal class SearchClient @Inject constructor(
 
   private fun getFurtherCriteria(): String {
     val result = mutableListOf<String>()
-    if (settings.hasKitchen) result.add("kitchen")
-    if (settings.hasGarage) result.add("garage")
-    if (settings.hasCellar) result.add("cellar")
+    if (settings.hasLift) result.add("lift")
+    if (settings.hasBalcony) result.add("balcony")
+    if (settings.isNewBuild) result.add("newBuild")
     return result.joinToString(",")
   }
 
