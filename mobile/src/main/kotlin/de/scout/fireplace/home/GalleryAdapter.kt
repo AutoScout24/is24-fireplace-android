@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import butterknife.ButterKnife
 import com.squareup.picasso.Picasso
 import de.scout.fireplace.R
 import de.scout.fireplace.models.Expose
@@ -24,7 +23,7 @@ internal class GalleryAdapter internal constructor(private val pictures: List<Ex
         .load(pictures[position].getUrl(parent.width, parent.height))
         .fit()
         .centerCrop()
-        .into(ButterKnife.findById<ImageView>(view, R.id.image))
+        .into(view.findViewById<ImageView>(R.id.image))
 
     callback.invoke(position)
     container.addView(view)

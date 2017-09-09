@@ -32,7 +32,7 @@
           android:gravity="top|center_horizontal">
 
         <ImageButton
-            android:id="@+id/action_pass"
+            android:id="@+id/actionPass"
             android:contentDescription="@string/action_pass"
             android:background="@drawable/round_button"
             android:layout_width="@dimen/action_size"
@@ -42,7 +42,7 @@
             android:src="@drawable/ic_pass"/>
 
         <ImageButton
-            android:id="@+id/action_like"
+            android:id="@+id/actionLike"
             android:contentDescription="@string/action_like"
             android:background="@drawable/round_button"
             android:layout_width="@dimen/action_size"

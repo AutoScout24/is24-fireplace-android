@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.support.annotation.StringRes
-import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.DialogFragment
@@ -17,14 +16,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
 import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnClick
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import de.scout.fireplace.BuildConfig
 import de.scout.fireplace.R
+import de.scout.fireplace.R.id.actionPass
+import de.scout.fireplace.R.id.stack
 import de.scout.fireplace.activity.AbstractActivity
 import de.scout.fireplace.bus.RxBus
 import de.scout.fireplace.bus.events.TopCardEvent
@@ -32,16 +29,21 @@ import de.scout.fireplace.bus.events.TopCardLongPressEvent
 import de.scout.fireplace.bus.events.TopCardPressEvent
 import de.scout.fireplace.models.Expose
 import de.scout.fireplace.network.ErrorHandler
-import de.scout.fireplace.network.SchedulingStrategy
 import de.scout.fireplace.search.SearchClient
 import de.scout.fireplace.settings.SettingsActivity
 import de.scout.fireplace.ui.FloatingCardStackEvent
-import de.scout.fireplace.ui.FloatingCardStackLayout
 import de.scout.fireplace.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
+import kotlinx.android.synthetic.main.activity_home.actionLike
+import kotlinx.android.synthetic.main.activity_home.actionPass
+import kotlinx.android.synthetic.main.activity_home.coordinator
+import kotlinx.android.synthetic.main.activity_home.stack
+import kotlinx.android.synthetic.main.fragment_match.like
+import kotlinx.android.synthetic.main.toolbar_home.actionSettings
+import kotlinx.android.synthetic.main.toolbar_home.heading
 import javax.inject.Inject
 
 class HomeActivity : AbstractActivity() {
@@ -51,23 +53,12 @@ class HomeActivity : AbstractActivity() {
   private var provider: FusedLocationProviderClient? = null
   private var page = 1
 
-  @BindView(R.id.coordinator) internal lateinit var coordinator: CoordinatorLayout
-  @BindView(R.id.title) internal lateinit var title: TextView
-
-  @BindView(R.id.stack) internal lateinit var stack: FloatingCardStackLayout
-
-  @BindView(R.id.action_settings) internal lateinit var settings: ImageButton
-  @BindView(R.id.action_pass) internal lateinit var pass: ImageButton
-  @BindView(R.id.action_like) internal lateinit var like: ImageButton
-
   @Inject internal lateinit var client: SearchClient
   @Inject internal lateinit var matcher: EventMatcher
   @Inject internal lateinit var reporting: HomeReporting
   @Inject internal lateinit var configuration: HomeConfiguration
   @Inject internal lateinit var navigation: ExposeNavigation
-
   @Inject internal lateinit var handler: ErrorHandler
-  @Inject internal lateinit var strategy: SchedulingStrategy
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -77,6 +68,9 @@ class HomeActivity : AbstractActivity() {
 
     setUpLocationProvider()
     setUpPipeline()
+    setUpSettings()
+    setUpLike()
+    setUpPass()
   }
 
   private fun setUpLocationProvider() {
@@ -103,6 +97,37 @@ class HomeActivity : AbstractActivity() {
     RxBus.getInstance().toObserverable()
         .filter { event -> event is TopCardEvent }
         .subscribe { event -> onTopCardEvent(event as TopCardEvent) }
+  }
+
+  private fun setUpSettings() {
+    actionSettings.setOnClickListener {
+      reporting.settings()
+      SettingsActivity.start(this)
+    }
+  }
+
+  private fun setUpLike() {
+    actionLike.setOnClickListener {
+      if (stack.hasChildren()) {
+        val view = stack.topChild
+        reporting.manual()
+        view.approve()
+      } else {
+        showSnackbar(R.string.error_listings_unavailable)
+      }
+    }
+  }
+
+  private fun setUpPass() {
+    actionPass.setOnClickListener {
+      if (stack.hasChildren()) {
+        val view = stack.topChild
+        reporting.manual()
+        view.dismiss()
+      } else {
+        showSnackbar(R.string.error_listings_unavailable)
+      }
+    }
   }
 
   private fun onTopCardEvent(topCardEvent: TopCardEvent) {
@@ -200,23 +225,23 @@ class HomeActivity : AbstractActivity() {
 
   private fun setUpActionBar() {
     if (configuration.isSettingsEnabled()) {
-      settings.visibility = View.VISIBLE
+      actionSettings.visibility = View.VISIBLE
     }
   }
 
   private fun setUpActionButtons() {
-    ViewCompat.setElevation(pass, resources.getDimension(R.dimen.action_elevation))
-    ViewCompat.setElevation(like, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(actionPass, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(actionLike, resources.getDimension(R.dimen.action_elevation))
   }
 
   private fun check(location: Location): Location {
     if (location.latitude == 0.0 && location.longitude == 0.0) {
-      title.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
+      heading.setTextColor(ContextCompat.getColor(this, R.color.light_blue))
 
       location.latitude = SCOUT_LATITUDE.toDouble()
       location.longitude = SCOUT_LONGITUDE.toDouble()
     } else {
-      title.setTextColor(ContextCompat.getColor(this, android.R.color.black))
+      heading.setTextColor(ContextCompat.getColor(this, android.R.color.black))
     }
 
     return location
@@ -260,36 +285,6 @@ class HomeActivity : AbstractActivity() {
         .add(R.id.coordinator, fragment)
         .addToBackStack(null)
         .commit()
-  }
-
-  @OnClick(R.id.action_settings)
-  internal fun onSettingsClick() {
-    reporting.settings()
-    SettingsActivity.start(this)
-  }
-
-  @OnClick(R.id.action_like)
-  internal fun onLikeClick() {
-    if (!stack.hasChildren()) {
-      showSnackbar(R.string.error_listings_unavailable)
-      return
-    }
-
-    val view = stack.topChild
-    reporting.manual()
-    view.approve()
-  }
-
-  @OnClick(R.id.action_pass)
-  internal fun onPassClick() {
-    if (!stack.hasChildren()) {
-      showSnackbar(R.string.error_listings_unavailable)
-      return
-    }
-
-    val view = stack.topChild
-    reporting.manual()
-    view.dismiss()
   }
 
   private fun onMatch(expose: Expose) {

@@ -2,19 +2,16 @@ package de.scout.fireplace.home
 
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.View
-import butterknife.BindView
 import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractFragment
 import de.scout.fireplace.models.Expose
+import kotlinx.android.synthetic.main.fragment_gallery.pager
 import javax.inject.Inject
 
 class GalleryFragment : AbstractFragment() {
 
   private var adapter: PagerAdapter? = null
-
-  @BindView(R.id.pager) internal lateinit var pager: ViewPager
 
   @Inject internal lateinit var reporting: GalleryReporting
 

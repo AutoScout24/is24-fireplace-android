@@ -4,34 +4,27 @@ import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.text.TextUtils
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.OnClick
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import de.scout.fireplace.R
 import de.scout.fireplace.activity.AbstractFragment
 import de.scout.fireplace.models.Expose
 import de.scout.fireplace.ui.RoundedTransform
+import kotlinx.android.synthetic.main.fragment_match.actionContinue
+import kotlinx.android.synthetic.main.fragment_match.actionView
+import kotlinx.android.synthetic.main.fragment_match.address
+import kotlinx.android.synthetic.main.fragment_match.attributes
+import kotlinx.android.synthetic.main.fragment_match.frame
+import kotlinx.android.synthetic.main.fragment_match.heading
+import kotlinx.android.synthetic.main.fragment_match.image
+import kotlinx.android.synthetic.main.fragment_match.like
 import javax.inject.Inject
 
 class MatchFragment : AbstractFragment() {
 
   private var expose: Expose? = null
-
-  @BindView(R.id.heading) internal lateinit var heading: LinearLayout
-  @BindView(R.id.frame) internal lateinit var frame: LinearLayout
-  @BindView(R.id.like) internal lateinit var like: ImageView
-
-  @BindView(R.id.image) internal lateinit var image: ImageView
-  @BindView(R.id.address) internal lateinit var address: TextView
-  @BindView(R.id.attributes) internal lateinit var attributes: TextView
-
-  @BindView(R.id.action_view) internal lateinit var viewProperty: Button
-  @BindView(R.id.action_continue) internal lateinit var keepSwiping: Button
 
   @Inject internal lateinit var reporting: MatchReporting
   @Inject internal lateinit var navigation: ExposeNavigation
@@ -47,13 +40,16 @@ class MatchFragment : AbstractFragment() {
     ViewCompat.setElevation(like, resources.getDimensionPixelSize(R.dimen.default_elevation) * 1.5F)
     ViewCompat.setElevation(frame, resources.getDimensionPixelSize(R.dimen.default_elevation).toFloat())
 
-    ViewCompat.setElevation(viewProperty, resources.getDimension(R.dimen.default_elevation))
-    ViewCompat.setElevation(keepSwiping, resources.getDimension(R.dimen.default_elevation))
+    ViewCompat.setElevation(actionView, resources.getDimension(R.dimen.default_elevation))
+    ViewCompat.setElevation(actionContinue, resources.getDimension(R.dimen.default_elevation))
 
     val expose = this.expose ?: return
     bindImage(image, expose)
     bindAddress(address, expose)
     bindAttributes(attributes, expose)
+
+    actionView.setOnClickListener { onViewClick() }
+    actionContinue.setOnClickListener { onContinueClick() }
   }
 
   private fun bindImage(view: ImageView, expose: Expose) {
@@ -88,16 +84,14 @@ class MatchFragment : AbstractFragment() {
     this.expose = expose
   }
 
-  @OnClick(R.id.action_view)
-  internal fun onViewClick() {
+  private fun onViewClick() {
     val expose = this.expose ?: return
 
     reporting.details(expose)
     navigation(expose)
   }
 
-  @OnClick(R.id.action_continue)
-  internal fun onContinueClick() {
+  private fun onContinueClick() {
     val expose = this.expose ?: return
     reporting.ignore(expose)
 

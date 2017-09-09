@@ -88,9 +88,6 @@ dependencies {
   implementation libraries.rx.java
   implementation libraries.rx.android
 
-  implementation libraries.butterknife.core
-  kapt libraries.butterknife.compiler
-
   implementation libraries.dagger.core
   implementation libraries.dagger.android.support
   kapt libraries.dagger.compiler

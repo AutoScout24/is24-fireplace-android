@@ -17,7 +17,6 @@ ext.versions = [
         tools   : '3.0.0-beta5'
     ],
 
-    butterknife: '8.5.1',
     dagger     : '2.11',
     grgit      : '1.7.2',
     gson       : '2.8.0',
@@ -74,11 +73,6 @@ ext.libraries = [
             design  : "com.android.support:design:$versions.android.support",
             recycler: "com.android.support:recyclerview-v7:$versions.android.support"
         ],
-    ],
-
-    butterknife: [
-        core    : "com.jakewharton:butterknife:$versions.butterknife",
-        compiler: "com.jakewharton:butterknife-compiler:$versions.butterknife"
     ],
 
     dagger     : [
