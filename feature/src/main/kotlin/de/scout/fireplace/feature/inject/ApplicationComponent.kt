@@ -7,11 +7,11 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import de.scout.fireplace.feature.Fireplace
 import de.scout.fireplace.feature.inject.ActivityBindingModule
-import de.scout.fireplace.feature.inject.ApplicationScope
 import de.scout.fireplace.firebase.FirebaseModule
 import de.scout.fireplace.network.NetworkModule
+import javax.inject.Singleton
 
-@ApplicationScope
+@Singleton
 @Component(modules = arrayOf(
     ApplicationModule::class,
     AndroidSupportInjectionModule::class,

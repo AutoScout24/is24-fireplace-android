@@ -1,6 +1,7 @@
 package de.scout.fireplace.ui
 
 import android.animation.Animator
+import android.app.Activity
 import android.content.Context
 import android.support.v4.view.GestureDetectorCompat
 import android.text.TextUtils
@@ -54,7 +55,7 @@ class FloatingCardView @JvmOverloads constructor(context: Context, attrs: Attrib
       live.rotation = -BADGE_ROTATION_DEGREES
       leave.rotation = BADGE_ROTATION_DEGREES
 
-      screenWidth = DisplayUtility.getScreenWidth(context)
+      screenWidth = DisplayUtility.getScreenWidth(context as Activity)
       leftBoundary = screenWidth * (1.0f / 6.0f) // Left 1/6 of screen
       rightBoundary = screenWidth * (5.0f / 6.0f) // Right 1/6 of screen
       padding = DisplayUtility.dp2px(context, 8)

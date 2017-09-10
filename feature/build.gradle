@@ -39,8 +39,8 @@ android {
   defaultConfig {
     applicationId 'de.scout.fireplace'
 
-    buildConfigField 'String', 'CLIENT_ID', client_id
-    buildConfigField 'String', 'CLIENT_SECRET', client_secret
+    buildConfigField 'String', 'CLIENT_ID', System.getenv('client_id')
+    buildConfigField 'String', 'CLIENT_SECRET', System.getenv('client_secret')
 
     minSdkVersion configuration.minSdkVersion
     targetSdkVersion configuration.targetSdkVersion

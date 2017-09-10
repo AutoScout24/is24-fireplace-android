@@ -1,5 +1,6 @@
 package de.scout.fireplace.ui
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -26,7 +27,7 @@ class FloatingCardStackLayout @JvmOverloads constructor(context: Context, attrs:
   init {
     clipChildren = false
 
-    screenWidth = DisplayUtility.getScreenWidth(context)
+    screenWidth = DisplayUtility.getScreenWidth(context as Activity)
     yMultiplier = DisplayUtility.dp2px(context, 8)
 
     setUpRxBusSubscription()
