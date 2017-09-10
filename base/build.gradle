@@ -1,0 +1,47 @@
+apply plugin: 'com.android.feature'
+
+buildscript {
+  repositories {
+    jcenter()
+    google()
+  }
+
+  dependencies {
+    classpath plugin.android.tools
+    classpath plugin.google.services
+  }
+}
+
+android {
+  compileSdkVersion configuration.compileSdkVersion
+  buildToolsVersion configuration.buildToolsVersion
+
+  defaultConfig {
+    minSdkVersion configuration.minSdkVersion
+    targetSdkVersion configuration.targetSdkVersion
+
+    versionCode configuration.versionCode
+    versionName configuration.versionName
+  }
+
+  compileOptions {
+    sourceCompatibility configuration.sourceCompatibility
+    targetCompatibility configuration.targetCompatibility
+  }
+
+  baseFeature true
+}
+
+dependencies {
+  application project(':installed')
+  feature project(':feature')
+
+  api libraries.firebase.analytics
+  api libraries.firebase.auth
+  api libraries.firebase.config
+  api libraries.firebase.core
+  api libraries.firebase.crash
+  api libraries.firebase.database
+}
+
+apply plugin: 'com.google.gms.google-services'

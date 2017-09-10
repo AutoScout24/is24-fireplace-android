@@ -1,0 +1,32 @@
+apply plugin: 'com.android.instantapp'
+
+buildscript {
+  repositories {
+    jcenter()
+    google()
+  }
+
+  dependencies {
+    classpath plugin.android.tools
+  }
+}
+
+android {
+  compileSdkVersion configuration.compileSdkVersion
+  buildToolsVersion configuration.buildToolsVersion
+
+  defaultConfig {
+    applicationId 'de.scout.fireplace'
+
+    minSdkVersion configuration.minSdkInstant
+    targetSdkVersion configuration.targetSdkVersion
+
+    versionCode configuration.versionCode
+    versionName configuration.versionName
+  }
+}
+
+dependencies {
+  implementation project(':base')
+  implementation project(':feature')
+}

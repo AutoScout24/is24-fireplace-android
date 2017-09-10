@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+  repositories {
+    jcenter()
+    google()
+  }
+
+  dependencies {
+    classpath plugin.android.tools
+  }
+}
+
+android {
+  compileSdkVersion configuration.compileSdkVersion
+  buildToolsVersion configuration.buildToolsVersion
+
+  defaultConfig {
+    applicationId 'de.scout.fireplace'
+
+    minSdkVersion configuration.minSdkVersion
+    targetSdkVersion configuration.targetSdkVersion
+
+    versionCode configuration.versionCode
+    versionName configuration.versionName
+  }
+
+  compileOptions {
+    sourceCompatibility configuration.sourceCompatibility
+    targetCompatibility configuration.targetCompatibility
+  }
+}
+
+configurations.all {
+  resolutionStrategy {
+    force "com.android.support:support-v4:$versions.android.support"
+    force "com.android.support:support-fragment:$versions.android.support"
+  }
+}
+
+dependencies {
+  implementation project(':base')
+  implementation project(':feature')
+}

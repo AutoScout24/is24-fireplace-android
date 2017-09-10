@@ -1,0 +1,35 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.scout.fireplace.feature">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+  <application android:name="de.scout.fireplace.feature.Fireplace"
+      android:allowBackup="false"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/application"
+      android:supportsRtl="false"
+      android:theme="@style/Theme.Fireplace">
+
+    <activity android:name="de.scout.fireplace.feature.login.LoginActivity"
+        android:screenOrientation="portrait">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+    </activity>
+
+    <activity android:name="de.scout.fireplace.feature.home.HomeActivity"
+        android:screenOrientation="portrait"/>
+
+    <activity android:name="de.scout.fireplace.feature.settings.SettingsActivity"
+        android:screenOrientation="portrait"
+        android:label="@string/label_settings"/>
+
+  </application>
+
+</manifest>

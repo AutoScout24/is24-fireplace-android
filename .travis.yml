@@ -29,7 +29,7 @@ notifications:
   email: false
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_a21ff600c3ea_key -iv $encrypted_a21ff600c3ea_iv -in mobile/google-services.json.enc -out mobile/google-services.json -d
+  - openssl aes-256-cbc -K $encrypted_a21ff600c3ea_key -iv $encrypted_a21ff600c3ea_iv -in base/google-services.json.enc -out base/google-services.json -d
 
 before_script:
   - chmod +x gradlew
