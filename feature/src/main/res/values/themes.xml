@@ -25,7 +25,6 @@
     <item name="android:layout_height">wrap_content</item>
 
     <item name="android:fitsSystemWindows">true</item>
-    <item name="android:padding">@dimen/default_padding</item>
   </style>
 
   <style name="Theme.Fireplace.Layout.Horizontal" parent="Theme.Fireplace.Layout">
@@ -40,6 +39,10 @@
 
   <style name="Theme.Fireplace.Layout.Vertical.Margin" parent="Theme.Fireplace.Layout.Vertical">
     <item name="android:layout_marginTop">@dimen/default_margin</item>
+  </style>
+
+  <style name="Theme.Fireplace.Layout.Vertical.Padding" parent="Theme.Fireplace.Layout.Vertical">
+    <item name="android:padding">@dimen/default_padding</item>
   </style>
 
   <!-- TextAppearance Themes -->

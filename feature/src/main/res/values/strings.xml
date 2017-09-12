@@ -24,6 +24,9 @@
   <string name="error_location_unavailable">Location unavailable</string>
   <string name="error_listings_unavailable">No listings available in this area</string>
 
+  <string name="label_home_no_results_title">No results</string>
+  <string name="label_home_no_results_description">Your search contains no results,\nplease adjust your criteria</string>
+
   <string name="label_settings">Match Settings</string>
   <string name="label_settings_further_criteria">Further criteria</string>
 

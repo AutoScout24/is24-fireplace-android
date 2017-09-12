@@ -39,8 +39,7 @@
             style="@style/Theme.Fireplace.Layout.Horizontal"
             android:id="@+id/what"
             android:layout_marginTop="@dimen/default_margin"
-            android:baselineAligned="false"
-            android:padding="@null">
+            android:baselineAligned="false">
 
           <RadioButton
               android:id="@+id/rent"

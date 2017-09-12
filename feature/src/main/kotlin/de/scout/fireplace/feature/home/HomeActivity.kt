@@ -3,11 +3,9 @@ package de.scout.fireplace.feature.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -35,16 +33,17 @@ import de.scout.fireplace.feature.extensions.getViewModel
 import de.scout.fireplace.feature.models.Expose
 import de.scout.fireplace.feature.network.ErrorHandler
 import de.scout.fireplace.feature.search.SearchClient
+import de.scout.fireplace.feature.search.SearchClient.NoListingsException
 import de.scout.fireplace.feature.settings.SettingsActivity
 import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_home.actionLike
 import kotlinx.android.synthetic.main.activity_home.actionPass
 import kotlinx.android.synthetic.main.activity_home.coordinator
+import kotlinx.android.synthetic.main.activity_home.empty
 import kotlinx.android.synthetic.main.activity_home.stack
 import kotlinx.android.synthetic.main.toolbar_home.actionSettings
 import kotlinx.android.synthetic.main.toolbar_home.heading
@@ -122,8 +121,6 @@ class HomeActivity : DaggerAppCompatActivity() {
         val view = stack.topChild
         reporting.manual()
         view.approve()
-      } else {
-        showSnackbar(R.string.error_listings_unavailable)
       }
     }
   }
@@ -134,8 +131,6 @@ class HomeActivity : DaggerAppCompatActivity() {
         val view = stack.topChild
         reporting.manual()
         view.dismiss()
-      } else {
-        showSnackbar(R.string.error_listings_unavailable)
       }
     }
   }
@@ -257,12 +252,19 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun fetchNearbyResults(location: Location) {
     disposables += client.search(location, page++, CARD_PAGE_SIZE)
         .flatMapObservable { (_, _, _, _, _, _, results) -> Observable.fromIterable(results) }
-        .subscribe(Consumer { expose ->
+        .doOnComplete { empty.visibility = View.GONE }
+        .subscribe({ expose ->
           val card = FloatingCardView(this@HomeActivity)
           stack.add(card)
 
           card.bind(expose)
-        }, handler)
+        }, { throwable ->
+          if (throwable is NoListingsException) {
+            empty.visibility = View.VISIBLE
+          } else {
+            handler.accept(throwable)
+          }
+        })
   }
 
   private fun onTopCardPressed(expose: Expose) {

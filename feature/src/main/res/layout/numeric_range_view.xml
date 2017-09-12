@@ -13,8 +13,7 @@
 
   <LinearLayout
       style="@style/Theme.Fireplace.Layout.Horizontal"
-      android:baselineAligned="false"
-      android:padding="@null">
+      android:baselineAligned="false">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/minimum"

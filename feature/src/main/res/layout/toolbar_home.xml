@@ -8,7 +8,8 @@
 
   <LinearLayout
       style="@style/Theme.Fireplace.Layout.Vertical"
-      android:gravity="center_horizontal">
+      android:gravity="center_horizontal"
+      android:padding="@dimen/default_padding">
 
     <TextView
         style="@style/Theme.Fireplace.TextAppearance.Headline"

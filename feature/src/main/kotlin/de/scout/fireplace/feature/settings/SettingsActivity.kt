@@ -32,8 +32,7 @@ class SettingsActivity : DaggerAppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    binding = getDataBinding(R.layout.activity_settings)
-    binding.model = getViewModel(factory)
+    binding = getDataBinding(R.layout.activity_settings) { model = getViewModel(factory) }
 
     setSupportActionBar(toolbar)
     setUpSupportActionBar(supportActionBar!!)

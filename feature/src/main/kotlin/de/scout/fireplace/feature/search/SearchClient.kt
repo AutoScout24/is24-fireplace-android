@@ -1,6 +1,7 @@
 package de.scout.fireplace.feature.search
 
 import android.location.Location
+import de.scout.fireplace.feature.R
 import de.scout.fireplace.feature.R.string
 import de.scout.fireplace.feature.models.Search
 import de.scout.fireplace.feature.network.SchedulingStrategy
@@ -8,6 +9,7 @@ import de.scout.fireplace.feature.network.StringResException
 import de.scout.fireplace.feature.settings.SettingsConfiguration
 import de.scout.fireplace.feature.settings.SettingsRepository
 import io.reactivex.Single
+import java.nio.file.NotLinkException
 import java.util.HashMap
 import javax.inject.Inject
 
@@ -42,7 +44,7 @@ internal class SearchClient @Inject constructor(
         .doOnSuccess { search -> reporting.search(search.pageNumber, searchRadius, search.totalResults) }
         .doOnSuccess { (_, _, pageNumber, numberOfPages, numberOfListings) ->
           if (numberOfListings == 0) {
-            throw StringResException(string.error_listings_unavailable)
+            throw NoListingsException()
           }
 
           multiplySearchRadius(numberOfPages - pageNumber)
@@ -65,6 +67,8 @@ internal class SearchClient @Inject constructor(
   private fun multiplySearchRadius(buffer: Int) {
     searchRadius *= 1 + SEARCH_RADIUS_MULTIPLIER * Math.max(SEARCH_RESULTS_BUFFER - buffer, 0)
   }
+
+  class NoListingsException : RuntimeException()
 
   companion object {
 
