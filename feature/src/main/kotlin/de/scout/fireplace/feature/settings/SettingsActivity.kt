@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
+import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.R
 import de.scout.fireplace.feature.databinding.ActivitySettingsBinding
@@ -43,6 +44,13 @@ class SettingsActivity : DaggerAppCompatActivity() {
     setUpRooms()
 
     setUpFurtherCriteria()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      android.R.id.home -> onBackPressed().run { true }
+      else -> super.onOptionsItemSelected(item)
+    }
   }
 
   private fun setUpSupportActionBar(actionBar: ActionBar) {
