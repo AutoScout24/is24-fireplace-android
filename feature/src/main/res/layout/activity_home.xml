@@ -30,17 +30,17 @@
           android:gravity="center_vertical">
 
         <FrameLayout
-            android:id="@+id/empty"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:visibility="invisible"
-            tools:visibility="visible"
             tools:ignore="InefficientWeight,Suspicious0dp">
 
           <LinearLayout
+              style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+              android:id="@+id/empty"
               android:layout_gravity="center_vertical"
-              style="@style/Theme.Fireplace.Layout.Vertical.Margin">
+              android:visibility="gone"
+              tools:visibility="visible">
 
             <ImageView
                 android:contentDescription="@null"

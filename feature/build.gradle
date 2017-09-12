@@ -68,7 +68,7 @@ android {
 }
 
 def getRuntimeProperty(name) {
-  return findProperty(name) ?: System.getenv(name)
+  return findProperty(name) ?: String.format("\"%s\"", System.getenv(name))
 }
 
 dependencies {
