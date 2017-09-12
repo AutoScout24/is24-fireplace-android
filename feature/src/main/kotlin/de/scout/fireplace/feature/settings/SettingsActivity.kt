@@ -7,8 +7,8 @@ import android.support.v7.app.ActionBar
 import de.scout.fireplace.feature.R
 import de.scout.fireplace.feature.activity.AbstractActivity
 import kotlinx.android.synthetic.main.activity_settings.criteriaBalcony
+import kotlinx.android.synthetic.main.activity_settings.criteriaBasement
 import kotlinx.android.synthetic.main.activity_settings.criteriaLift
-import kotlinx.android.synthetic.main.activity_settings.criteriaNewBuild
 import kotlinx.android.synthetic.main.activity_settings.livingSpace
 import kotlinx.android.synthetic.main.activity_settings.netRentCold
 import kotlinx.android.synthetic.main.activity_settings.rooms
@@ -75,14 +75,14 @@ class SettingsActivity : AbstractActivity() {
       return
     }
 
-    criteriaLift.isChecked = repository.hasLift
-    criteriaLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
-
     criteriaBalcony.isChecked = repository.hasBalcony
     criteriaBalcony.setOnCheckedChangeListener { _, isChecked -> repository.hasBalcony = isChecked }
 
-    criteriaNewBuild.isChecked = repository.isNewBuild
-    criteriaNewBuild.setOnCheckedChangeListener { _, isChecked -> repository.isNewBuild = isChecked }
+    criteriaBasement.isChecked = repository.hasBasement
+    criteriaBasement.setOnCheckedChangeListener { _, isChecked -> repository.hasBasement = isChecked }
+
+    criteriaLift.isChecked = repository.hasLift
+    criteriaLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
   }
 
   companion object {

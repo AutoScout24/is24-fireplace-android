@@ -27,7 +27,12 @@ internal class SearchClient @Inject constructor(
     parameters.put("geocoordinates", getGeoCoordinates(location))
     parameters.put("sorting", SEARCH_SORTING_DISTANCE)
 
-    parameters.put("features", getFurtherCriteria())
+    val apartmentTypes = getApartmentTypes()
+    if (apartmentTypes.isNotEmpty()) parameters.put("apartmenttypes", apartmentTypes)
+
+    val equipment = getEquipment()
+    if (equipment.isNotEmpty()) parameters.put("equipment", equipment)
+
     parameters.put("pagesize", size.toString())
     parameters.put("pagenumber", page.toString())
 
@@ -48,11 +53,12 @@ internal class SearchClient @Inject constructor(
     return if (configuration.isCriteriaEnabled()) "${location.latitude};${location.longitude};${searchRadius}" else ""
   }
 
-  private fun getFurtherCriteria(): String {
+  private fun getApartmentTypes() = if (settings.hasBasement) "halfbasement" else ""
+
+  private fun getEquipment(): String {
     val result = mutableListOf<String>()
-    if (settings.hasLift) result.add("lift")
     if (settings.hasBalcony) result.add("balcony")
-    if (settings.isNewBuild) result.add("newBuild")
+    if (settings.hasLift) result.add("lift")
     return result.joinToString(",")
   }
 

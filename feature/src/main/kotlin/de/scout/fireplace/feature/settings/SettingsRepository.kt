@@ -16,7 +16,7 @@ internal class SettingsRepository @Inject constructor(private val preferences: S
   var minimumSpace by IntPreference(preferences, "space.minimum", 40)
   var maximumSpace by IntPreference(preferences, "space.maximum", 80)
 
-  var hasLift by BooleanPreference(preferences, "criteria.lift", false)
   var hasBalcony by BooleanPreference(preferences, "criteria.balcony", false)
-  var isNewBuild by BooleanPreference(preferences, "criteria.new.build", false)
+  var hasBasement by BooleanPreference(preferences, "criteria.basement", false)
+  var hasLift by BooleanPreference(preferences, "criteria.lift", false)
 }

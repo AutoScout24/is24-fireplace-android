@@ -87,18 +87,18 @@
 
       <Switch
           style="@style/Theme.Fireplace.Switch"
-          android:id="@+id/criteriaLift"
-          android:text="@string/hint_settings_additional_lift"/>
-
-      <Switch
-          style="@style/Theme.Fireplace.Switch"
           android:id="@+id/criteriaBalcony"
           android:text="@string/hint_settings_additional_balcony"/>
 
       <Switch
           style="@style/Theme.Fireplace.Switch"
-          android:id="@+id/criteriaNewBuild"
-          android:text="@string/hint_settings_additional_new_build"/>
+          android:id="@+id/criteriaBasement"
+          android:text="@string/hint_settings_additional_basement"/>
+
+      <Switch
+          style="@style/Theme.Fireplace.Switch"
+          android:id="@+id/criteriaLift"
+          android:text="@string/hint_settings_additional_lift"/>
 
     </LinearLayout>
 

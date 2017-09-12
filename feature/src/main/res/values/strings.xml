@@ -38,12 +38,8 @@
   <string name="hint_settings_range_min">From</string>
   <string name="hint_settings_range_max">To</string>
 
-  <string name="hint_settings_additional_kitchen">Kitchen</string>
-  <string name="hint_settings_additional_garage">Garage</string>
-  <string name="hint_settings_additional_cellar">Cellar</string>
-  <string name="hint_settings_additional_lift">Lift</string>
   <string name="hint_settings_additional_balcony">Balcony</string>
-  <string name="hint_settings_additional_garden">Garden</string>
-  <string name="hint_settings_additional_new_build">New build</string>
+  <string name="hint_settings_additional_basement">Basement</string>
+  <string name="hint_settings_additional_lift">Lift</string>
 
 </resources>
