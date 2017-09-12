@@ -4,8 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import de.scout.fireplace.feature.BuildConfig
-import de.scout.fireplace.feature.network.NetworkClient.Type.ANONYMOUS
-import de.scout.fireplace.feature.network.NetworkClient.Type.AUTHENTICATED
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
@@ -24,8 +22,8 @@ internal class NetworkModule {
 
   @Provides
   @Reusable
-  @NetworkClient(ANONYMOUS)
-  fun anonymousClient(headers: HeadersInterceptor, logging: HttpLoggingInterceptor) = OkHttpClient.Builder()
+  @AnonymousNetworkClient
+  fun anonymous(headers: HeadersInterceptor, logging: HttpLoggingInterceptor) = OkHttpClient.Builder()
       .connectTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
       .readTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
       .writeTimeout(TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
@@ -35,8 +33,8 @@ internal class NetworkModule {
 
   @Provides
   @Reusable
-  @NetworkClient(AUTHENTICATED)
-  fun authenticatedClient(@NetworkClient(ANONYMOUS) client: OkHttpClient, interceptor: AuthenticationInterceptor) = client.newBuilder()
+  @AuthenticatedNetworkClient
+  fun authenticated(@AnonymousNetworkClient client: OkHttpClient, interceptor: AuthenticationInterceptor) = client.newBuilder()
       .addInterceptor(interceptor)
       .build()
 }

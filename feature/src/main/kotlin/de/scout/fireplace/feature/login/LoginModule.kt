@@ -6,8 +6,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import de.scout.fireplace.feature.activity.AbstractActivity
-import de.scout.fireplace.feature.network.NetworkClient
-import de.scout.fireplace.feature.network.NetworkClient.Type.ANONYMOUS
+import de.scout.fireplace.feature.network.AnonymousNetworkClient
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -22,7 +21,7 @@ internal class LoginModule : AbstractActivity.Module<LoginActivity>() {
       .create()
 
   @Provides
-  fun retrofit(@NetworkClient(ANONYMOUS) client: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
+  fun retrofit(@AnonymousNetworkClient client: OkHttpClient, gson: Gson): Retrofit = Retrofit.Builder()
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .addConverterFactory(GsonConverterFactory.create(gson))
       .baseUrl("http://publicauth.immobilienscout24.de/")
