@@ -1,26 +1,27 @@
 package de.scout.fireplace.feature.home
 
-import android.app.Application
-import android.arch.lifecycle.ViewModelProviders
+import android.support.v4.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
-import de.scout.fireplace.feature.activity.AbstractActivity
 import de.scout.fireplace.feature.search.SearchModule
 
-@Module(includes = arrayOf(MatchModule::class, GalleryModule::class, SearchModule::class))
-internal class HomeModule : AbstractActivity.Module<HomeActivity>() {
+@Module(includes = arrayOf(
+    GalleryModule::class,
+    HomeViewModelModule::class,
+    MatchModule::class,
+    SearchModule::class
+))
+internal class HomeModule {
 
   @Provides
-  fun user(): FirebaseUser? {
-    return FirebaseAuth.getInstance().currentUser
-  }
+  fun activity(activity: HomeActivity): FragmentActivity = activity
 
   @Provides
-  fun reference(user: FirebaseUser): DatabaseReference {
-    return FirebaseDatabase.getInstance().getReference(user.uid)
-  }
+  fun user() = FirebaseAuth.getInstance().currentUser
+
+  @Provides
+  fun reference(user: FirebaseUser) = FirebaseDatabase.getInstance().getReference(user.uid)
 }

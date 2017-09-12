@@ -1,11 +1,11 @@
 package de.scout.fireplace.feature.login
 
+import android.support.v4.app.FragmentActivity
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import de.scout.fireplace.feature.activity.AbstractActivity
 import de.scout.fireplace.feature.network.AnonymousNetworkClient
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -13,7 +13,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-internal class LoginModule : AbstractActivity.Module<LoginActivity>() {
+internal class LoginModule {
+
+  @Provides
+  fun activity(activity: LoginActivity): FragmentActivity = activity
 
   @Provides
   fun gson(): Gson = GsonBuilder()

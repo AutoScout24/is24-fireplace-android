@@ -10,13 +10,14 @@ import de.scout.fireplace.feature.firebase.FirebaseModule
 import de.scout.fireplace.feature.network.NetworkModule
 import javax.inject.Singleton
 
-@Singleton
+@ApplicationScope
 @Component(modules = arrayOf(
     ApplicationModule::class,
     AndroidSupportInjectionModule::class,
     ActivityBindingModule::class,
     FirebaseModule::class,
-    NetworkModule::class
+    NetworkModule::class,
+    ViewModelModule::class
 ))
 internal interface ApplicationComponent : AndroidInjector<Fireplace> {
 

@@ -1,11 +1,15 @@
 package de.scout.fireplace.feature.settings
 
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
+import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.feature.activity.AbstractActivity
+import de.scout.fireplace.feature.databinding.ActivitySettingsBinding
+import de.scout.fireplace.feature.extensions.getDataBinding
+import de.scout.fireplace.feature.extensions.getViewModel
 import kotlinx.android.synthetic.main.activity_settings.criteriaBalcony
 import kotlinx.android.synthetic.main.activity_settings.criteriaBasement
 import kotlinx.android.synthetic.main.activity_settings.criteriaLift
@@ -16,13 +20,20 @@ import kotlinx.android.synthetic.main.activity_settings.what
 import kotlinx.android.synthetic.main.toolbar.toolbar
 import javax.inject.Inject
 
-class SettingsActivity : AbstractActivity() {
+class SettingsActivity : DaggerAppCompatActivity() {
+
+  private lateinit var binding: ActivitySettingsBinding
+
+  @Inject internal lateinit var factory: ViewModelProvider.Factory
 
   @Inject internal lateinit var repository: SettingsRepository
   @Inject internal lateinit var configuration: SettingsConfiguration
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    binding = getDataBinding(R.layout.activity_settings)
+    binding.model = getViewModel(factory)
 
     setSupportActionBar(toolbar)
     setUpSupportActionBar(supportActionBar!!)
@@ -34,8 +45,6 @@ class SettingsActivity : AbstractActivity() {
 
     setUpFurtherCriteria()
   }
-
-  override fun getLayoutId() = R.layout.activity_settings
 
   private fun setUpSupportActionBar(actionBar: ActionBar) {
     actionBar.setDisplayHomeAsUpEnabled(true)

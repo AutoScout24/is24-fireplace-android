@@ -3,13 +3,15 @@ package de.scout.fireplace.feature.home
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import dagger.android.support.DaggerAppCompatDialogFragment
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.feature.activity.AbstractFragment
 import de.scout.fireplace.feature.models.Expose
 import de.scout.fireplace.feature.ui.RoundedTransform
 import kotlinx.android.synthetic.main.fragment_match.actionContinue
@@ -22,15 +24,15 @@ import kotlinx.android.synthetic.main.fragment_match.image
 import kotlinx.android.synthetic.main.fragment_match.like
 import javax.inject.Inject
 
-class MatchFragment : AbstractFragment() {
+class MatchFragment : DaggerAppCompatDialogFragment() {
 
   private var expose: Expose? = null
 
   @Inject internal lateinit var reporting: MatchReporting
   @Inject internal lateinit var navigation: ExposeNavigation
 
-  override fun getLayoutId(): Int {
-    return R.layout.fragment_match
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.fragment_match, container, false)
   }
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

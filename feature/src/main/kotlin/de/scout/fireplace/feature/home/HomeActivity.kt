@@ -2,9 +2,12 @@ package de.scout.fireplace.feature.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.databinding.DataBindingUtil
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
@@ -19,13 +22,16 @@ import android.support.v4.view.ViewCompat
 import android.view.View
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.feature.activity.AbstractActivity
 import de.scout.fireplace.feature.bus.RxBus
 import de.scout.fireplace.feature.bus.events.TopCardEvent
 import de.scout.fireplace.feature.bus.events.TopCardLongPressEvent
 import de.scout.fireplace.feature.bus.events.TopCardPressEvent
+import de.scout.fireplace.feature.databinding.ActivityHomeBinding
+import de.scout.fireplace.feature.extensions.getDataBinding
+import de.scout.fireplace.feature.extensions.getViewModel
 import de.scout.fireplace.feature.models.Expose
 import de.scout.fireplace.feature.network.ErrorHandler
 import de.scout.fireplace.feature.search.SearchClient
@@ -44,12 +50,16 @@ import kotlinx.android.synthetic.main.toolbar_home.actionSettings
 import kotlinx.android.synthetic.main.toolbar_home.heading
 import javax.inject.Inject
 
-class HomeActivity : AbstractActivity() {
+class HomeActivity : DaggerAppCompatActivity() {
 
   private val disposables: CompositeDisposable = CompositeDisposable()
 
+  private lateinit var binding: ActivityHomeBinding
+
   private var provider: FusedLocationProviderClient? = null
   private var page = 1
+
+  @Inject internal lateinit var factory: ViewModelProvider.Factory
 
   @Inject internal lateinit var client: SearchClient
   @Inject internal lateinit var matcher: EventMatcher
@@ -60,6 +70,8 @@ class HomeActivity : AbstractActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    binding = getDataBinding(R.layout.activity_home) { model = getViewModel(factory) }
 
     setUpActionBar()
     setUpActionButtons()
@@ -216,10 +228,6 @@ class HomeActivity : AbstractActivity() {
   override fun onDestroy() {
     disposables.clear()
     super.onDestroy()
-  }
-
-  override fun getLayoutId(): Int {
-    return R.layout.activity_home
   }
 
   private fun setUpActionBar() {

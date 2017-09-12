@@ -12,12 +12,15 @@ import de.scout.fireplace.feature.settings.SettingsModule
 @Module
 internal interface ActivityBindingModule {
 
+  @ActivityScope
   @ContributesAndroidInjector(modules = arrayOf(HomeModule::class))
   fun homeActivity(): HomeActivity
 
+  @ActivityScope
   @ContributesAndroidInjector(modules = arrayOf(LoginModule::class))
   fun loginActivity(): LoginActivity
 
+  @ActivityScope
   @ContributesAndroidInjector(modules = arrayOf(SettingsModule::class))
   fun preferenceActivity(): SettingsActivity
 }

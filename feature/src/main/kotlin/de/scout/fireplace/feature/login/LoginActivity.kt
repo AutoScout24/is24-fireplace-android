@@ -5,9 +5,9 @@ import android.support.design.widget.Snackbar
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
+import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.feature.activity.AbstractActivity
 import de.scout.fireplace.feature.home.HomeActivity
 import de.scout.fireplace.feature.network.ErrorHandler
 import de.scout.fireplace.feature.network.TokenRepository
@@ -17,7 +17,7 @@ import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.content
 import javax.inject.Inject
 
-class LoginActivity : AbstractActivity() {
+class LoginActivity : DaggerAppCompatActivity() {
 
   private var disposables: CompositeDisposable = CompositeDisposable()
 
@@ -27,6 +27,7 @@ class LoginActivity : AbstractActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_login)
 
     disposables += client.clientCredentials(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
         .doOnSuccess { (accessToken) -> repository.accessToken(accessToken) }
@@ -39,10 +40,6 @@ class LoginActivity : AbstractActivity() {
   override fun onDestroy() {
     disposables.clear()
     super.onDestroy()
-  }
-
-  override fun getLayoutId(): Int {
-    return R.layout.activity_login
   }
 
   private fun checkPlayServices() {

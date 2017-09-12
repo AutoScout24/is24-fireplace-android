@@ -1,106 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <LinearLayout
+  <data>
+
+    <variable
+        name="model"
+        type="de.scout.fireplace.feature.settings.SettingsViewModel"/>
+
+  </data>
+
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
-    <include layout="@layout/toolbar"/>
+      android:layout_height="match_parent"
+      android:focusableInTouchMode="true">
 
     <LinearLayout
-        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/default_padding_double"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-      <TextView
-          android:id="@+id/label"
+      <include layout="@layout/toolbar"/>
+
+      <LinearLayout
+          style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+          android:background="@color/colorPrimary"
+          android:padding="@dimen/default_padding_double"
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_blue"
+            android:text="@string/label_settings_what"/>
+
+        <RadioGroup
+            style="@style/Theme.Fireplace.Layout.Horizontal"
+            android:id="@+id/what"
+            android:layout_marginTop="@dimen/default_margin"
+            android:baselineAligned="false"
+            android:padding="@null">
+
+          <RadioButton
+              android:id="@+id/rent"
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:layout_height="wrap_content"
+              android:text="@string/label_settings_what_rent"/>
+
+          <RadioButton
+              android:id="@+id/purchase"
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:layout_height="wrap_content"
+              android:text="@string/label_settings_what_purchase"/>
+
+        </RadioGroup>
+
+      </LinearLayout>
+
+      <de.scout.fireplace.feature.settings.NumericRangeView
+          android:id="@+id/netRentCold"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textColor="@color/light_blue"
-          android:text="@string/label_settings_what"/>
+          app:label="@string/label_settings_price"
+          app:minHint="@string/hint_settings_range_min"
+          app:maxHint="@string/hint_settings_range_max"/>
 
-      <RadioGroup
-          style="@style/Theme.Fireplace.Layout.Horizontal"
-          android:id="@+id/what"
-          android:layout_marginTop="@dimen/default_margin"
-          android:baselineAligned="false"
-          android:padding="@null">
-
-        <RadioButton
-            android:id="@+id/rent"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/label_settings_what_rent"/>
-
-        <RadioButton
-            android:id="@+id/purchase"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/label_settings_what_purchase"/>
-
-      </RadioGroup>
-
-    </LinearLayout>
-
-    <de.scout.fireplace.feature.settings.NumericRangeView
-        android:id="@+id/netRentCold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/label_settings_price"
-        app:minHint="@string/hint_settings_range_min"
-        app:maxHint="@string/hint_settings_range_max"/>
-
-    <de.scout.fireplace.feature.settings.NumericRangeView
-        android:id="@+id/livingSpace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/label_settings_space"
-        app:minHint="@string/hint_settings_range_min"
-        app:maxHint="@string/hint_settings_range_max"/>
-
-    <de.scout.fireplace.feature.settings.NumericRangeView
-        android:id="@+id/rooms"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:label="@string/label_settings_rooms"
-        app:minHint="@string/hint_settings_range_min"
-        app:maxHint="@string/hint_settings_range_max"/>
-
-    <LinearLayout
-        style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/default_padding_double">
-
-      <TextView
+      <de.scout.fireplace.feature.settings.NumericRangeView
+          android:id="@+id/livingSpace"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/label_settings_further_criteria"
-          android:textColor="@color/light_blue"/>
+          app:label="@string/label_settings_space"
+          app:minHint="@string/hint_settings_range_min"
+          app:maxHint="@string/hint_settings_range_max"/>
 
-      <Switch
-          style="@style/Theme.Fireplace.Switch"
-          android:id="@+id/criteriaBalcony"
-          android:text="@string/hint_settings_additional_balcony"/>
+      <de.scout.fireplace.feature.settings.NumericRangeView
+          android:id="@+id/rooms"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:label="@string/label_settings_rooms"
+          app:minHint="@string/hint_settings_range_min"
+          app:maxHint="@string/hint_settings_range_max"/>
 
-      <Switch
-          style="@style/Theme.Fireplace.Switch"
-          android:id="@+id/criteriaBasement"
-          android:text="@string/hint_settings_additional_basement"/>
+      <LinearLayout
+          style="@style/Theme.Fireplace.Layout.Vertical.Margin"
+          android:background="@color/colorPrimary"
+          android:padding="@dimen/default_padding_double">
 
-      <Switch
-          style="@style/Theme.Fireplace.Switch"
-          android:id="@+id/criteriaLift"
-          android:text="@string/hint_settings_additional_lift"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_settings_further_criteria"
+            android:textColor="@color/light_blue"/>
 
+        <Switch
+            style="@style/Theme.Fireplace.Switch"
+            android:id="@+id/criteriaBalcony"
+            android:text="@string/hint_settings_additional_balcony"/>
+
+        <Switch
+            style="@style/Theme.Fireplace.Switch"
+            android:id="@+id/criteriaBasement"
+            android:text="@string/hint_settings_additional_basement"/>
+
+        <Switch
+            style="@style/Theme.Fireplace.Switch"
+            android:id="@+id/criteriaLift"
+            android:text="@string/hint_settings_additional_lift"/>
+
+      </LinearLayout>
     </LinearLayout>
-
-  </LinearLayout>
-</ScrollView>
+  </ScrollView>
+</layout>
