@@ -1,6 +1,6 @@
-package de.scout.fireplace.ui
+package de.scout.fireplace.feature.ui
 
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.models.Expose
 
 data class FloatingCardStackEvent(val expose: Expose, val type: Type, val count: Int) {
 

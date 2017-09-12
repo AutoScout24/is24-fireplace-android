@@ -1,4 +1,4 @@
-package de.scout.fireplace.search
+package de.scout.fireplace.feature.search
 
 import dagger.Module
 import dagger.Provides

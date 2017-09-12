@@ -1,6 +1,7 @@
-package de.scout.fireplace.models
+package de.scout.fireplace.feature.models
 
 import android.support.annotation.Keep
+import de.scout.fireplace.feature.models.Expose
 
 @Keep
 data class Search(

@@ -1,4 +1,4 @@
-package de.scout.fireplace.ui
+package de.scout.fireplace.feature.ui
 
 import android.graphics.Bitmap
 import android.graphics.BitmapShader

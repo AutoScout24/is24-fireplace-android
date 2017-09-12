@@ -1,11 +1,11 @@
-package de.scout.fireplace.settings
+package de.scout.fireplace.feature.settings
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.activity.AbstractActivity
+import de.scout.fireplace.feature.activity.AbstractActivity
 import kotlinx.android.synthetic.main.activity_settings.criteriaBalcony
 import kotlinx.android.synthetic.main.activity_settings.criteriaLift
 import kotlinx.android.synthetic.main.activity_settings.criteriaNewBuild

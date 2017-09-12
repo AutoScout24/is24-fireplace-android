@@ -1,11 +1,11 @@
-package de.scout.fireplace.login
+package de.scout.fireplace.feature.login
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import de.scout.fireplace.activity.AbstractActivity
+import de.scout.fireplace.feature.activity.AbstractActivity
 import de.scout.fireplace.feature.network.NetworkClient
 import de.scout.fireplace.feature.network.NetworkClient.Type.ANONYMOUS
 import okhttp3.OkHttpClient

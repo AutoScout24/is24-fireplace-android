@@ -1,3 +1,3 @@
-package de.scout.fireplace.bus.events
+package de.scout.fireplace.feature.bus.events
 
 internal interface TopCardEvent

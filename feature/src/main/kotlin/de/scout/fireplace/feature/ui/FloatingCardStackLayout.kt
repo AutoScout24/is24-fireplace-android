@@ -1,4 +1,4 @@
-package de.scout.fireplace.ui
+package de.scout.fireplace.feature.ui
 
 import android.app.Activity
 import android.content.Context
@@ -7,8 +7,10 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.FrameLayout
-import de.scout.fireplace.bus.RxBus
-import de.scout.fireplace.bus.events.TopCardMovedEvent
+import de.scout.fireplace.feature.bus.RxBus
+import de.scout.fireplace.feature.bus.events.TopCardMovedEvent
+import de.scout.fireplace.feature.ui.FloatingCardStackEvent.Type.LIKE
+import de.scout.fireplace.feature.ui.FloatingCardStackEvent.Type.PASS
 import de.scout.fireplace.feature.utils.DisplayUtility
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -68,9 +70,9 @@ class FloatingCardStackLayout @JvmOverloads constructor(context: Context, attrs:
                 val childOffset = childCount - 2 - i
                 if (childOffset == 0) {
                   if (posX > 0) {
-                    processor!!.onNext(FloatingCardStackEvent(obj.expose, FloatingCardStackEvent.Type.LIKE, getChildCount()))
+                    processor!!.onNext(FloatingCardStackEvent(obj.expose, LIKE, getChildCount()))
                   } else {
-                    processor!!.onNext(FloatingCardStackEvent(obj.expose, FloatingCardStackEvent.Type.PASS, getChildCount()))
+                    processor!!.onNext(FloatingCardStackEvent(obj.expose, PASS, getChildCount()))
                   }
                 }
 

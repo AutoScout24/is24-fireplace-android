@@ -1,8 +1,8 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.content.Intent
 import android.net.Uri
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.models.Expose
 import javax.inject.Inject
 
 internal class ExposeNavigation @Inject constructor(private val navigator: Navigator) {

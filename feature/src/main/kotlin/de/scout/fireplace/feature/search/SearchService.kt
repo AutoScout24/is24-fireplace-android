@@ -1,6 +1,6 @@
-package de.scout.fireplace.search
+package de.scout.fireplace.feature.search
 
-import de.scout.fireplace.models.Search
+import de.scout.fireplace.feature.models.Search
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

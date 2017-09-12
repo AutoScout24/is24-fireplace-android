@@ -1,4 +1,4 @@
-package de.scout.fireplace.network
+package de.scout.fireplace.feature.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -1,12 +1,12 @@
-package de.scout.fireplace.search
+package de.scout.fireplace.feature.search
 
 import android.location.Location
-import de.scout.fireplace.feature.R
-import de.scout.fireplace.models.Search
-import de.scout.fireplace.network.SchedulingStrategy
-import de.scout.fireplace.network.StringResException
-import de.scout.fireplace.settings.SettingsConfiguration
-import de.scout.fireplace.settings.SettingsRepository
+import de.scout.fireplace.feature.R.string
+import de.scout.fireplace.feature.models.Search
+import de.scout.fireplace.feature.network.SchedulingStrategy
+import de.scout.fireplace.feature.network.StringResException
+import de.scout.fireplace.feature.settings.SettingsConfiguration
+import de.scout.fireplace.feature.settings.SettingsRepository
 import io.reactivex.Single
 import java.util.HashMap
 import javax.inject.Inject
@@ -37,7 +37,7 @@ internal class SearchClient @Inject constructor(
         .doOnSuccess { search -> reporting.search(search.pageNumber, searchRadius, search.totalResults) }
         .doOnSuccess { (_, _, pageNumber, numberOfPages, numberOfListings) ->
           if (numberOfListings == 0) {
-            throw StringResException(R.string.error_listings_unavailable)
+            throw StringResException(string.error_listings_unavailable)
           }
 
           multiplySearchRadius(numberOfPages - pageNumber)

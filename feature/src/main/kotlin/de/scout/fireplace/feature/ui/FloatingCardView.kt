@@ -1,4 +1,4 @@
-package de.scout.fireplace.ui
+package de.scout.fireplace.feature.ui
 
 import android.animation.Animator
 import android.app.Activity
@@ -17,11 +17,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.bus.RxBus
-import de.scout.fireplace.bus.events.TopCardLongPressEvent
-import de.scout.fireplace.bus.events.TopCardMovedEvent
-import de.scout.fireplace.bus.events.TopCardPressEvent
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.bus.RxBus
+import de.scout.fireplace.feature.bus.events.TopCardLongPressEvent
+import de.scout.fireplace.feature.bus.events.TopCardMovedEvent
+import de.scout.fireplace.feature.bus.events.TopCardPressEvent
+import de.scout.fireplace.feature.models.Expose
 import de.scout.fireplace.feature.utils.DisplayUtility
 import kotlinx.android.synthetic.main.floating_card.view.address
 import kotlinx.android.synthetic.main.floating_card.view.attributes

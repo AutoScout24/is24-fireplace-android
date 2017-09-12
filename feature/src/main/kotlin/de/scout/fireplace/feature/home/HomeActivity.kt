@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,17 +21,17 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.activity.AbstractActivity
-import de.scout.fireplace.bus.RxBus
-import de.scout.fireplace.bus.events.TopCardEvent
-import de.scout.fireplace.bus.events.TopCardLongPressEvent
-import de.scout.fireplace.bus.events.TopCardPressEvent
-import de.scout.fireplace.models.Expose
-import de.scout.fireplace.network.ErrorHandler
-import de.scout.fireplace.search.SearchClient
-import de.scout.fireplace.settings.SettingsActivity
-import de.scout.fireplace.ui.FloatingCardStackEvent
-import de.scout.fireplace.ui.FloatingCardView
+import de.scout.fireplace.feature.activity.AbstractActivity
+import de.scout.fireplace.feature.bus.RxBus
+import de.scout.fireplace.feature.bus.events.TopCardEvent
+import de.scout.fireplace.feature.bus.events.TopCardLongPressEvent
+import de.scout.fireplace.feature.bus.events.TopCardPressEvent
+import de.scout.fireplace.feature.models.Expose
+import de.scout.fireplace.feature.network.ErrorHandler
+import de.scout.fireplace.feature.search.SearchClient
+import de.scout.fireplace.feature.settings.SettingsActivity
+import de.scout.fireplace.feature.ui.FloatingCardStackEvent
+import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

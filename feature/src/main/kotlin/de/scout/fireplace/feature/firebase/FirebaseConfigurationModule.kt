@@ -1,4 +1,4 @@
-package de.scout.fireplace.firebase
+package de.scout.fireplace.feature.firebase
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings

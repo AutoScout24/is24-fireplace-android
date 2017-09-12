@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.models.Expose
 
 internal class GalleryAdapter internal constructor(private val pictures: List<Expose.Picture>, private val callback: (Int) -> Unit) : PagerAdapter() {
 

@@ -2,12 +2,12 @@ package de.scout.fireplace.feature.inject
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import de.scout.fireplace.home.HomeActivity
-import de.scout.fireplace.home.HomeModule
-import de.scout.fireplace.login.LoginActivity
-import de.scout.fireplace.login.LoginModule
-import de.scout.fireplace.settings.SettingsActivity
-import de.scout.fireplace.settings.SettingsModule
+import de.scout.fireplace.feature.home.HomeActivity
+import de.scout.fireplace.feature.home.HomeModule
+import de.scout.fireplace.feature.login.LoginActivity
+import de.scout.fireplace.feature.login.LoginModule
+import de.scout.fireplace.feature.settings.SettingsActivity
+import de.scout.fireplace.feature.settings.SettingsModule
 
 @Module
 internal interface ActivityBindingModule {

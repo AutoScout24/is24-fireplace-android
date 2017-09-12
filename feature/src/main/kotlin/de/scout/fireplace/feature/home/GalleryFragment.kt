@@ -1,11 +1,11 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.activity.AbstractFragment
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.activity.AbstractFragment
+import de.scout.fireplace.feature.models.Expose
 import kotlinx.android.synthetic.main.fragment_gallery.pager
 import javax.inject.Inject
 

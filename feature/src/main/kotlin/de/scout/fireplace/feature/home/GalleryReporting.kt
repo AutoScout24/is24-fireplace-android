@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.os.Bundle
 import de.scout.fireplace.feature.Reporting

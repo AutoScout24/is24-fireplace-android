@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.activity.AbstractFragment
-import de.scout.fireplace.models.Expose
-import de.scout.fireplace.ui.RoundedTransform
+import de.scout.fireplace.feature.activity.AbstractFragment
+import de.scout.fireplace.feature.models.Expose
+import de.scout.fireplace.feature.ui.RoundedTransform
 import kotlinx.android.synthetic.main.fragment_match.actionContinue
 import kotlinx.android.synthetic.main.fragment_match.actionView
 import kotlinx.android.synthetic.main.fragment_match.address

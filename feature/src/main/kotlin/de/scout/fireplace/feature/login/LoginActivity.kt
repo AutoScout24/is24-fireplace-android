@@ -1,4 +1,4 @@
-package de.scout.fireplace.login
+package de.scout.fireplace.feature.login
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -7,10 +7,10 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.auth.FirebaseAuth
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
-import de.scout.fireplace.activity.AbstractActivity
-import de.scout.fireplace.home.HomeActivity
-import de.scout.fireplace.network.ErrorHandler
-import de.scout.fireplace.network.TokenRepository
+import de.scout.fireplace.feature.activity.AbstractActivity
+import de.scout.fireplace.feature.home.HomeActivity
+import de.scout.fireplace.feature.network.ErrorHandler
+import de.scout.fireplace.feature.network.TokenRepository
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer

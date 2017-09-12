@@ -1,7 +1,7 @@
-package de.scout.fireplace.login
+package de.scout.fireplace.feature.login
 
-import de.scout.fireplace.models.Token
-import de.scout.fireplace.network.SchedulingStrategy
+import de.scout.fireplace.feature.models.Token
+import de.scout.fireplace.feature.network.SchedulingStrategy
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package de.scout.fireplace.network
+package de.scout.fireplace.feature.network
 
 import android.support.annotation.StringRes
 

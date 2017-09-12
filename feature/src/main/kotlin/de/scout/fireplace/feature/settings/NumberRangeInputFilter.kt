@@ -1,4 +1,4 @@
-package de.scout.fireplace.settings
+package de.scout.fireplace.feature.settings
 
 import android.text.InputFilter
 import android.text.Spanned

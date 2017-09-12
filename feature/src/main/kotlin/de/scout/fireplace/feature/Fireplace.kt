@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import de.scout.fireplace.inject.DaggerApplicationComponent
+import de.scout.fireplace.feature.inject.DaggerApplicationComponent
 
 class Fireplace : DaggerApplication() {
 

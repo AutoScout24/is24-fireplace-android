@@ -1,8 +1,8 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.os.Bundle
 import de.scout.fireplace.feature.Reporting
-import de.scout.fireplace.models.Expose
+import de.scout.fireplace.feature.models.Expose
 import javax.inject.Inject
 
 internal class HomeReporting @Inject constructor(private val reporting: Reporting) {

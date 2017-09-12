@@ -1,4 +1,4 @@
-package de.scout.fireplace.network
+package de.scout.fireplace.feature.network
 
 import io.reactivex.FlowableTransformer
 import io.reactivex.MaybeTransformer

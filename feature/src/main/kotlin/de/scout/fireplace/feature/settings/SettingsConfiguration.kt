@@ -1,4 +1,4 @@
-package de.scout.fireplace.settings
+package de.scout.fireplace.feature.settings
 
 import de.scout.fireplace.feature.Configuration
 import javax.inject.Inject

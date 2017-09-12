@@ -19,7 +19,7 @@
         android:gravity="center_vertical"
         android:clipChildren="false">
 
-      <de.scout.fireplace.ui.FloatingCardStackLayout
+      <de.scout.fireplace.feature.ui.FloatingCardStackLayout
           android:id="@+id/stack"
           android:layout_width="match_parent"
           android:layout_height="0dp"

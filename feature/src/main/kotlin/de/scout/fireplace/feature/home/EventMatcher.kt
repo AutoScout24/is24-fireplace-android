@@ -1,8 +1,8 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
-import de.scout.fireplace.models.Expose
-import de.scout.fireplace.settings.SettingsRepository
-import de.scout.fireplace.ui.FloatingCardStackEvent
+import de.scout.fireplace.feature.models.Expose
+import de.scout.fireplace.feature.settings.SettingsRepository
+import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import javax.inject.Inject
 
 internal class EventMatcher @Inject constructor(private val repository: SettingsRepository) {

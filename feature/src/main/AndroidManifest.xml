@@ -13,7 +13,7 @@
       android:supportsRtl="false"
       android:theme="@style/Theme.Fireplace">
 
-    <activity android:name="de.scout.fireplace.login.LoginActivity"
+    <activity android:name=".login.LoginActivity"
         android:screenOrientation="portrait">
 
       <intent-filter>
@@ -23,10 +23,10 @@
 
     </activity>
 
-    <activity android:name="de.scout.fireplace.home.HomeActivity"
+    <activity android:name=".home.HomeActivity"
         android:screenOrientation="portrait"/>
 
-    <activity android:name="de.scout.fireplace.settings.SettingsActivity"
+    <activity android:name=".settings.SettingsActivity"
         android:screenOrientation="portrait"
         android:label="@string/label_settings"/>
 

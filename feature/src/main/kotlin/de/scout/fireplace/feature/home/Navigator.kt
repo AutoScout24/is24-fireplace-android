@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.support.v4.app.FragmentActivity
 import javax.inject.Inject

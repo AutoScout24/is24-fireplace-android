@@ -1,4 +1,4 @@
-package de.scout.fireplace.firebase
+package de.scout.fireplace.feature.firebase
 
 import android.app.Application
 import android.os.Bundle

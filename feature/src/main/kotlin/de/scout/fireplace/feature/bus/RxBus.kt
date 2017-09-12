@@ -1,4 +1,4 @@
-package de.scout.fireplace.bus
+package de.scout.fireplace.feature.bus
 
 import io.reactivex.processors.PublishProcessor
 

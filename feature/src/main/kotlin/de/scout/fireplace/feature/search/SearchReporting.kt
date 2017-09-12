@@ -1,4 +1,4 @@
-package de.scout.fireplace.search
+package de.scout.fireplace.feature.search
 
 import android.os.Bundle
 import de.scout.fireplace.feature.Reporting

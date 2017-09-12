@@ -1,4 +1,4 @@
-package de.scout.fireplace.firebase
+package de.scout.fireplace.feature.firebase
 
 import dagger.Binds
 import dagger.Module

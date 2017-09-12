@@ -1,4 +1,4 @@
-package de.scout.fireplace.activity
+package de.scout.fireplace.feature.activity
 
 import android.content.Context
 import android.os.Bundle

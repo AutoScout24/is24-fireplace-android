@@ -1,6 +1,6 @@
-package de.scout.fireplace.login
+package de.scout.fireplace.feature.login
 
-import de.scout.fireplace.models.Token
+import de.scout.fireplace.feature.models.Token
 import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

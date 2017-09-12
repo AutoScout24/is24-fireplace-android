@@ -1,10 +1,9 @@
-package de.scout.fireplace.network
+package de.scout.fireplace.feature.network
 
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import de.scout.fireplace.feature.BuildConfig
-import de.scout.fireplace.feature.network.NetworkClient
 import de.scout.fireplace.feature.network.NetworkClient.Type.ANONYMOUS
 import de.scout.fireplace.feature.network.NetworkClient.Type.AUTHENTICATED
 import okhttp3.OkHttpClient

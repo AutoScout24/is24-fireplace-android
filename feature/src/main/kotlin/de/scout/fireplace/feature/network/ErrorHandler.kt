@@ -1,4 +1,4 @@
-package de.scout.fireplace.network
+package de.scout.fireplace.feature.network
 
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog

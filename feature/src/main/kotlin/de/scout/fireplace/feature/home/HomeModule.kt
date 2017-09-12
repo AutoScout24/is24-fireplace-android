@@ -1,4 +1,4 @@
-package de.scout.fireplace.home
+package de.scout.fireplace.feature.home
 
 import android.app.Application
 import android.arch.lifecycle.ViewModelProviders
@@ -8,8 +8,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
-import de.scout.fireplace.activity.AbstractActivity
-import de.scout.fireplace.search.SearchModule
+import de.scout.fireplace.feature.activity.AbstractActivity
+import de.scout.fireplace.feature.search.SearchModule
 
 @Module(includes = arrayOf(MatchModule::class, GalleryModule::class, SearchModule::class))
 internal class HomeModule : AbstractActivity.Module<HomeActivity>() {
@@ -22,10 +22,5 @@ internal class HomeModule : AbstractActivity.Module<HomeActivity>() {
   @Provides
   fun reference(user: FirebaseUser): DatabaseReference {
     return FirebaseDatabase.getInstance().getReference(user.uid)
-  }
-
-  @Provides
-  fun model(application: Application, activity: HomeActivity): HomeViewModel {
-    return ViewModelProviders.of(activity, HomeViewModel.Factory(application)).get(HomeViewModel::class.java)
   }
 }
