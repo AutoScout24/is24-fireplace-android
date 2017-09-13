@@ -2,7 +2,7 @@ ext.configuration = [
     compileSdkVersion  : 26,
     buildToolsVersion  : '26.0.1',
 
-    minSdkVersion      : 16,
+    minSdkVersion      : 19,
     targetSdkVersion   : 26,
 
     sourceCompatibility: JavaVersion.VERSION_1_7,
@@ -13,7 +13,7 @@ ext.versions = [
     android : [
         arch    : '1.0.0-alpha9',
         multidex: '1.0.1',
-        support : '25.3.1',
+        support : '26.0.0',
         tools   : '3.0.0-beta5'
     ],
 

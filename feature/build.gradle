@@ -58,6 +58,10 @@ android {
     targetCompatibility configuration.targetCompatibility
   }
 
+  lintOptions {
+    disable 'UnusedResources' // https://youtrack.jetbrains.com/issue/KT-7729
+  }
+
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }

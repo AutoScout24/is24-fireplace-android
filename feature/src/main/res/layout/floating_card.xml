@@ -41,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="@null"
             android:paddingStart="@dimen/default_half_padding"
-            android:paddingLeft="@dimen/default_half_padding"
             android:gravity="start"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -52,7 +51,6 @@
             style="@style/Theme.Fireplace.TextAppearance.Standard"
             android:id="@+id/attributes"
             android:layout_width="match_parent"
-            android:drawableLeft="@drawable/ic_location"
             android:drawableStart="@drawable/ic_location"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_half_margin"
@@ -83,7 +81,6 @@
           android:alpha="0"
           android:layout_marginTop="32dp"
           android:layout_marginBottom="32dp"
-          android:layout_marginLeft="24dp"
           android:textColor="@android:color/holo_green_light"/>
 
       <TextView
@@ -100,7 +97,6 @@
           android:alpha="0"
           android:layout_marginTop="32dp"
           android:layout_marginBottom="32dp"
-          android:layout_marginRight="24dp"
           android:textColor="@android:color/holo_red_light"/>
 
     </FrameLayout>

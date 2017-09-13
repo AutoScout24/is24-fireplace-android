@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:clickable="true"
     android:padding="@dimen/default_padding">
 
   <LinearLayout
@@ -12,9 +11,7 @@
       android:background="@drawable/rounded_background"
       android:id="@+id/frame"
       android:layout_marginTop="84dp"
-      android:layout_marginLeft="@dimen/default_margin"
       android:layout_marginStart="@dimen/default_margin"
-      android:layout_marginRight="@dimen/default_margin"
       android:layout_marginEnd="@dimen/default_margin"
       android:layout_marginBottom="@dimen/default_margin"
       android:clipToPadding="false"
@@ -43,7 +40,6 @@
           android:layout_height="wrap_content"
           android:layout_margin="@null"
           android:paddingStart="@dimen/default_half_padding"
-          android:paddingLeft="@dimen/default_half_padding"
           android:gravity="start"
           android:textSize="16sp"
           android:textStyle="bold"
@@ -54,7 +50,6 @@
           style="@style/Theme.Fireplace.TextAppearance.Standard"
           android:id="@+id/attributes"
           android:layout_width="match_parent"
-          android:drawableLeft="@drawable/ic_location"
           android:drawableStart="@drawable/ic_location"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/default_half_margin"
@@ -72,10 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
         android:padding="@dimen/default_padding"
         android:textColor="@color/colorPrimary"
         android:text="@string/action_view"/>
@@ -87,10 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
         android:layout_marginBottom="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
         android:padding="@dimen/default_padding"
         android:textColor="@color/dark_grey"
         android:text="@string/action_continue"/>
@@ -111,9 +102,7 @@
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="72dp"
       android:layout_marginStart="64dp"
-      android:layout_marginLeft="64dp"
       android:layout_marginEnd="64dp"
-      android:layout_marginRight="64dp"
       android:padding="@dimen/default_padding">
 
     <TextView
