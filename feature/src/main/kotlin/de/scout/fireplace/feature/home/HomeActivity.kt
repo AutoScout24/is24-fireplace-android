@@ -80,6 +80,7 @@ class HomeActivity : DaggerAppCompatActivity() {
     setUpSettings()
     setUpLike()
     setUpPass()
+
   }
 
   private fun setUpLocationProvider() {
@@ -298,7 +299,7 @@ class HomeActivity : DaggerAppCompatActivity() {
 
   private fun onMatch(expose: Expose) {
     val fragment = MatchFragment()
-    fragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_Base_Dialog_Fullscreen)
+    fragment.setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_Dialog_Fullscreen)
     fragment.retainInstance = true
 
     reporting.match(expose)

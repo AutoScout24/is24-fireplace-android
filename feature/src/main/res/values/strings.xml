@@ -32,7 +32,7 @@
 
   <string name="label_settings_what">What</string>
   <string name="label_settings_what_rent">Rent</string>
-  <string name="label_settings_what_purchase">Purchase</string>
+  <string name="label_settings_what_buy">Buy</string>
 
   <string name="label_settings_price">Net rent cold</string>
   <string name="label_settings_space">Living space</string>

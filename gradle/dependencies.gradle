@@ -14,7 +14,7 @@ ext.versions = [
         arch    : '1.0.0-alpha9',
         multidex: '1.0.1',
         support : '26.0.0',
-        tools   : '3.0.0-beta5'
+        tools   : '3.0.0-beta6'
     ],
 
     dagger  : '2.11',

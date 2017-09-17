@@ -46,14 +46,16 @@
               android:layout_width="0dp"
               android:layout_weight="1"
               android:layout_height="wrap_content"
-              android:text="@string/label_settings_what_rent"/>
+              android:text="@string/label_settings_what_rent"
+              android:textColor="@android:color/black"/>
 
           <RadioButton
               android:id="@+id/purchase"
               android:layout_width="0dp"
               android:layout_weight="1"
               android:layout_height="wrap_content"
-              android:text="@string/label_settings_what_purchase"/>
+              android:text="@string/label_settings_what_buy"
+              android:textColor="@android:color/black"/>
 
         </RadioGroup>
 
@@ -61,6 +63,7 @@
 
       <de.scout.fireplace.feature.settings.NumericRangeView
           android:id="@+id/netRentCold"
+          android:background="@color/colorPrimary"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_price"
@@ -69,6 +72,7 @@
 
       <de.scout.fireplace.feature.settings.NumericRangeView
           android:id="@+id/livingSpace"
+          android:background="@color/colorPrimary"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_space"
@@ -77,6 +81,7 @@
 
       <de.scout.fireplace.feature.settings.NumericRangeView
           android:id="@+id/rooms"
+          android:background="@color/colorPrimary"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_rooms"
