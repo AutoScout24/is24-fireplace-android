@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 import de.scout.fireplace.feature.R
 import de.scout.fireplace.feature.databinding.FragmentSettingsRentBinding
-import kotlinx.android.synthetic.main.fragment_settings_rent.criteriaBalcony
-import kotlinx.android.synthetic.main.fragment_settings_rent.criteriaBasement
-import kotlinx.android.synthetic.main.fragment_settings_rent.criteriaLift
-import kotlinx.android.synthetic.main.fragment_settings_rent.livingSpace
-import kotlinx.android.synthetic.main.fragment_settings_rent.netRentCold
-import kotlinx.android.synthetic.main.fragment_settings_rent.rooms
+import de.scout.fireplace.feature.extensions.getDataBinding
+import de.scout.fireplace.feature.extensions.getViewModel
+import kotlinx.android.synthetic.main.fragment_settings_rent.furtherCriteria
+import kotlinx.android.synthetic.main.fragment_settings_rent.hasBalcony
+import kotlinx.android.synthetic.main.fragment_settings_rent.hasBasement
+import kotlinx.android.synthetic.main.fragment_settings_rent.hasLift
+import kotlinx.android.synthetic.main.fragment_settings_rent.maxRentCold
+import kotlinx.android.synthetic.main.fragment_settings_rent.minLivingSpace
+import kotlinx.android.synthetic.main.fragment_settings_rent.minRooms
 import javax.inject.Inject
 
 internal class RentSettingsFragment : DaggerFragment() {
@@ -21,60 +24,32 @@ internal class RentSettingsFragment : DaggerFragment() {
   private lateinit var binding: FragmentSettingsRentBinding
 
   @Inject internal lateinit var factory: ViewModelProvider.Factory
-
-  @Inject internal lateinit var repository: SettingsRepository
+  @Inject internal lateinit var repository: RentSettingsRepository
   @Inject internal lateinit var configuration: SettingsConfiguration
+  @Inject internal lateinit var formatter: CurrencyFormatter
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_settings_rent, container, false)
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    binding = getDataBinding(layoutInflater, R.layout.fragment_settings_rent, container)
+    binding.model = getViewModel(factory)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    setUpNetRentCold()
-    setUpLivingSpace()
-    setUpRooms()
+    maxRentCold.listener = { repository.maxRentCold = it }
+    maxRentCold.formatter = { formatter.format(it) }
 
-    setUpFurtherCriteria()
-  }
+    minLivingSpace.listener = { repository.minLivingSpace = it }
+    minRooms.listener = { repository.minRooms = it }
 
-  private fun setUpNetRentCold() {
-    netRentCold.setMinValue(repository.minimumPrice)
-    netRentCold.setMaxValue(repository.maximumPrice)
-    netRentCold.setFilter(CurrencyFormatInputFilter())
-    netRentCold.addOnMinChangeListener { repository.minimumPrice = it.toInt() }
-    netRentCold.addOnMaxChangeListener { repository.maximumPrice = it.toInt() }
-  }
-
-  private fun setUpLivingSpace() {
-    livingSpace.setMinValue(repository.minimumSpace)
-    livingSpace.setMaxValue(repository.maximumSpace)
-    livingSpace.setFilter(NumberRangeInputFilter(10, 500))
-    livingSpace.addOnMinChangeListener { repository.minimumSpace = it.toInt() }
-    livingSpace.addOnMaxChangeListener { repository.maximumSpace = it.toInt() }
-  }
-
-  private fun setUpRooms() {
-    rooms.setMinValue(repository.minimumRooms)
-    rooms.setMaxValue(repository.maximumRooms)
-    rooms.setFilter(NumberRangeInputFilter(1, 25))
-    rooms.addOnMinChangeListener { repository.minimumRooms = it.toInt() }
-    rooms.addOnMaxChangeListener { repository.maximumRooms = it.toInt() }
-  }
-
-  private fun setUpFurtherCriteria() {
     if (!configuration.isCriteriaEnabled()) {
+      furtherCriteria.visibility = View.GONE
       return
     }
 
-    criteriaBalcony.isChecked = repository.hasBalcony
-    criteriaBalcony.setOnCheckedChangeListener { _, isChecked -> repository.hasBalcony = isChecked }
-
-    criteriaBasement.isChecked = repository.hasBasement
-    criteriaBasement.setOnCheckedChangeListener { _, isChecked -> repository.hasBasement = isChecked }
-
-    criteriaLift.isChecked = repository.hasLift
-    criteriaLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
+    hasBalcony.setOnCheckedChangeListener { _, isChecked -> repository.hasBalcony = isChecked }
+    hasBasement.setOnCheckedChangeListener { _, isChecked -> repository.hasBasement = isChecked }
+    hasLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
   }
 }

@@ -1,15 +1,13 @@
 package de.scout.fireplace.feature.home
 
 import de.scout.fireplace.feature.models.Expose
-import de.scout.fireplace.feature.settings.SettingsRepository
+import de.scout.fireplace.feature.settings.RentSettingsRepository
 import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import javax.inject.Inject
 
-internal class EventMatcher @Inject constructor(private val repository: SettingsRepository) {
+internal class EventMatcher @Inject constructor(private val repository: RentSettingsRepository) {
 
-  fun match(event: FloatingCardStackEvent): Boolean {
-    return event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose)
-  }
+  fun match(event: FloatingCardStackEvent) = event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose)
 
   private fun matches(expose: Expose): Boolean {
     val attributes = expose.attributes
@@ -18,19 +16,22 @@ internal class EventMatcher @Inject constructor(private val repository: Settings
     }
 
     val price = attributes[0].value.toNumeric().toFloat()
-    if (price !in repository.minimumPrice..repository.maximumPrice) {
+    if (price > repository.maxRentCold) {
+      return false
+    }
+
+    val space = attributes[1].value.toNumeric().toInt()
+    if (space < repository.minLivingSpace) {
       return false
     }
 
     val rooms = attributes[2].value.toNumeric().toInt()
-    if (rooms !in repository.minimumRooms..repository.maximumRooms) {
+    if (rooms < repository.minRooms) {
       return false
     }
 
     return true
   }
 
-  private fun String.toNumeric(): String {
-    return replace("[^\\d]".toRegex(), "")
-  }
+  private fun String.toNumeric() = replace("[^\\d]".toRegex(), "")
 }

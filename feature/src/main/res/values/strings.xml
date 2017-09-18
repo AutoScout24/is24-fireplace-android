@@ -34,12 +34,9 @@
   <string name="label_settings_what_rent">Rent</string>
   <string name="label_settings_what_buy">Buy</string>
 
-  <string name="label_settings_price">Net rent cold</string>
-  <string name="label_settings_space">Living space</string>
-  <string name="label_settings_rooms">Room(s)</string>
-
-  <string name="hint_settings_range_min">From</string>
-  <string name="hint_settings_range_max">To</string>
+  <string name="label_settings_price">Maximum Rent (Cold)</string>
+  <string name="label_settings_space">Minimum Living Space</string>
+  <string name="label_settings_rooms">Minimum Room(s)</string>
 
   <string name="hint_settings_additional_balcony">Balcony</string>
   <string name="hint_settings_additional_basement">Basement</string>
