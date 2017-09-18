@@ -42,10 +42,10 @@ import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_home.actionLike
-import kotlinx.android.synthetic.main.activity_home.actionPass
+import kotlinx.android.synthetic.main.activity_home.pass
 import kotlinx.android.synthetic.main.activity_home.coordinator
 import kotlinx.android.synthetic.main.activity_home.empty
+import kotlinx.android.synthetic.main.activity_home.like
 import kotlinx.android.synthetic.main.activity_home.stack
 import kotlinx.android.synthetic.main.activity_home.toggle
 import kotlinx.android.synthetic.main.toolbar_home.actionSettings
@@ -128,14 +128,16 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun setUpToggle() {
-    binding.toggle.setOnClickListener {
+    binding.toggle.setOnCheckedChangeListener { _, isChecked ->
+      binding.model?.rent?.set(isChecked)
+
       stack.clear()
       getLastLocation()
     }
   }
 
   private fun setUpLike() {
-    actionLike.setOnClickListener {
+    like.setOnClickListener {
       if (stack.hasChildren()) {
         val view = stack.topChild
         reporting.manual()
@@ -145,7 +147,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun setUpPass() {
-    actionPass.setOnClickListener {
+    pass.setOnClickListener {
       if (stack.hasChildren()) {
         val view = stack.topChild
         reporting.manual()
@@ -251,8 +253,9 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun setUpActionButtons() {
-    ViewCompat.setElevation(actionPass, resources.getDimension(R.dimen.action_elevation))
-    ViewCompat.setElevation(actionLike, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(toggle, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(pass, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(like, resources.getDimension(R.dimen.action_elevation))
   }
 
   private fun check(location: Location): Location {
