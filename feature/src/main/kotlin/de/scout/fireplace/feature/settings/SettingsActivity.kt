@@ -26,15 +26,6 @@ class SettingsActivity : DaggerAppCompatActivity() {
     pager.adapter = SettingsPagerAdapter(supportFragmentManager)
   }
 
-  override fun onBackPressed() {
-    if (pager.currentItem == 0) {
-      super.onBackPressed()
-      return
-    }
-
-    pager.currentItem = pager.currentItem - 1
-  }
-
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
       android.R.id.home -> onBackPressed().run { true }
