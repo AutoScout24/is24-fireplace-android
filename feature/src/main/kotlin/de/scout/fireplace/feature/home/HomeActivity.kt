@@ -84,13 +84,6 @@ class HomeActivity : DaggerAppCompatActivity() {
     setUpPass()
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == 0x5A && resultCode == Activity.RESULT_OK) {
-      stack.clear()
-    }
-  }
-
   private fun setUpLocationProvider() {
     provider = LocationServices.getFusedLocationProviderClient(this)
   }
@@ -120,7 +113,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpSettings() {
     actionSettings.setOnClickListener {
       reporting.settings()
-      SettingsActivity.startForResult(this, 0x5A)
+      SettingsActivity.start(this)
     }
   }
 
@@ -293,7 +286,7 @@ class HomeActivity : DaggerAppCompatActivity() {
       return
     }
 
-    navigation.invoke(expose)
+    navigation(expose)
   }
 
   private fun addFragment(fragment: Fragment) {
