@@ -8,11 +8,13 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
+import de.scout.fireplace.feature.activity.ActivityCompanion
+import de.scout.fireplace.feature.extensions.plusAssign
 import de.scout.fireplace.feature.home.HomeActivity
+import de.scout.fireplace.feature.login.LoginActivity.Companion.IntentOptions
 import de.scout.fireplace.feature.network.ErrorHandler
 import de.scout.fireplace.feature.network.TokenRepository
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.activity_login.content
 import javax.inject.Inject
@@ -67,11 +69,12 @@ class LoginActivity : DaggerAppCompatActivity() {
   }
 
   private fun gotoHomeActivity() {
-    HomeActivity.start(this)
+    HomeActivity.start(this, {})
     finish()
   }
 
-  private operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
+  companion object : ActivityCompanion<IntentOptions>(IntentOptions, LoginActivity::class) {
+
+    object IntentOptions
   }
 }

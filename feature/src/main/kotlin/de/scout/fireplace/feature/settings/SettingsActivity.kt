@@ -1,5 +1,6 @@
 package de.scout.fireplace.feature.settings
 
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import android.content.Intent
@@ -8,9 +9,11 @@ import android.support.v7.app.ActionBar
 import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.R
+import de.scout.fireplace.feature.activity.ActivityCompanion
 import de.scout.fireplace.feature.databinding.ActivitySettingsBinding
 import de.scout.fireplace.feature.extensions.getDataBinding
 import de.scout.fireplace.feature.extensions.getViewModel
+import de.scout.fireplace.feature.settings.SettingsActivity.Companion.IntentOptions
 import kotlinx.android.synthetic.main.activity_settings.criteriaBalcony
 import kotlinx.android.synthetic.main.activity_settings.criteriaBasement
 import kotlinx.android.synthetic.main.activity_settings.criteriaLift
@@ -101,10 +104,10 @@ class SettingsActivity : DaggerAppCompatActivity() {
     criteriaLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
   }
 
-  companion object {
+  companion object : ActivityCompanion<IntentOptions>(IntentOptions, SettingsActivity::class) {
 
-    fun start(context: Context) {
-      context.startActivity(Intent(context, SettingsActivity::class.java))
-    }
+    fun startForResult(activity: Activity, request: Int) = startForResult(activity, request,  {})
+
+    object IntentOptions
   }
 }

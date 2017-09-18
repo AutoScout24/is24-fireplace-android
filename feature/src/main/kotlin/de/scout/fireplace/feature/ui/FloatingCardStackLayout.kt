@@ -9,6 +9,7 @@ import android.view.animation.AnticipateOvershootInterpolator
 import android.widget.FrameLayout
 import de.scout.fireplace.feature.bus.RxBus
 import de.scout.fireplace.feature.bus.events.TopCardMovedEvent
+import de.scout.fireplace.feature.extensions.plusAssign
 import de.scout.fireplace.feature.ui.FloatingCardStackEvent.Type.LIKE
 import de.scout.fireplace.feature.ui.FloatingCardStackEvent.Type.PASS
 import de.scout.fireplace.feature.utils.DisplayUtility
@@ -112,12 +113,10 @@ class FloatingCardStackLayout @JvmOverloads constructor(context: Context, attrs:
       super.getChildCount() - 1
     } else super.getChildCount()
 
-  private operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
-  }
-
   companion object {
 
     private val DURATION = 300
   }
+
+  fun clear() = removeAllViews()
 }

@@ -2,8 +2,8 @@ package de.scout.fireplace.feature.home
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.arch.lifecycle.ViewModelProvider
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -23,6 +23,7 @@ import com.google.android.gms.location.LocationServices
 import dagger.android.support.DaggerAppCompatActivity
 import de.scout.fireplace.feature.BuildConfig
 import de.scout.fireplace.feature.R
+import de.scout.fireplace.feature.activity.ActivityCompanion
 import de.scout.fireplace.feature.bus.RxBus
 import de.scout.fireplace.feature.bus.events.TopCardEvent
 import de.scout.fireplace.feature.bus.events.TopCardLongPressEvent
@@ -30,6 +31,8 @@ import de.scout.fireplace.feature.bus.events.TopCardPressEvent
 import de.scout.fireplace.feature.databinding.ActivityHomeBinding
 import de.scout.fireplace.feature.extensions.getDataBinding
 import de.scout.fireplace.feature.extensions.getViewModel
+import de.scout.fireplace.feature.extensions.plusAssign
+import de.scout.fireplace.feature.home.HomeActivity.Companion.IntentOptions
 import de.scout.fireplace.feature.models.Expose
 import de.scout.fireplace.feature.network.ErrorHandler
 import de.scout.fireplace.feature.search.SearchClient
@@ -39,7 +42,6 @@ import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.actionLike
 import kotlinx.android.synthetic.main.activity_home.actionPass
 import kotlinx.android.synthetic.main.activity_home.coordinator
@@ -80,7 +82,13 @@ class HomeActivity : DaggerAppCompatActivity() {
     setUpSettings()
     setUpLike()
     setUpPass()
+  }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == 0x5A && resultCode == Activity.RESULT_OK) {
+      stack.clear()
+    }
   }
 
   private fun setUpLocationProvider() {
@@ -112,7 +120,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpSettings() {
     actionSettings.setOnClickListener {
       reporting.settings()
-      SettingsActivity.start(this)
+      SettingsActivity.startForResult(this, 0x5A)
     }
   }
 
@@ -307,11 +315,7 @@ class HomeActivity : DaggerAppCompatActivity() {
     addFragment(fragment)
   }
 
-  private operator fun CompositeDisposable.plusAssign(disposable: Disposable) {
-    add(disposable)
-  }
-
-  companion object {
+  companion object : ActivityCompanion<IntentOptions>(IntentOptions, HomeActivity::class) {
 
     private val CARD_RELOAD_SIZE = 2
     private val CARD_PAGE_SIZE = 4
@@ -321,8 +325,6 @@ class HomeActivity : DaggerAppCompatActivity() {
     private val SCOUT_LATITUDE = 52.512500f
     private val SCOUT_LONGITUDE = 13.431020f
 
-    fun start(context: Context) {
-      context.startActivity(Intent(context, HomeActivity::class.java))
-    }
+    object IntentOptions
   }
 }
