@@ -13,6 +13,12 @@ internal interface SettingsViewModelModule {
   @Binds
   @IntoMap
   @ActivityScope
-  @ViewModelKey(SettingsViewModel::class)
-  fun model(model: SettingsViewModel): ViewModel
+  @ViewModelKey(RentSettingsViewModel::class)
+  fun rentSettingsViewModel(model: RentSettingsViewModel): ViewModel
+
+  @Binds
+  @IntoMap
+  @ActivityScope
+  @ViewModelKey(BuySettingsViewModel::class)
+  fun buySettingsViewModel(model: BuySettingsViewModel): ViewModel
 }

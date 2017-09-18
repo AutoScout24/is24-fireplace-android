@@ -1,120 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
-  <data>
+  <LinearLayout
+      style="@style/Theme.Fireplace.Layout.Vertical"
+      android:layout_height="match_parent">
 
-    <variable
-        name="model"
-        type="de.scout.fireplace.feature.settings.SettingsViewModel"/>
+    <include layout="@layout/toolbar"/>
 
-  </data>
-
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:focusableInTouchMode="true">
-
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"/>
 
-      <include layout="@layout/toolbar"/>
-
-      <LinearLayout
-          style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-          android:background="@color/colorPrimary"
-          android:padding="@dimen/default_padding_double"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:text="@string/label_settings_what"/>
-
-        <RadioGroup
-            style="@style/Theme.Fireplace.Layout.Horizontal"
-            android:id="@+id/what"
-            android:layout_marginTop="@dimen/default_margin"
-            android:baselineAligned="false">
-
-          <RadioButton
-              android:id="@+id/rent"
-              android:layout_width="0dp"
-              android:layout_weight="1"
-              android:layout_height="wrap_content"
-              android:text="@string/label_settings_what_rent"
-              android:textColor="@android:color/black"/>
-
-          <RadioButton
-              android:id="@+id/purchase"
-              android:layout_width="0dp"
-              android:layout_weight="1"
-              android:layout_height="wrap_content"
-              android:text="@string/label_settings_what_buy"
-              android:textColor="@android:color/black"/>
-
-        </RadioGroup>
-
-      </LinearLayout>
-
-      <de.scout.fireplace.feature.settings.NumericRangeView
-          android:id="@+id/netRentCold"
-          android:background="@color/colorPrimary"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:label="@string/label_settings_price"
-          app:minHint="@string/hint_settings_range_min"
-          app:maxHint="@string/hint_settings_range_max"/>
-
-      <de.scout.fireplace.feature.settings.NumericRangeView
-          android:id="@+id/livingSpace"
-          android:background="@color/colorPrimary"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:label="@string/label_settings_space"
-          app:minHint="@string/hint_settings_range_min"
-          app:maxHint="@string/hint_settings_range_max"/>
-
-      <de.scout.fireplace.feature.settings.NumericRangeView
-          android:id="@+id/rooms"
-          android:background="@color/colorPrimary"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:label="@string/label_settings_rooms"
-          app:minHint="@string/hint_settings_range_min"
-          app:maxHint="@string/hint_settings_range_max"/>
-
-      <LinearLayout
-          style="@style/Theme.Fireplace.Layout.Vertical.Margin"
-          android:background="@color/colorPrimary"
-          android:padding="@dimen/default_padding_double">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_settings_further_criteria"
-            android:textColor="@color/light_blue"/>
-
-        <Switch
-            style="@style/Theme.Fireplace.Switch"
-            android:id="@+id/criteriaBalcony"
-            android:text="@string/hint_settings_additional_balcony"/>
-
-        <Switch
-            style="@style/Theme.Fireplace.Switch"
-            android:id="@+id/criteriaBasement"
-            android:text="@string/hint_settings_additional_basement"/>
-
-        <Switch
-            style="@style/Theme.Fireplace.Switch"
-            android:id="@+id/criteriaLift"
-            android:text="@string/hint_settings_additional_lift"/>
-
-      </LinearLayout>
-    </LinearLayout>
-  </ScrollView>
-</layout>
+  </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
