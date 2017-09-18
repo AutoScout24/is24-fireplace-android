@@ -60,6 +60,6 @@ class SettingsActivity : DaggerAppCompatActivity() {
 
   companion object : ActivityCompanion<Any>(Any(), SettingsActivity::class) {
 
-    fun start(activity: Activity) = start(activity, {})
+    fun startForResult(activity: Activity, request: Int) = startForResult(activity, request, {})
   }
 }

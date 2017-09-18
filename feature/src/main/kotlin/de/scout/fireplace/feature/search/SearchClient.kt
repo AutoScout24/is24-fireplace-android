@@ -3,8 +3,8 @@ package de.scout.fireplace.feature.search
 import android.location.Location
 import de.scout.fireplace.feature.models.Search
 import de.scout.fireplace.feature.network.SchedulingStrategy
-import de.scout.fireplace.feature.settings.SettingsConfiguration
 import de.scout.fireplace.feature.settings.RentSettingsRepository
+import de.scout.fireplace.feature.settings.SettingsConfiguration
 import io.reactivex.Single
 import java.util.HashMap
 import javax.inject.Inject
@@ -25,11 +25,13 @@ internal class SearchClient @Inject constructor(
     parameters.put("geocoordinates", getGeoCoordinates(location))
     parameters.put("sorting", SEARCH_SORTING_DISTANCE)
 
-    val apartmentTypes = getApartmentTypes()
-    if (apartmentTypes.isNotEmpty()) parameters.put("apartmenttypes", apartmentTypes)
+    if (type == "apartmentrent") {
+      val apartmentTypes = getApartmentTypes()
+      if (apartmentTypes.isNotEmpty()) parameters.put("apartmenttypes", apartmentTypes)
 
-    val equipment = getEquipment()
-    if (equipment.isNotEmpty()) parameters.put("equipment", equipment)
+      val equipment = getEquipment()
+      if (equipment.isNotEmpty()) parameters.put("equipment", equipment)
+    }
 
     parameters.put("pagesize", "$SEARCH_PAGE_SIZE")
     parameters.put("pagenumber", page.toString())

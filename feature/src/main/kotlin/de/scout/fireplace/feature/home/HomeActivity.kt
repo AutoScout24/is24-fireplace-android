@@ -87,6 +87,13 @@ class HomeActivity : DaggerAppCompatActivity() {
     setUpPass()
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == 0x53 && resultCode == Activity.RESULT_OK) {
+      stack.clear()
+    }
+  }
+
   private fun setUpLocationProvider() {
     provider = LocationServices.getFusedLocationProviderClient(this)
   }
@@ -94,7 +101,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpPipeline() {
     disposables += stack.events()
         .doOnNext { event ->
-          if (matcher.match(event)) {
+          if (matcher.match(event, if (toggle.isChecked) "apartmentrent" else "apartmentbuy")) {
             onMatch(event.expose)
           }
         }
@@ -116,7 +123,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpSettings() {
     actionSettings.setOnClickListener {
       reporting.settings()
-      SettingsActivity.start(this)
+      SettingsActivity.startForResult(this, 0x53)
     }
   }
 
