@@ -21,6 +21,7 @@ internal class BuySettingsFragment : DaggerFragment() {
 
   @Inject internal lateinit var factory: ViewModelProvider.Factory
   @Inject internal lateinit var repository: BuySettingsRepository
+  @Inject internal lateinit var formatter: CurrencyFormatter
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     binding = getDataBinding(layoutInflater, R.layout.fragment_settings_buy, container)
@@ -32,6 +33,8 @@ internal class BuySettingsFragment : DaggerFragment() {
     super.onViewCreated(view, savedInstanceState)
 
     maxRentCold.listener = { repository.maxRentCold = it }
+    maxRentCold.formatter = { formatter.format(it) }
+
     minLivingSpace.listener = { repository.minLivingSpace = it }
     minRooms.listener = { repository.minRooms = it }
   }

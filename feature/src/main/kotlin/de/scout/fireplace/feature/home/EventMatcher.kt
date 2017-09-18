@@ -1,37 +1,42 @@
 package de.scout.fireplace.feature.home
 
 import de.scout.fireplace.feature.models.Expose
+import de.scout.fireplace.feature.settings.BuySettingsRepository
 import de.scout.fireplace.feature.settings.RentSettingsRepository
 import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import javax.inject.Inject
 
-internal class EventMatcher @Inject constructor(private val repository: RentSettingsRepository) {
+internal class EventMatcher @Inject constructor(
+    private val rentRepository: RentSettingsRepository,
+    private val buyRepository: BuySettingsRepository
+) {
 
-  fun match(event: FloatingCardStackEvent) = event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose)
+  fun match(event: FloatingCardStackEvent, type: String) = event.type === FloatingCardStackEvent.Type.LIKE && matches(event.expose, type)
 
-  private fun matches(expose: Expose): Boolean {
+  private fun matches(expose: Expose, type: String): Boolean {
     val attributes = expose.attributes
     if (attributes.size != 3) {
       return false
     }
 
-    val price = attributes[0].value.toNumeric().toFloat()
-    if (price > repository.maxRentCold) {
-      return false
+    if (type == "apartmentrent") return when {
+      attributes.parse(0) > rentRepository.maxRentCold -> false
+      attributes.parse(1) < rentRepository.minLivingSpace -> false
+      attributes.parse(2) < rentRepository.minRooms -> false
+      else -> true
     }
 
-    val space = attributes[1].value.toNumeric().toInt()
-    if (space < repository.minLivingSpace) {
-      return false
+    if (type == "apartmentbuy") return when {
+      attributes.parse(0) > buyRepository.maxRentCold -> false
+      attributes.parse(1) < buyRepository.minLivingSpace -> false
+      attributes.parse(2) < buyRepository.minRooms -> false
+      else -> true
     }
 
-    val rooms = attributes[2].value.toNumeric().toInt()
-    if (rooms < repository.minRooms) {
-      return false
-    }
-
-    return true
+    return false
   }
+
+  private fun List<Expose.Attribute>.parse(index: Int) = get(index).value.toNumeric().toFloat()
 
   private fun String.toNumeric() = replace("[^\\d]".toRegex(), "")
 }
