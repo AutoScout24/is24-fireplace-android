@@ -1,15 +1,11 @@
 package de.scout.fireplace.feature.search
 
 import android.location.Location
-import de.scout.fireplace.feature.R
-import de.scout.fireplace.feature.R.string
 import de.scout.fireplace.feature.models.Search
 import de.scout.fireplace.feature.network.SchedulingStrategy
-import de.scout.fireplace.feature.network.StringResException
 import de.scout.fireplace.feature.settings.SettingsConfiguration
-import de.scout.fireplace.feature.settings.SettingsRepository
+import de.scout.fireplace.feature.settings.RentSettingsRepository
 import io.reactivex.Single
-import java.nio.file.NotLinkException
 import java.util.HashMap
 import javax.inject.Inject
 
@@ -17,13 +13,13 @@ internal class SearchClient @Inject constructor(
     private val service: SearchService,
     private val reporting: SearchReporting,
     private val configuration: SettingsConfiguration,
-    private val settings: SettingsRepository,
+    private val settings: RentSettingsRepository,
     private val strategy: SchedulingStrategy
 ) {
 
   private var searchRadius = SEARCH_RADIUS_MINIMUM
 
-  fun search(location: Location, page: Int, size: Int): Single<Search> {
+  fun search(location: Location, type: String, page: Int): Single<Search> {
     val parameters = HashMap<String, String>()
 
     parameters.put("geocoordinates", getGeoCoordinates(location))
@@ -35,10 +31,9 @@ internal class SearchClient @Inject constructor(
     val equipment = getEquipment()
     if (equipment.isNotEmpty()) parameters.put("equipment", equipment)
 
-    parameters.put("pagesize", size.toString())
+    parameters.put("pagesize", "$SEARCH_PAGE_SIZE")
     parameters.put("pagenumber", page.toString())
-
-    parameters.put("realestatetype", settings.what)
+    parameters.put("realestatetype", type)
 
     return service.search(SEARCH_TYPE_RADIUS, parameters).compose(strategy.single<Search>())
         .doOnSuccess { search -> reporting.search(search.pageNumber, searchRadius, search.totalResults) }
@@ -72,12 +67,13 @@ internal class SearchClient @Inject constructor(
 
   companion object {
 
-    const val SEARCH_TYPE_RADIUS = "radius"
-    const val SEARCH_SORTING_DISTANCE = "distance"
+    private const val SEARCH_TYPE_RADIUS = "radius"
+    private const val SEARCH_SORTING_DISTANCE = "distance"
 
-    const val SEARCH_RADIUS_MINIMUM = 1.0f
-    const val SEARCH_RADIUS_MULTIPLIER = 0.1f
+    private const val SEARCH_RADIUS_MINIMUM = 1.0f
+    private const val SEARCH_RADIUS_MULTIPLIER = 0.1f
 
-    const val SEARCH_RESULTS_BUFFER = 5
+    private const val SEARCH_PAGE_SIZE = 4
+    private const val SEARCH_RESULTS_BUFFER = 5
   }
 }

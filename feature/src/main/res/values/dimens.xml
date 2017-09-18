@@ -21,7 +21,8 @@
   <dimen name="default_elevation_double">4dp</dimen>
 
   <!-- Action Metrics -->
-  <dimen name="action_size">88dp</dimen>
+  <dimen name="action_size">44dp</dimen>
+  <dimen name="action_size_large">88dp</dimen>
   <dimen name="action_elevation">1dp</dimen>
   <dimen name="action_padding">32dp</dimen>
   <dimen name="action_margin">24dp</dimen>

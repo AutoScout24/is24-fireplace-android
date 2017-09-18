@@ -4,11 +4,9 @@
     <attr name="heightRatio" format="float"/>
   </declare-styleable>
 
-  <declare-styleable name="NumericRangeView">
+  <declare-styleable name="SettingsRangeView">
     <attr name="label" format="reference|string"/>
-    <attr name="minHint" format="reference|string"/>
-    <attr name="minValue" format="reference|dimension"/>
-    <attr name="maxHint" format="reference|string"/>
-    <attr name="maxValue" format="dimension|dimension"/>
+    <attr name="progress" format="reference|integer"/>
+    <attr name="maximum" format="reference|integer"/>
   </declare-styleable>
 </resources>

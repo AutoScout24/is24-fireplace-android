@@ -76,14 +76,21 @@
         <LinearLayout
             style="@style/Theme.Fireplace.Layout.Horizontal"
             android:layout_marginBottom="@dimen/default_margin"
-            android:gravity="top|center_horizontal">
+            android:gravity="center_horizontal|bottom">
+
+          <View
+              android:layout_width="@dimen/action_size"
+              android:layout_height="@dimen/action_size"
+              android:layout_margin="@dimen/default_margin"
+              android:padding="@dimen/action_padding"
+              android:visibility="invisible"/>
 
           <ImageButton
               android:id="@+id/actionPass"
               android:contentDescription="@string/action_pass"
               android:background="@drawable/round_button"
-              android:layout_width="@dimen/action_size"
-              android:layout_height="@dimen/action_size"
+              android:layout_width="@dimen/action_size_large"
+              android:layout_height="@dimen/action_size_large"
               android:layout_margin="@dimen/default_margin"
               android:padding="@dimen/action_padding"
               android:src="@drawable/ic_pass"/>
@@ -92,11 +99,19 @@
               android:id="@+id/actionLike"
               android:contentDescription="@string/action_like"
               android:background="@drawable/round_button"
-              android:layout_width="@dimen/action_size"
-              android:layout_height="@dimen/action_size"
+              android:layout_width="@dimen/action_size_large"
+              android:layout_height="@dimen/action_size_large"
               android:layout_margin="@dimen/default_margin"
               android:padding="@dimen/action_padding"
               android:src="@drawable/ic_like"/>
+
+          <android.support.v7.widget.SwitchCompat
+              android:id="@+id/toggle"
+              android:background="@drawable/round_button"
+              android:layout_width="@dimen/action_size"
+              android:layout_height="@dimen/action_size"
+              android:layout_margin="@dimen/default_margin"
+              android:padding="@dimen/action_padding"/>
 
         </LinearLayout>
       </LinearLayout>
