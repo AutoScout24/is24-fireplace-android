@@ -17,6 +17,7 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
+-keep class android.arch.core.util.** { *; }
 -keep class com.firebase.** { *; }
 -keep class com.google.gson.examples.android.model.** { *; }
 -keep class com.google.gson.stream.** { *; }

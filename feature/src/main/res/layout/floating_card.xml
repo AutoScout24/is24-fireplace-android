@@ -71,7 +71,7 @@
       <TextView
           android:id="@+id/live"
           android:layout_width="120dp"
-          android:background="@drawable/shape_bg_green_rounded_rect"
+          android:background="@drawable/rounded_stroke_green"
           android:layout_height="56dp"
           android:gravity="center"
           android:textSize="32sp"
@@ -87,7 +87,7 @@
           android:id="@+id/leave"
           android:layout_gravity="right"
           android:layout_width="120dp"
-          android:background="@drawable/shape_bg_red_rounded_rect"
+          android:background="@drawable/rounded_stroke_red"
           android:layout_height="56dp"
           android:textSize="32sp"
           android:gravity="center"
