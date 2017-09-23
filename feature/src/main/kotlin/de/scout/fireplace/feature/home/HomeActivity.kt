@@ -42,11 +42,12 @@ import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_home.actionLike
-import kotlinx.android.synthetic.main.activity_home.actionPass
+import kotlinx.android.synthetic.main.activity_home.pass
 import kotlinx.android.synthetic.main.activity_home.coordinator
 import kotlinx.android.synthetic.main.activity_home.empty
+import kotlinx.android.synthetic.main.activity_home.like
 import kotlinx.android.synthetic.main.activity_home.stack
+import kotlinx.android.synthetic.main.activity_home.toggle
 import kotlinx.android.synthetic.main.toolbar_home.actionSettings
 import kotlinx.android.synthetic.main.toolbar_home.heading
 import javax.inject.Inject
@@ -72,7 +73,8 @@ class HomeActivity : DaggerAppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    binding = getDataBinding(R.layout.activity_home) { model = getViewModel(factory) }
+    binding = getDataBinding(R.layout.activity_home)
+    binding.model = getViewModel(factory)
 
     setUpActionBar()
     setUpActionButtons()
@@ -80,13 +82,14 @@ class HomeActivity : DaggerAppCompatActivity() {
     setUpLocationProvider()
     setUpPipeline()
     setUpSettings()
+    setUpToggle()
     setUpLike()
     setUpPass()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == 0x5A && resultCode == Activity.RESULT_OK) {
+    if (requestCode == 0x53 && resultCode == Activity.RESULT_OK) {
       stack.clear()
     }
   }
@@ -98,7 +101,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpPipeline() {
     disposables += stack.events()
         .doOnNext { event ->
-          if (matcher.match(event)) {
+          if (matcher.match(event, if (toggle.isChecked) "apartmentrent" else "apartmentbuy")) {
             onMatch(event.expose)
           }
         }
@@ -120,12 +123,21 @@ class HomeActivity : DaggerAppCompatActivity() {
   private fun setUpSettings() {
     actionSettings.setOnClickListener {
       reporting.settings()
-      SettingsActivity.startForResult(this, 0x5A)
+      SettingsActivity.startForResult(this, 0x53)
+    }
+  }
+
+  private fun setUpToggle() {
+    binding.toggle.setOnCheckedChangeListener { _, isChecked ->
+      binding.model?.rent?.set(isChecked)
+
+      stack.clear()
+      getLastLocation()
     }
   }
 
   private fun setUpLike() {
-    actionLike.setOnClickListener {
+    like.setOnClickListener {
       if (stack.hasChildren()) {
         val view = stack.topChild
         reporting.manual()
@@ -135,7 +147,7 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun setUpPass() {
-    actionPass.setOnClickListener {
+    pass.setOnClickListener {
       if (stack.hasChildren()) {
         val view = stack.topChild
         reporting.manual()
@@ -241,8 +253,9 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun setUpActionButtons() {
-    ViewCompat.setElevation(actionPass, resources.getDimension(R.dimen.action_elevation))
-    ViewCompat.setElevation(actionLike, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(toggle, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(pass, resources.getDimension(R.dimen.action_elevation))
+    ViewCompat.setElevation(like, resources.getDimension(R.dimen.action_elevation))
   }
 
   private fun check(location: Location): Location {
@@ -259,11 +272,11 @@ class HomeActivity : DaggerAppCompatActivity() {
   }
 
   private fun fetchNearbyResults(location: Location) {
-    disposables += client.search(location, page++, CARD_PAGE_SIZE)
+    disposables += client.search(location, if (toggle.isChecked) "apartmentrent" else "apartmentbuy", page++)
         .flatMapObservable { (_, _, _, _, _, _, results) -> Observable.fromIterable(results) }
         .doOnComplete { empty.visibility = View.GONE }
         .subscribe({ expose ->
-          val card = FloatingCardView(this@HomeActivity)
+          val card = FloatingCardView(this)
           stack.add(card)
 
           card.bind(expose)
@@ -293,7 +306,7 @@ class HomeActivity : DaggerAppCompatActivity() {
       return
     }
 
-    navigation.invoke(expose)
+    navigation(expose)
   }
 
   private fun addFragment(fragment: Fragment) {
@@ -318,7 +331,6 @@ class HomeActivity : DaggerAppCompatActivity() {
   companion object : ActivityCompanion<IntentOptions>(IntentOptions, HomeActivity::class) {
 
     private val CARD_RELOAD_SIZE = 2
-    private val CARD_PAGE_SIZE = 4
 
     private val REQUEST_CODE_PERMISSION = 0x14
 

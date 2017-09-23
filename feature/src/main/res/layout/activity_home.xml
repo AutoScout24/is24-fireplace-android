@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <data>
 
@@ -17,8 +18,7 @@
 
     <LinearLayout
         style="@style/Theme.Fireplace.Layout.Vertical"
-        android:layout_height="match_parent"
-        android:clipChildren="false">
+        android:layout_height="match_parent">
 
       <include layout="@layout/toolbar_home"/>
 
@@ -26,13 +26,13 @@
           style="@style/Theme.Fireplace.Layout.Vertical"
           android:layout_height="match_parent"
           android:baselineAligned="false"
-          android:clipChildren="false"
-          android:gravity="center_vertical">
+          android:clipChildren="false">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clipChildren="false"
             tools:ignore="InefficientWeight,Suspicious0dp">
 
           <LinearLayout
@@ -68,34 +68,52 @@
           <de.scout.fireplace.feature.ui.FloatingCardStackLayout
               android:id="@+id/stack"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"/>
+              android:layout_height="match_parent"
+              app:elevation="2dp"/>
 
         </FrameLayout>
 
         <LinearLayout
             style="@style/Theme.Fireplace.Layout.Horizontal"
             android:layout_marginBottom="@dimen/default_margin"
-            android:gravity="top|center_horizontal">
+            android:layout_gravity="bottom">
 
-          <ImageButton
-              android:id="@+id/actionPass"
-              android:contentDescription="@string/action_pass"
-              android:background="@drawable/round_button"
+          <View
               android:layout_width="@dimen/action_size"
               android:layout_height="@dimen/action_size"
+              android:layout_margin="@dimen/default_margin"
+              android:padding="@dimen/action_padding"
+              android:visibility="invisible"/>
+
+          <ImageButton
+              android:id="@+id/pass"
+              android:contentDescription="@string/action_pass"
+              android:background="@drawable/round_button"
+              android:layout_width="@dimen/action_size_large"
+              android:layout_height="@dimen/action_size_large"
               android:layout_margin="@dimen/default_margin"
               android:padding="@dimen/action_padding"
               android:src="@drawable/ic_pass"/>
 
           <ImageButton
-              android:id="@+id/actionLike"
+              android:id="@+id/like"
               android:contentDescription="@string/action_like"
               android:background="@drawable/round_button"
-              android:layout_width="@dimen/action_size"
-              android:layout_height="@dimen/action_size"
+              android:layout_width="@dimen/action_size_large"
+              android:layout_height="@dimen/action_size_large"
               android:layout_margin="@dimen/default_margin"
               android:padding="@dimen/action_padding"
               android:src="@drawable/ic_like"/>
+
+          <android.support.v7.widget.SwitchCompat
+              android:id="@+id/toggle"
+              android:background="@drawable/toggle_background"
+              android:layout_width="@dimen/action_size"
+              android:layout_height="@dimen/action_size"
+              android:layout_margin="@dimen/default_margin"
+              android:checked="@{model.rent}"
+              android:padding="@dimen/action_padding"
+              android:thumb="@null"/>
 
         </LinearLayout>
       </LinearLayout>
