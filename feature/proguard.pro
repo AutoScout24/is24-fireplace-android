@@ -1,3 +1,5 @@
+-dontobfuscate
+
 -dontnote android.net.http.**
 -dontwarn org.apache.**
 -dontwarn org.w3c.dom.**

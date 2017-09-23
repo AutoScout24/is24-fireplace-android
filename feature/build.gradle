@@ -23,6 +23,8 @@ android {
 
   buildTypes {
     debug {
+      applicationIdSuffix '.debug'
+
       minifyEnabled false
       multiDexEnabled true
     }
@@ -69,6 +71,10 @@ android {
   packagingOptions {
     exclude 'META-INF/rxjava.properties'
   }
+}
+
+androidExtensions {
+  experimental = true
 }
 
 def getRuntimeProperty(name) {
