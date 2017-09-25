@@ -17,6 +17,11 @@ ext.versions = [
         tools   : '3.0.0-beta6'
     ],
 
+    ashdavies : [
+
+        slidingTabLayout: '1.0.0'
+    ],
+
     dagger  : '2.11',
     grgit   : '1.7.2',
     gson    : '2.8.0',

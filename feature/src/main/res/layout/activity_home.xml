@@ -20,7 +20,45 @@
         style="@style/Theme.Fireplace.Layout.Vertical"
         android:layout_height="match_parent">
 
-      <include layout="@layout/toolbar_home"/>
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/default_margin"
+          android:fitsSystemWindows="true"
+          tools:ignore="MergeRootFrame">
+
+        <LinearLayout
+            style="@style/Theme.Fireplace.Layout.Vertical"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/default_padding">
+
+          <TextView
+              style="@style/Theme.Fireplace.TextAppearance.Headline"
+              android:id="@+id/heading"
+              android:layout_margin="@null"
+              android:text="@string/application"/>
+
+          <TextView
+              style="@style/Theme.Fireplace.TextAppearance.Standard"
+              android:gravity="center_horizontal"
+              android:text="@string/attribution"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/actionSettings"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/label_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_settings"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+      </FrameLayout>
+
 
       <LinearLayout
           style="@style/Theme.Fireplace.Layout.Vertical"

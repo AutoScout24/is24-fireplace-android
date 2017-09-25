@@ -42,14 +42,14 @@ import de.scout.fireplace.feature.ui.FloatingCardStackEvent
 import de.scout.fireplace.feature.ui.FloatingCardView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_home.actionSettings
 import kotlinx.android.synthetic.main.activity_home.pass
 import kotlinx.android.synthetic.main.activity_home.coordinator
 import kotlinx.android.synthetic.main.activity_home.empty
+import kotlinx.android.synthetic.main.activity_home.heading
 import kotlinx.android.synthetic.main.activity_home.like
 import kotlinx.android.synthetic.main.activity_home.stack
 import kotlinx.android.synthetic.main.activity_home.toggle
-import kotlinx.android.synthetic.main.toolbar_home.actionSettings
-import kotlinx.android.synthetic.main.toolbar_home.heading
 import javax.inject.Inject
 
 class HomeActivity : DaggerAppCompatActivity() {
