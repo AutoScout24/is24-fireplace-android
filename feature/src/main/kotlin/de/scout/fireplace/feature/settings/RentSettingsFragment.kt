@@ -15,8 +15,6 @@ import kotlinx.android.synthetic.main.fragment_settings_rent.hasBalcony
 import kotlinx.android.synthetic.main.fragment_settings_rent.hasBasement
 import kotlinx.android.synthetic.main.fragment_settings_rent.hasLift
 import kotlinx.android.synthetic.main.fragment_settings_rent.maxRentCold
-import kotlinx.android.synthetic.main.fragment_settings_rent.minLivingSpace
-import kotlinx.android.synthetic.main.fragment_settings_rent.minRooms
 import javax.inject.Inject
 
 internal class RentSettingsFragment : DaggerFragment() {
@@ -36,20 +34,11 @@ internal class RentSettingsFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    maxRentCold.listener = { repository.maxRentCold = it }
     maxRentCold.formatter = { formatter.format(it) }
-
-    minLivingSpace.listener = { repository.minLivingSpace = it }
-    minRooms.listener = { repository.minRooms = it }
 
     if (!configuration.isCriteriaEnabled()) {
       furtherCriteria.visibility = View.GONE
       return
     }
-
-    hasBalcony.setOnCheckedChangeListener { _, isChecked -> repository.hasBalcony = isChecked }
-    hasBasement.setOnCheckedChangeListener { _, isChecked -> repository.hasBasement = isChecked }
-    hasLift.setOnCheckedChangeListener { _, isChecked -> repository.hasLift = isChecked }
   }
 }

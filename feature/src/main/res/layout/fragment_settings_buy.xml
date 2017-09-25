@@ -6,7 +6,7 @@
 
     <variable
         name="model"
-        type="de.scout.fireplace.feature.settings.RentSettingsViewModel"/>
+        type="de.scout.fireplace.feature.settings.BuySettingsViewModel"/>
 
   </data>
 
@@ -23,7 +23,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_price"
-          app:progress="@{model.maxRentCold}"
+          app:progress="@={model.maxRentCold}"
           app:maximum="2000000"/>
 
       <de.scout.fireplace.feature.settings.SettingsRangeView
@@ -31,7 +31,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_space"
-          app:progress="@{model.minLivingSpace}"
+          app:progress="@={model.minLivingSpace}"
           app:maximum="200"/>
 
       <de.scout.fireplace.feature.settings.SettingsRangeView
@@ -39,8 +39,9 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_rooms"
-          app:progress="@{model.minRooms}"
+          app:progress="@={model.minRooms}"
           app:maximum="10"/>
+
     </LinearLayout>
   </ScrollView>
 </layout>

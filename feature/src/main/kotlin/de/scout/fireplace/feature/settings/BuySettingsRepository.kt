@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 internal class BuySettingsRepository @Inject constructor(preferences: SharedPreferences) {
 
-  var maxRentCold by IntPreference(preferences, "max.rent.cold", 800)
-  var minLivingSpace by IntPreference(preferences, "min.living.space", 50)
-  var minRooms by IntPreference(preferences, "min.rooms", 2)
+  var maxRentCold by IntPreference(preferences, "buy.max.rent.cold", 800)
+  var minLivingSpace by IntPreference(preferences, "buy.min.living.space", 50)
+  var minRooms by IntPreference(preferences, "buy.min.rooms", 2)
 }

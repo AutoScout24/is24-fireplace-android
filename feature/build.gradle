@@ -106,6 +106,7 @@ dependencies {
 
   implementation libraries.rx.java
   implementation libraries.rx.android
+  implementation libraries.rx.databinding
 
   implementation libraries.dagger.core
   implementation libraries.dagger.android.support

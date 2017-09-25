@@ -31,11 +31,6 @@ internal class BuySettingsFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
-    maxRentCold.listener = { repository.maxRentCold = it }
     maxRentCold.formatter = { formatter.format(it) }
-
-    minLivingSpace.listener = { repository.minLivingSpace = it }
-    minRooms.listener = { repository.minRooms = it }
   }
 }

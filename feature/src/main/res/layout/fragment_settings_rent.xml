@@ -23,7 +23,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_price"
-          app:progress="@{model.maxRentCold}"
+          app:progress="@={model.maxRentCold}"
           app:maximum="5000"/>
 
       <de.scout.fireplace.feature.settings.SettingsRangeView
@@ -31,7 +31,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_space"
-          app:progress="@{model.minLivingSpace}"
+          app:progress="@={model.minLivingSpace}"
           app:maximum="200"/>
 
       <de.scout.fireplace.feature.settings.SettingsRangeView
@@ -39,7 +39,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           app:label="@string/label_settings_rooms"
-          app:progress="@{model.minRooms}"
+          app:progress="@={model.minRooms}"
           app:maximum="10"/>
 
       <LinearLayout
@@ -57,19 +57,19 @@
             style="@style/Theme.Fireplace.Switch"
             android:id="@+id/hasBalcony"
             android:text="@string/hint_settings_additional_balcony"
-            android:checked="@{model.hasBalcony}"/>
+            android:checked="@={model.hasBalcony}"/>
 
         <Switch
             style="@style/Theme.Fireplace.Switch"
             android:id="@+id/hasBasement"
             android:text="@string/hint_settings_additional_basement"
-            android:checked="@{model.hasBasement}"/>
+            android:checked="@={model.hasBasement}"/>
 
         <Switch
             style="@style/Theme.Fireplace.Switch"
             android:id="@+id/hasLift"
             android:text="@string/hint_settings_additional_lift"
-            android:checked="@{model.hasLift}"/>
+            android:checked="@={model.hasLift}"/>
 
       </LinearLayout>
     </LinearLayout>
