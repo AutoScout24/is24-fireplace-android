@@ -1,7 +1,7 @@
 service: "is24-fireplace-android"
 usecase: "mobile-platform-engagement"
 segment: "finance"
-vertical: "scout-media"
+vertical: "is24"
 owner: "live-or-leave@immobilienscout24.de"
 team: "knoff-hoff"
 public_urls:
