@@ -1,20 +1,14 @@
-service: S24 Media Lead DB
-description: |
-  The S24 Media Lead DB provides a generic implementation to collect, store, authorize and retrieve leads.
-segment: scout-media
-vertical: is24
-owner: media-platform@scout24.com
-team: Scout Media 3rd Party Display
-criticality: silver
-confidentiality: company-internal
-integrity: non-critical
-availability: non-critical
-data_protection_relevant: yes
-repository_url: https://github.com/Scout24/S24-Media-LeadDB
-livecycle_status: live
-links:
-  docs:
-    - https://github.com/Scout24/S24-Media-LeadDB/README.md
-    - https://confluence.scout24.com/display/NB/Expose+Services+Section
-  dashboards:
-    - https://app.datadoghq.com/screen/257321/3rd-party-display-board
+service: "is24-fireplace-android"
+usecase: "mobile-platform-engagement"
+segment: "finance"
+vertical: "scout-media"
+owner: "live-or-leave@immobilienscout24.de"
+team: "knoff-hoff"
+public_urls:
+  - https://github.com/AutoScout24/is24-fireplace-android/blob/master/README.md
+criticality: "bronze"
+confidentiality: "public"
+integrity: "non-critical"
+availability: "non-critical"
+data_protection_relevant: no
+repository_url: "https://github.com/AutoScout24/is24-fireplace-android"
